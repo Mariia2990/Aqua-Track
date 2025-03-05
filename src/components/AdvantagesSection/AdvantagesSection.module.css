@@ -1,0 +1,132 @@
+.advantages_main {
+  margin-top: 16px;
+  border-radius: 30px;
+  background-color: var(--bacground);
+
+  padding: 209px 16px 32px;
+  background-image: url(../../assets/img/baner@1x.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+@media only screen and (min-resolution: 192dpi) {
+  .advantages_main {
+    background-image: url(../../assets/img/baner@2x.jpg);
+  }
+}
+.advantages_users {
+  max-width: 132px;
+  background-color: var(--main-white);
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: 30px;
+}
+.advantages_usersImg {
+  display: flex;
+}
+.advantages_point {
+  width: 28px;
+  height: 28px;
+}
+.advantages_point:not(:first-child) {
+  margin-left: -10px;
+}
+.advantagesText {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 117%;
+  color: var(--main);
+}
+.textSpan {
+  color: var(--accent);
+}
+
+.advantagesGroup_habits {
+  max-width: 168px;
+  margin-left: 143px;
+}
+.advantagesTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.advantages_habits {
+  padding: 9px 12px;
+  border-radius: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.ellipse {
+  border-radius: 50%;
+  background-color: var(--accent);
+  width: 8px;
+  height: 8px;
+}
+.advantages_habits > p {
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.advantages_habits:nth-child(1) {
+  background: #323f47;
+  color: var(--main-white);
+}
+.advantages_habits:nth-child(2) {
+  background: #9be1a0;
+  color: var(--main);
+}
+.advantages_habits:nth-child(3) {
+  background: white;
+  color: var(--main);
+}
+@media only screen and (min-width: 768px) {
+  .advantages_main {
+    padding: 283px 32px 32px;
+  }
+  .advantages_users {
+    max-width: 197px;
+    padding: 10px 20px;
+    margin-bottom: -14px;
+  }
+  .advantages_point {
+    width: 47px;
+    height: 47px;
+  }
+  .advantages_point:not(:first-child) {
+    margin-left: -19px;
+  }
+  .advantagesText {
+    font-size: 15px;
+    line-height: 150%;
+  }
+  .advantagesGroup_habits {
+    max-width: 242px;
+    margin-left: 398px;
+  }
+  .advantagesTabs {
+    gap: 10px;
+  }
+  .advantages_habits {
+    padding: 11px 16px;
+  }
+  .advantages_habits > p {
+    font-size: 12px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .advantages_main {
+    padding: 537px 32px 64px;
+    margin: 0;
+    max-width: 608px;
+  }
+  .advantagesGroup_habits {
+    margin-left: 366px;
+  }
+}
