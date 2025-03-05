@@ -1,14 +1,14 @@
 // import css from "./AddWaterBtn.module.css";
-import { DisplayCloseModal } from "../DisplayCloseModal/DisplayCloseModal";
-import { ModalWater } from "../ModalWater/ModalWater";
+import { BaseModal } from "../BaseModal/BaseModal";
+import { WaterModal } from '../WaterModal';
 
 export function AddWaterBtn() {
 
   return (
     <>
-      <DisplayCloseModal>
-        <ModalWater/>
-      </DisplayCloseModal>
+      <BaseModal>
+        <WaterModal />
+      </BaseModal>
     </>
   );
 }

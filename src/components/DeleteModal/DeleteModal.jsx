@@ -1,5 +1,5 @@
 // import css from "./DeleteModal.module.css";
-import { ModalButton } from "../ModalButton/ModalButton";
+import { ModalButton } from "../BaseModal/BaseModal";
 
 export const DeleteModal = () => {
 
