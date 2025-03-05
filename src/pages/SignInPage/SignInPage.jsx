@@ -1,11 +1,11 @@
 // import css from "./LogInPage.module.css";
 import { AdvantagesSection } from "../../components/AdvantagesSection/AdvantagesSection";
-import { LogInForm } from "../../components/LogInForm/LogInForm";
+import { SignInForm } from '../../components/SignInForm/SignInForm';
 
 export default function SignInPage() {
 return (
   <>
-    <LogInForm />
+    <SignInForm />
     <AdvantagesSection />
   </>
 );

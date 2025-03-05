@@ -1,11 +1,11 @@
 // import css from "./SignUpPage.module.css";
-import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
+import { SignUpForm } from '../../components/SignUpForm/SignUpForm';
 import { AdvantagesSection } from "../../components/AdvantagesSection/AdvantagesSection";
 
-export default function SignUpPage() {
+export default function SignUpPage () {
   return (
     <>
-      <RegisterForm />
+      <SignUpForm />
       <AdvantagesSection />
     </>
   );
