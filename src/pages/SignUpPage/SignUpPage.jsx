@@ -1,8 +1,8 @@
-// import css from "./RegisterPage.module.css";
+// import css from "./SignUpPage.module.css";
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
 import { AdvantagesSection } from "../../components/AdvantagesSection/AdvantagesSection";
 
-export default function RegisterPage() {
+export default function SignUpPage() {
   return (
     <>
       <RegisterForm />
