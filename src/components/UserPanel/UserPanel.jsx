@@ -22,9 +22,9 @@ export function UserPanel() {
     <div className={css.userPanel}>
       <h2 className={css.welcomeTitle}>
         Hello
-        <span className={css.name}>, !</span>
+        <span className={css.name}>, {getFirstName(userData.name)}!</span>
       </h2>
-      <UserBar />
+      <UserBar user={userData} />
     </div>
   );
 }
