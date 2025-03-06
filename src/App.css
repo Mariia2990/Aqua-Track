@@ -32,6 +32,7 @@ a {
 }
 
 button {
+  font-family: var(--main-font);
   cursor: pointer;
 }
 
@@ -43,4 +44,33 @@ img {
 
 body {
   margin: 0;
+}
+
+.buttonGreen{
+background-color: #9be1a0;
+text-align: center;
+font-weight: 700;
+color: #323f47;
+border: none;
+transition: var(--animation);
+}
+
+.button:hover,
+.button:focus {
+  background: #87d28d;
+}
+
+.cancelButton{
+  background-color: #f0eff4;
+  text-align: center;
+  color: #323f47;
+  font-weight: 700;
+  border: none;
+}
+
+.buttonTrackBlack{
+background-color: #323f47;
+text-align: center;
+  font-weight: 700;
+  border: none;
 }

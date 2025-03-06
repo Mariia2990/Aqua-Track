@@ -1,7 +1,8 @@
-import { lazy, Suspense } from "react";
-import { RestrictedRoute } from './RestrictedRoute';
-import { Route, Routes } from 'react-router-dom';
-import { PrivateRoute } from './PrivateRoute';
+import { lazy } from "react";
+import { RestrictedRoute } from "./RestrictedRoute";
+import { PrivateRoute } from "./PrivateRoute";
+import { Route, Routes } from "react-router-dom";
+import { Layout } from "./components/Layout/Layout";
 
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
@@ -14,19 +15,21 @@ export const App = () => {
 
   return (
     <>
-      <Suspense>
-      <Routes>
+   {/* <Suspense fallback={<Loader />}> */}
+        <Routes>
+          <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={
-                <RestrictedRoute redirectTo="/tracker" component={<SignUpPage />}/>}/>
+                <RestrictedRoute redirectTo="/tracker" element={<SignUpPage />}/>}/>
             <Route path="/signin" element={
-                <RestrictedRoute redirectTo="/tracker" component={<SignInPage />}/>}/>
+                <RestrictedRoute redirectTo="/tracker" element={<SignInPage />}/>}/>
             <Route path="/tracker" element={
-                <PrivateRoute redirectTo="/signin" component={<TrackerPage />}/>}/>
+                <PrivateRoute redirectTo="/signin" element={<TrackerPage />}/>}/>
 
-            <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
         </Routes>
-      </Suspense>
+      {/* </Suspense> */}
     </>
   );
 };
