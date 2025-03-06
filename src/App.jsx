@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { RestrictedRoute } from './RestrictedRoute';
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute';
@@ -14,6 +14,7 @@ export const App = () => {
 
   return (
     <>
+      <Suspense>
       <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={
@@ -24,7 +25,8 @@ export const App = () => {
                 <PrivateRoute redirectTo="/signin" component={<TrackerPage />}/>}/>
 
             <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+        </Routes>
+      </Suspense>
     </>
   );
 };
