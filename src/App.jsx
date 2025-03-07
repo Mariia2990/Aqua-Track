@@ -4,6 +4,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout/Layout";
 import  Container  from "./components/Container/Container";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage'));
