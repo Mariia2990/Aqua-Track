@@ -1,6 +1,7 @@
 // import css from "./LogOutModal.module.css";
 import { ModalButton } from "../ModalButton/ModalButton";
 
+
 export const LogOutModal = () => {
   return (
     <>
