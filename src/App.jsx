@@ -3,7 +3,7 @@ import { RestrictedRoute } from "./RestrictedRoute";
 import { PrivateRoute } from "./PrivateRoute";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout/Layout";
-
+import { Container } from "./components/Container/Container";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage'));
@@ -15,7 +15,8 @@ export const App = () => {
 
   return (
     <>
-   {/* <Suspense fallback={<Loader />}> */}
+      {/* <Suspense fallback={<Loader />}> */}
+      <Container>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
@@ -29,6 +30,7 @@ export const App = () => {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
         </Routes>
+      </Container>
       {/* </Suspense> */}
     </>
   );
