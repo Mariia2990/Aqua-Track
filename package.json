@@ -14,8 +14,13 @@
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.4.0",
     "@mui/material": "^5.15.18",
+<<<<<<< HEAD
+    "@reduxjs/toolkit": "^2.6.0",
+    "axios": "^1.8.2",
+=======
     "@reduxjs/toolkit": "^2.2.4",
     "axios": "^1.8.1",
+>>>>>>> 00b6b05ca1846dcc18add678415332bc30a4a941
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
     "modern-normalize": "^2.0.0",
