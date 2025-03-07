@@ -1,51 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser, updateUser, updateAvatar } from "./operations";
-import avatarDefault from "../../assets/img/avatar-default.svg";
+import { createSlice } from '@reduxjs/toolkit';
+import { getUsers } from './operation.js';
 const initialState = {
-  userInfo: {
-    name: "user",
-    email: "",
-    gender: "women",
-    dailyNorm: 1.5,
-    weight: 0,
-    activeSportTime: 0,
-  },
-  avatarURL: avatarDefault,
-  monthData: [],
-  todayWaterList: [],
-  waterList: [],
-  isLoading: false,
-  isErrorMessage: null,
+  count: null,
+  avatars: [],
+  error: null,
+  loading: null
 };
-const userSlice = createSlice({
-  name: "user",
+const handlePending = (state) => {
+  state.loading = true;
+  state.error = null;
+};
+const usersSlice = createSlice({
+  name: 'users',
   initialState,
-  reducers: {
-    setUserInfo: (state, action) => {
-      state.userInfo = action.payload;
-    },
-    setAvatar: (state, action) => {
-      state.avatarURL = action.payload;
-    },
-    setLoading: (state, action) => {
-      state.isLoading = action.payload;
-    },
-    setError: (state, action) => {
-      state.isErrorMessage = action.payload;
-    },
-  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.userInfo = action.payload;
+      .addCase(getUsers.pending, handlePending)
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.count = action.payload.count;
+        state.avatars = action.payload.avatars;
+        state.loading = false;
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.userInfo = action.payload;
-      })
-      .addCase(updateAvatar.fulfilled, (state, action) => {
-        state.avatarURL = action.payload;
+      .addCase(getUsers.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
       });
   },
 });
-export const { setUserInfo, setAvatar, setLoading, setError } = userSlice.actions;
-export const userReducer = userSlice.reducer;
+export const usersReducer = usersSlice.reducer;

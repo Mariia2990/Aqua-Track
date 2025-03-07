@@ -1,3 +1,6 @@
+export const selectUsersCount = (state) => state.users.count;
+export const selectUsersAvatars = (state) => state.users.avatars;
+export const selectLoading = (state) => state.users.loading;
 export const selectUserInfo = (state) => state.user.userInfo;
 
 export const selectDailyNorm = (state) => state.user.userInfo.dailyNorm;
