@@ -1,0 +1,54 @@
+.userBarBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  border-color: transparent;
+  gap: 8px;
+  opacity: 1px;
+  background-color: var(--main);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.29;
+  letter-spacing: -0.01em;
+  color: var(--main-white);
+  padding: 6px 12px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
+.icon-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  fill: #ccc;
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  fill: transparent;
+  stroke: var(--main-white);
+  transition: transform 0.3s;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+@media (min-width: 768px) {
+  .userBarBtn {
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .chevron {
+    width: 20px;
+    height: 20px;
+  }
+}
