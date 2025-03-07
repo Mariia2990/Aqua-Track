@@ -40,7 +40,7 @@
 .modal_closeIcon {
   width: 28px;
   height: 28px;
-  fill: var(--main-text);
+  stroke: var(--main-text);
 }
 
 @media (min-width: 768px) {
