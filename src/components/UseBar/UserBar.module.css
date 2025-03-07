@@ -28,18 +28,6 @@
   fill: #ccc;
 }
 
-.avatarPlaceholder {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #ccc;
-  margin-left: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-
 .chevron {
   width: 16px;
   height: 16px;
@@ -50,4 +38,17 @@
 
 .chevron.open {
   transform: rotate(180deg);
+}
+
+@media (min-width: 768px) {
+  .userBarBtn {
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .chevron {
+    width: 20px;
+    height: 20px;
+  }
 }

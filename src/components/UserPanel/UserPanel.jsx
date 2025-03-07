@@ -15,14 +15,14 @@ export function UserPanel() {
   // }, [dispatch, user]);
 
   // const getFirstName = (fullName) => {
-  //   return fullName ? fullName.split(' ')[0] : 'User';
+  //   return fullName ? fullName.split(' ')[0] : user.email.split('@')[0];
   // };
 
   return (
     <div className={css.userPanel}>
       <h2 className={css.welcomeTitle}>
         Hello
-        <span className={css.name}>, !</span>
+        <span className={css.userName}>, User!</span>
       </h2>
       <UserBar />
     </div>

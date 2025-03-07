@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
 import sprite from '../../img/sprite.svg';
 import css from './UserBar.module.css';
 // import defaultAvatar from '../../img/avatar-default.svg';
@@ -15,19 +16,18 @@ export function UserBar(user) {
       <div className={css.popover}>
         <button className={css.userBarBtn} onClick={toggleMenu}>
           {/* {getFirstName(user.name)} */}
+          User
           {user.avatar ? (
             <img src={user.avatar} alt="User Avatar" className={css.avatar} />
           ) : (
-            <svg className={css['icon-avatar']}>
-              <use href={sprite + '#icon-avatar'} />
-            </svg>
+            <FaUserCircle className={css['icon-avatar']} />
           )}
           <svg className={`${css.chevron} ${menuOpen ? css.open : ''}`}>
-            <use href={sprite + '#icon-chevron'} />
+            <use href={sprite + '#icon-chevron-down'} />
           </svg>
         </button>
+        {menuOpen && <UserBarPopover />}
       </div>
-      <UserBarPopover />
     </>
   );
 }

@@ -15,6 +15,10 @@
   color: var(--main);
 }
 
+.userName {
+  font-weight: 700;
+}
+
 @media (min-width: 768px) {
   .userPanel {
     flex-direction: row;
