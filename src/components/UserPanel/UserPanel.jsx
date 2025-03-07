@@ -1,7 +1,10 @@
 // import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+// import { useAuth } from '../../hook/useAuth.jsx';
+// import { selectUser } from '../../redux/auth/selectors.js';
+// import { refreshUser } from '../../redux/auth/operations.js';
 import { UserBar } from '../UseBar/UserBar';
 import css from './UserPanel.module.css';
-// import { useEffect } from 'react';
 
 export function UserPanel() {
   // const { user } = useAuth();
@@ -22,14 +25,17 @@ export function UserPanel() {
     <div className={css.userPanel}>
       <h2 className={css.welcomeTitle}>
         Hello
-        <span className={css.userName}>, User!</span>
+        <span className={css.userName}>
+          , User
+          {/* {getFirstName(
+            userData.name === null ? userData.email : userData.name,
+          )} */}
+          !
+        </span>
       </h2>
       <UserBar />
     </div>
   );
 }
 
-// {
-//   getFirstName(userData.name);
-// }
 // user={userData} getFirstName={getFirstName}

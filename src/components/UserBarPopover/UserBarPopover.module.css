@@ -1,0 +1,51 @@
+.userBarPopover {
+  position: absolute;
+  top: 110%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  border-radius: 15px;
+  padding: 14px 57px 14px 20px;
+  font-weight: 700;
+  opacity: 1;
+  background-color: var(--main-white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userBarPopoverWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.userBarPopoverBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: hsl(203, 17%, 24%, 0.4);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-style: var(--main-font);
+  font-weight: 700;
+  font-size: 14px;
+  transition: color var(--animation);
+}
+
+.popoverIcons {
+  fill: none;
+  stroke: hsl(203, 17%, 24%, 0.4);
+}
+
+.userBarPopoverBtn:hover {
+  color: var(--main);
+}
+
+@media (min-width: 768px) {
+  .userBarPopover {
+    right: 0;
+    font-size: 15px;
+  }
+}
