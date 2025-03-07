@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setUserInfo, setAvatar, setLoading, setError } from "./slice";
 
-// Базовый URL сервера (замените на ваш)
+// Базовый URL сервера 
 axios.defaults.baseURL = "https://your-api.com/api";
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async (_, thunkAPI) => {
