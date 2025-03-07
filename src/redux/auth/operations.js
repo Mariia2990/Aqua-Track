@@ -76,17 +76,3 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
-
-// Новый thunk для получения списка всех юзеров
-export const fetchUsers = createAsyncThunk(
-  "/fetchUsers",
-  async (_, thunkAPI) => {
-    try {
-      const response = await baseURL.get("/users");
-      return response.data;
-    } catch (e) {
-      toast.error("Failed to fetch users");
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
