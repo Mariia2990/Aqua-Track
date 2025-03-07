@@ -1,14 +1,11 @@
 // import css from "./UserSettingsForm.module.css";
-import { ModalBtn } from "../ModalBtn/ModalBtn";
-
+import { ModalButton } from '../ModalButton/ModalButton';
 
 const UserSettingsForm = () => {
-
-
   return (
     <>
-      <ModalBtn/>
-      </>
+      <ModalButton />
+    </>
   );
 };
 
