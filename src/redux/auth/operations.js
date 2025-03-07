@@ -7,15 +7,15 @@ export const baseURL = axios.create({
 });
 
 const setAuthHeader = (token) => {
-  goitApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+  baseURL.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const clearAuthHeader = () => {
-  goitApi.defaults.headers.common.Authorization = "";
+  baseURL.defaults.headers.common.Authorization = "";
 };
 
 export const register = createAsyncThunk(
-  "auth/register",
+  "/register",
   async (credentials, thunkAPI) => {
     try {
       const response = await baseURL.post("/signup", credentials);
@@ -30,7 +30,7 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "auth/login",
+  "/login",
   async (credentials, thunkAPI) => {
     try {
       const response = await baseURL.post("/login", credentials);
