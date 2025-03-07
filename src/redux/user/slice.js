@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUser, updateUser, updateAvatar } from "./operations";
 import avatarDefault from "../../assets/img/avatar-default.svg";
-
 const initialState = {
   userInfo: {
     name: "user",
@@ -18,7 +17,6 @@ const initialState = {
   isLoading: false,
   isErrorMessage: null,
 };
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -49,6 +47,5 @@ const userSlice = createSlice({
       });
   },
 });
-
 export const { setUserInfo, setAvatar, setLoading, setError } = userSlice.actions;
 export const userReducer = userSlice.reducer;
