@@ -1,12 +1,22 @@
-// import css from "./SignUpPage.module.css";
-import { SignUpForm } from '../../components/SignUpForm/SignUpForm';
+//src/pages/SignUpPage/SignUpPage.jsx
+import { Suspense } from "react";
+import { SignUpForm } from "../../components/SignUpForm/SignUpForm";
 import { AdvantagesSection } from "../../components/AdvantagesSection/AdvantagesSection";
+import Container from "../../components/Container/Container";
+import Logo from "../../components/Logo/Logo";
+import styles from "./SignUpPage.module.css";
 
-export default function SignUpPage () {
+export default function SignUpPage() {
   return (
-    <>
-      <SignUpForm />
-      <AdvantagesSection />
-    </>
+    <Suspense fallback={<div>Loading...</div>}> 
+      <Container>
+        <Logo />
+        <h2 className={styles.title}>Create an account</h2>
+        <SignUpForm />
+        <AdvantagesSection />
+      </Container>
+    </Suspense>
   );
 }
+
+
