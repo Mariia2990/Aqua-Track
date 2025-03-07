@@ -16,11 +16,6 @@ const slice = createSlice({
     token: null,
     isLoggedIn: false,
     isRefreshing: false,
-    users: {
-      list: [],
-      total: 0,
-      avatars: [],
-    },
   },
 
   extraReducers: (builder) => {
