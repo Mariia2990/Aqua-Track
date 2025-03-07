@@ -6,9 +6,14 @@ const slice = createSlice({
 
     initialState: {
         user: {
-            name: null,
-            email: null,
-        },
+        email: null,
+        name: null,
+        gender: null,
+        avatar: null,
+        weight: null,
+        DailyActivityTime: null,
+        DailyWaterNorm: null,
+    },
         token: null,
         isLoggedIn: false,
         isRefreshing: false,
