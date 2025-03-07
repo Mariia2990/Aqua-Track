@@ -79,7 +79,7 @@ export const refreshUser = createAsyncThunk(
 
 // Новый thunk для получения списка всех юзеров
 export const fetchUsers = createAsyncThunk(
-  "auth/fetchUsers",
+  "/fetchUsers",
   async (_, thunkAPI) => {
     try {
       const response = await baseURL.get("/users");
