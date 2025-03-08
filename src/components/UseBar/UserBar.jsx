@@ -1,16 +1,31 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import sprite from '../../img/sprite.svg';
 import css from './UserBar.module.css';
 import { useClockOutside } from '../../hook/useClickOutside.jsx';
 import { UserBarPopover } from '../UserBarPopover/UserBarPopover';
+import { GlobalModal } from '../GlobalModal/GlobalModal';
+import UserSettingsForm from '../UserSettingsForm/UserSettingsForm';
+import { LogOutModal } from '../LogOutModal/LogOutModal';
 
 export const UserBar = ({ user }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [btn, setBtn] = useState('Settings' || 'Log out');
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setIsMenuOpen(false);
   };
+
+  const handleOpenModal = useCallback((e) => {
+    setBtn(e.target.innerText);
+    setIsModalOpen(true);
+    setIsMenuOpen(false);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
 
   const menuPopover = useRef(null);
   useClockOutside(menuPopover, toggleMenu);
@@ -18,7 +33,10 @@ export const UserBar = ({ user }) => {
   return (
     <>
       <div className={css.userBarMenu}>
-        <button className={css.userBarBtn} onClick={toggleMenu}>
+        <button
+          className={css.userBarBtn}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
           {/* {user.name === null
             ? getFirstName(user.email)
             : getFirstName(user.name)} */}
@@ -28,11 +46,19 @@ export const UserBar = ({ user }) => {
           ) : (
             <FaUserCircle className={css['icon-avatar']} />
           )}
-          <svg className={`${css.chevron} ${menuOpen ? css.open : ''}`}>
+          <svg className={`${css.chevron} ${isMenuOpen ? css.open : ''}`}>
             <use href={sprite + '#icon-chevron-down'} />
           </svg>
         </button>
-        {menuOpen && <UserBarPopover ref={menuPopover} />}
+        {isMenuOpen && (
+          <UserBarPopover onOpenModal={handleOpenModal} ref={menuPopover} />
+        )}
+        {isModalOpen && (
+          <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
+            {btn === 'Settings' && <UserSettingsForm />}
+            {btn === 'Log out' && <LogOutModal />}
+          </GlobalModal>
+        )}
       </div>
     </>
   );
