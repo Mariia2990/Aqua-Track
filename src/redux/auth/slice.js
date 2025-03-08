@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { login, logOut, refreshUser, register, fetchUsers } from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import { login, logOut, refreshUser, register } from './operations';
 
 const slice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     user: {
       email: null,
@@ -53,11 +53,6 @@ const slice = createSlice({
       })
       .addCase(refreshUser.rejected, (state) => {
         state.isRefreshing = false;
-      })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.users.list = action.payload;
-        state.users.total = action.payload.length;
-        state.users.avatars = action.payload.map(user => user.avatarURL);
       });
   },
 });

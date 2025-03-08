@@ -1,0 +1,32 @@
+.signin_wrapper {
+  border-radius: 30px;
+  background-color: #f0eff4;
+  border-radius: 30px;
+  width: 343px;
+  padding: 24px 16px 216px 16px;
+}
+
+.signin_form {
+}
+
+.redirect {
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: rgba(47, 47, 47, 0.5);
+}
+
+.redirect_to_signin {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #323f47;
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1440px) {
+}
