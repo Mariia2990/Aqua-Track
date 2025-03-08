@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUsers } from './operation.js';
+import { getUsers } from './operations.js';
 const initialState = {
   count: null,
   avatars: [],
   error: null,
-  loading: null
+  loading: null,
 };
 const handlePending = (state) => {
   state.loading = true;

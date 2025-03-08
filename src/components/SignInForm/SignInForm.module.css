@@ -1,0 +1,93 @@
+.form {
+  width: 311px;
+  margin: 0 auto;
+  margin-bottom: 16px;
+  margin-top: 172px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 32px;
+}
+
+.boxInputEmail {
+  margin-bottom: 16px;
+}
+
+.boxInputPassword {
+  margin-bottom: 32px;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+}
+
+.input {
+  margin-top: 8px;
+  border: 1px solid rgba(47, 47, 47, 0.2);
+  border-radius: 15px;
+  padding: 16px 184px 16px 16px;
+  width: 311px;
+  height: 50px;
+  padding: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: rgba(47, 47, 47, 0.6);
+}
+
+.error {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: #ef5050;
+  margin-top: 10px;
+}
+
+.inputError {
+  border: 1px solid #ef5050;
+  color: #ef5050;
+}
+
+.inputFilled {
+  border: 1px solid rgba(47, 47, 47, 0.4);
+}
+
+.button {
+  border-radius: 30px;
+  padding: 16px 131px;
+  width: 311px;
+  height: 50px;
+  border: none;
+  background-color: #9be1a0;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1440px) {
+}
