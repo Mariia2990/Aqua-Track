@@ -5,8 +5,8 @@
   background-color: #9BE1A0;
   border-radius: 30px;
   position: relative;
-  padding: 16px;
   background-image: url('/src/img/bottle_for_water@1x.png');
+  background-repeat: no-repeat;
   background-position: center;
 }
 
@@ -26,4 +26,49 @@
   position: absolute;
   bottom: 32px;
   right: 16px;
+}
+
+@media (min-width: 768px) {
+  .wrapper{
+    height: 578px;
+    background-image: url('/src/img/bottle_for_water_tablet@1x.png');
+  }
+
+  .norma{
+    top: 157px;
+    left: 32px;
+  } 
+
+  .progress{
+    top: 322px;
+    left: 204px;
+  }
+
+  .btn{
+    bottom: 64px;
+    right: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wrapper{
+    width: 50%;
+    height: 736px;
+    background-image: url('/src/img/bottle_for_water_laptop@1x.png');
+  }
+
+  .norma{
+    top: 157px;
+    left: 64px;
+  } 
+
+  .progress{
+    top: 450px;
+    left: 188px;
+  }
+
+  .btn{
+    bottom: 64px;
+    right: 32px;
+  }
 }

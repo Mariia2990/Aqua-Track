@@ -11,6 +11,7 @@ export const WaterProgressBar = ({className, progress }) => {
         value={progress}
         readOnly
         className={css.slider}
+        style={{ "--progress": `${progress}%` }}
       />
       <div className={css.percentages}>
         <span>0%</span>

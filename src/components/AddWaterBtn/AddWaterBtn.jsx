@@ -14,6 +14,7 @@ export function AddWaterBtn({className, onAddWater }) {
   return (
     <div className={`${css.wrapper} ${className}`}>
     <button className={css.addButton} onClick={handleClick}>
+      
       Add water
     </button>
       {/* <BaseModal>

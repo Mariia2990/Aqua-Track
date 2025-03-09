@@ -21,3 +21,22 @@ font-size: 10px;
 line-height: 100%;
 color: rgba(47, 47, 47, 0.6);
 } 
+
+@media (min-width: 768px) {
+  .wrapper{
+    padding: 14px 18px;
+    width: 129px;
+    height: 78px;
+  }
+
+  .day{
+    font-size: 15px;
+    line-height: 149%;
+    margin-bottom: 4px;
+  }
+
+  .norma1{
+    font-size: 12px;
+    line-height: 187%;
+  } 
+}
