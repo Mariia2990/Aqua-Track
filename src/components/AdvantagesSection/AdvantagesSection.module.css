@@ -3,7 +3,7 @@
   border-radius: 30px;
   background-color: var(--background);
   height: 353px;
-  /*padding: 209px 16px 32px;*/
+  padding: 209px 16px 32px;
   background-image: url(../../img/baner@1x.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -93,7 +93,7 @@
 }
 @media only screen and (min-width: 768px) {
   .advantages_main {
-    /*padding: 283px 32px 32px;*/
+    padding: 283px 32px 32px;
     min-height: 446px;
   }
   .advantages_users {
@@ -134,7 +134,8 @@
   .advantages_main {
     padding: 537px 32px 64px;
     margin: 0;
-    max-width: 608px;
+    max-width: 672px;
+    height: 736px;
   }
   .advantagesGroup_habits {
     margin-left: 366px;

@@ -1,12 +1,10 @@
 import { Logo } from '../Logo/Logo';
 import css from './WelcomeSection.module.css';
 import clsx from 'clsx';
-import Container from '../Container/Container.jsx';
 
 export const WelcomeSection = () => {
   return (
     <div className={css.container}>
-      {/*<Container>*/}
       <Logo />
       <div className={css.wrapper}>
         <div className={css.text}>
@@ -20,7 +18,6 @@ export const WelcomeSection = () => {
           <button className={clsx('cancelButton', css.btngray)}>Sign In</button>
         </div>
       </div>
-      {/*</Container>*/}
     </div>
   );
 };

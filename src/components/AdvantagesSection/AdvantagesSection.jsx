@@ -2,12 +2,10 @@ import css from './AdvantagesSection.module.css';
 import user_1 from '../../img/user-1.png';
 import user_2 from '../../img/user-2.png';
 import user_3 from '../../img/user-3.png';
-import Container from '../Container/Container.jsx';
 
 export const AdvantagesSection = () => {
   return (
     <div className={css.advantages_main}>
-      {/*<Container>*/}
       <div className={css.advantages_users}>
         <ul className={css.advantages_usersImg}>
           <li className={css.advantages_point}>
@@ -38,7 +36,6 @@ export const AdvantagesSection = () => {
           </li>
         </ul>
       </div>
-      {/*</Container>*/}
     </div>
   );
 };

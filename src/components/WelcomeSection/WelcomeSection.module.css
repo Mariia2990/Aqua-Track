@@ -50,9 +50,15 @@
     flex-direction: row;
     gap: 10px;
     border-radius: 30px;
-    padding: 14px 19px;
+    /*padding: 14px 19px;*/
     width: 116px;
     height: 46px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.28571;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: #323f47;
 }
 
 .btngray{
@@ -63,9 +69,15 @@
     gap: 10px;
     border: 1px solid #323f47;
     border-radius: 30px;
-    padding: 14px 28px;
+    /*padding: 14px 28px;*/
     width: 104px;
     height: 46px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.28571;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: #323f47;
 }
 
 @media only screen and (min-width: 768px) {
@@ -99,15 +111,52 @@
     }
 
     .btngreen{
-        padding: 18px 40px;
+        /*padding: 18px 40px;*/
         width: 169px;
         height: 60px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.01em;
+        text-align: center;
+        color: #323f47;
     }
 
     .btngray{
-        padding: 18px 40px;
+        /*padding: 18px 40px;*/
         width: 135px;
         height: 60px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.01em;
+        text-align: center;
+        color: #323f47;
     }
 
+}
+
+@media only screen and (min-width: 1440px) {
+    .container{
+        width: 672px;
+        height: 736px
+    }
+
+    .wrapper{
+        margin-top: 132px;
+    }
+
+    .mainText{
+        font-size: 80px;
+        line-height: 0.95;
+    }
+
+    .btngreen, .btngray{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.01em;
+        text-align: center;
+        color: #323f47;
+    }
 }
