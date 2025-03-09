@@ -1,16 +1,16 @@
-import { forwardRef } from 'react';
-// import { GlobalModal } from '../GlobalModal/GlobalModal';
-// import UserSettingsForm from '../UserSettingsForm/UserSettingsForm';
-// import { LogOutModal } from '../LogOutModal/LogOutModal';
 import sprite from '../../img/sprite.svg';
 import css from './UserBarPopover.module.css';
 
-export const UserBarPopover = forwardRef(function UserBarPopover(props, ref) {
+export const UserBarPopover = ({ onOpenModal }) => {
   return (
-    <div className={css.userBarPopover} ref={ref}>
+    <div className={css.userBarPopover}>
       <ul className={css.userBarPopoverWrapper}>
         <li>
-          <button type="button" className={css.userBarPopoverBtn}>
+          <button
+            type="button"
+            className={css.userBarPopoverBtn}
+            onClick={onOpenModal}
+          >
             <svg className={css.popoverIcons} width="16" height="16">
               <use href={sprite + '#icon-settings'} />
             </svg>
@@ -18,7 +18,11 @@ export const UserBarPopover = forwardRef(function UserBarPopover(props, ref) {
           </button>
         </li>
         <li>
-          <button type="button" className={css.userBarPopoverBtn}>
+          <button
+            type="button"
+            className={css.userBarPopoverBtn}
+            onClick={onOpenModal}
+          >
             <svg className={css.popoverIcons} width="16" height="16">
               <use href={sprite + '#icon-log-out'} />
             </svg>
@@ -28,13 +32,4 @@ export const UserBarPopover = forwardRef(function UserBarPopover(props, ref) {
       </ul>
     </div>
   );
-});
-{
-  /* <GlobalModal>
-        <UserSettingsForm />
-      </GlobalModal>
-
-      <GlobalModal>
-        <LogOutModal />
-      </GlobalModal> */
-}
+};

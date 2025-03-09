@@ -11,6 +11,7 @@ export const GlobalModal = ({ isOpen, onClose, children }) => {
       onRequestClose={onClose}
       className={css.modal_content}
       overlayClassName={css.modal_overlay}
+      ariaHideApp={false}
     >
       <button className={css.modal_closeButton} onClick={onClose}>
         <svg className={css.modal_closeIcon}>
