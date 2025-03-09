@@ -8,27 +8,30 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-const validationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .matches(/^[a-zA-Z]+$/, 'Please enter a valid name using Latin characters')
-    .required('Name is required'),
-  email: yup
-    .string()
-    .email('Please enter a valid email address')
-    .required('Email is required'),
-  weight: yup.number().required('Weight is required'),
-  time: yup.number().required('Active time is required'),
-  water: yup.number().required('Amount of water to drink is required'),
-});
-
-const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
+const UserSettingsForm = ({ onClose }) => {
   const [userData, setUserData] = useState(null);
   const [avatarFile, setAvatarFile] = useState(null);
-  const [amount, setAmount] = useState(0);
-  const [gender, setGender] = useState('');
+  const [amount, setAmount] = useState(1.5);
+  const [gender, setGender] = useState('woman');
   const [loading, setLoading] = useState(true);
   const [willDrink, setWillDrink] = useState();
+
+  const validationSchema = yup.object().shape({
+    name: yup
+      .string()
+      .matches(
+        /^[a-zA-Z]+$/,
+        'Please enter a valid name using Latin characters',
+      )
+      .required('Name is required'),
+    email: yup
+      .string()
+      .email('Please enter a valid email address')
+      .required('Email is required'),
+    weight: yup.number().required('Weight is required'),
+    time: yup.number().required('Active time is required'),
+    water: yup.number().required('Amount of water to drink is required'),
+  });
 
   const {
     register,
@@ -101,7 +104,7 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
 
       await axios.patch('/users/update', formData);
 
-      setIsUserUpdated(true);
+      // setIsUserUpdated(true);
       toast.success('Your data has been updated successfully');
       onClose();
     } catch (error) {
@@ -110,20 +113,20 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
   };
 
   useMemo(() => {
-    if (userData) {
+    if (userData && !gender) {
       setGender(userData.gender);
       setAmount(userData.dailyWaterNorm);
       setWillDrink(userData.dailyWaterNorm);
       setValue(
         'time',
-        userData.dailyActivityTime ? userData.dailyActivityTime : '0',
+        userData.dailyActivityTime ? userData.dailyActivityTime : 0,
       );
       setValue('email', userData.email);
       setValue('name', userData.name);
-      setValue('weight', userData.weight);
+      setValue('weight', userData.weight || 0);
       setValue('water', userData.dailyWaterNorm);
     }
-  }, [userData, setValue]);
+  }, [userData, setValue, gender]);
 
   if (loading) {
     return <div>{/* <Loader /> */}</div>;
@@ -175,9 +178,7 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
                       onChange={(e) => {
                         setGender(e.target.value);
                       }}
-                      checked={
-                        gender === 'woman' || userData.gender === 'woman'
-                      }
+                      checked={gender === 'woman'}
                     />
                     <label className={css.radioLabel} htmlFor="woman">
                       Female
@@ -193,7 +194,7 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
                       onChange={(e) => {
                         setGender(e.target.value);
                       }}
-                      checked={gender === 'man' || userData.gender === 'man'}
+                      checked={gender === 'man'}
                     />
                     <label className={css.radioLabel} htmlFor="man">
                       Male
@@ -280,7 +281,7 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
                     }`}
                     type="number"
                     {...register('weight')}
-                    defaultValue={userData?.weight}
+                    defaultValue={userData === null ? 0 : userData?.weight}
                   />
                   {errors.weight && (
                     <span className={css.errorSpan}>
@@ -298,7 +299,7 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
                     }`}
                     type="number"
                     {...register('time')}
-                    defaultValue={userData?.dailyActivityTime}
+                    defaultValue={userData ? userData?.dailyActivityTime : 0}
                   />
                   {errors.time && (
                     <span className={css.errorSpan}>{errors.time.message}</span>
@@ -323,7 +324,7 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
                   }`}
                   type="number"
                   {...register('water')}
-                  defaultValue={userData?.dailyWaterNorm}
+                  defaultValue={userData ? userData?.dailyWaterNorm : 1.5}
                 />
                 {errors.water && (
                   <span className={css.errorSpan}>{errors.water.message}</span>
