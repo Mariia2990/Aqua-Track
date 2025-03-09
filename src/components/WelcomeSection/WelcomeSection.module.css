@@ -1,0 +1,113 @@
+.container {
+    background-color: #f0eff4;
+    border-radius: 30px;
+    min-height: 411px;
+    padding: 24px 16px;
+}
+
+.wrapper{
+    margin-top: 72px;
+    display: flex;
+    flex-direction: column;
+    gap:32px;
+    width: 311px;
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    gap:16px
+}
+
+.hintText{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.28571;
+    letter-spacing: 0.06em;
+    color: #2f2f2f;
+}
+
+.mainText{
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: #323f47;
+}
+
+.buttons{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.btngreen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+    border-radius: 30px;
+    padding: 14px 19px;
+    width: 116px;
+    height: 46px;
+}
+
+.btngray{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+    border: 1px solid #323f47;
+    border-radius: 30px;
+    padding: 14px 28px;
+    width: 104px;
+    height: 46px;
+}
+
+@media only screen and (min-width: 768px) {
+    .container{
+        padding: 32px;
+        min-height: 498px;
+    }
+
+    .wrapper{
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 547px;
+        padding-left: 32px;
+    }
+
+    .hintText{
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.06em;
+    }
+
+    .mainText{
+        font-weight: 700;
+        font-size: 64px;
+        line-height: 1.09375;
+        letter-spacing: -0.01em;
+    }
+
+    .buttons{
+        gap: 16px;
+    }
+
+    .btngreen{
+        padding: 18px 40px;
+        width: 169px;
+        height: 60px;
+    }
+
+    .btngray{
+        padding: 18px 40px;
+        width: 135px;
+        height: 60px;
+    }
+
+}

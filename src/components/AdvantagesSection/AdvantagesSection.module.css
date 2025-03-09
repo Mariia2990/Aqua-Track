@@ -1,27 +1,28 @@
 .advantages_main {
   margin-top: 16px;
   border-radius: 30px;
-  background-color: var(--bacground);
-
-  padding: 209px 16px 32px;
-  background-image: url(../../assets/img/baner@1x.jpg);
+  background-color: var(--background);
+  height: 353px;
+  /*padding: 209px 16px 32px;*/
+  background-image: url(../../img/baner@1x.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 @media only screen and (min-resolution: 192dpi) {
   .advantages_main {
-    background-image: url(../../assets/img/baner@2x.jpg);
+    background-image: url(../../img/baner@2x.jpg);
   }
 }
 .advantages_users {
-  max-width: 132px;
+  /*max-width: 132px;*/
   background-color: var(--main-white);
   display: flex;
   gap: 4px;
-  margin-bottom: 8px;
-  padding: 10px 14px;
   border-radius: 30px;
+  padding: 10px 14px;
+  width: 160px;
+  height: 48px;
 }
 .advantages_usersImg {
   display: flex;
@@ -50,6 +51,9 @@
 .advantagesTabs {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
   gap: 4px;
 }
 .advantages_habits {
@@ -77,6 +81,7 @@
 .advantages_habits:nth-child(1) {
   background: #323f47;
   color: var(--main-white);
+  /*width: 81px;*/
 }
 .advantages_habits:nth-child(2) {
   background: #9be1a0;
@@ -88,12 +93,17 @@
 }
 @media only screen and (min-width: 768px) {
   .advantages_main {
-    padding: 283px 32px 32px;
+    /*padding: 283px 32px 32px;*/
+    min-height: 446px;
   }
   .advantages_users {
-    max-width: 197px;
+    /*max-width: 197px;*/
+    /*padding: 10px 20px;*/
+    /*margin-bottom: -14px;*/
+    border-radius: 30px;
     padding: 10px 20px;
-    margin-bottom: -14px;
+    width: 237px;
+    height: 67px;
   }
   .advantages_point {
     width: 47px;
