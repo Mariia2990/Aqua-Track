@@ -86,8 +86,78 @@
   color: #323f47;
 }
 
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.eyeIcon {
+  width: 20px;
+  height: 20px;
+  fill: #2f2f2f;
+}
+
+.eyeButton:hover .eyeIcon {
+  fill: #333;
+}
+
 @media only screen and (min-width: 768px) {
+  .form {
+    width: 436px;
+    margin-top: 225px;
+    margin-left: 102px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 106%;
+  }
+
+  .boxInputEmail {
+    margin-bottom: 20px;
+  }
+
+  .label {
+    font-size: 16px;
+    line-height: 150%;
+  }
+
+  .input {
+    padding: 16px 293px 16px 16px;
+    width: 436px;
+    height: 56px;
+    padding: 17px;
+  }
+
+  .error {
+    font-size: 15px;
+  }
+
+  .button {
+    border-radius: 30px;
+    padding: 18px 191px;
+    width: 436px;
+    height: 60px;
+    border: none;
+    font-size: 16px;
+    line-height: 150%;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
+  .form {
+    width: 436px;
+    margin-top: 113px;
+    margin-left: 86px;
+  }
 }
