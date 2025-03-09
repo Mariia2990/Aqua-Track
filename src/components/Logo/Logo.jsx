@@ -1,11 +1,5 @@
-import css from './Logo.module.css';
+import s from './Logo.module.css';
 
 export const Logo = () => {
-  return (
-    <>
-      <p className={css.logo}>AQUATRACK</p>
-    </>
-  );
+  return <div className={s.logo}>AquaTrack</div>;
 };
-
-export default Logo;
