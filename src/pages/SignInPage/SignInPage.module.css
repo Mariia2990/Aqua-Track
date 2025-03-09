@@ -26,7 +26,28 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .signin_wrapper {
+    border-radius: 30px;
+    width: 704px;
+    padding: 32px 134px 281px 32px;
+  }
+
+  .redirect {
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.01em;
+    text-align: left;
+    margin-left: 194px;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
+  .signin_wrapper {
+    width: 672px;
+    padding: 32px 118px 169px 32px;
+  }
+
+  .redirect {
+    margin-left: 178px;
+  }
 }
