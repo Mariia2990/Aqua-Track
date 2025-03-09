@@ -4,6 +4,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout/Layout";
 import  Container  from "./components/Container/Container";
+import { WaterMainInfo } from "./components/WaterInfo/WaterMainInfo";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage'));
@@ -17,6 +18,7 @@ export const App = () => {
     <>
       {/* <Suspense fallback={<Loader />}> */}
       <Container>
+        <WaterMainInfo/>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />

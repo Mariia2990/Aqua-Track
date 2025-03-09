@@ -1,0 +1,50 @@
+.progressBox {
+  background: white;
+  border-radius: 15px;
+  padding: 12px;
+  width: 198px;
+  height: 70px;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px; /* Розмір кружка */
+  height: 14px;
+  background: white; /* Білий фон */
+  border: 2px solid #9BE1A0; /* Зелений бортик */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: white;
+  border: 2px solid #9BE1A0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  color: #323F47;
+}
+
+.slider {
+  width: 100%;
+  appearance: none;
+  height: 5px;
+  background: #F0EFF4;
+  border-radius: 5px;
+}
+
+.percentages {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 100%;
+  color: #2F2F2F;
+}
