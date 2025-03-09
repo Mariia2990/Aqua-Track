@@ -32,7 +32,7 @@ export const UserBar = ({ user }) => {
 
   return (
     <>
-      <div className={css.userBarMenu}>
+      <div className={css.userBarMenu} ref={menuPopover}>
         <button
           className={css.userBarBtn}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -50,13 +50,11 @@ export const UserBar = ({ user }) => {
             <use href={sprite + '#icon-chevron-down'} />
           </svg>
         </button>
-        {isMenuOpen && (
-          <UserBarPopover onOpenModal={handleOpenModal} ref={menuPopover} />
-        )}
+        {isMenuOpen && <UserBarPopover onOpenModal={handleOpenModal} />}
         {isModalOpen && (
           <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
             {btn === 'Settings' && <UserSettingsForm />}
-            {btn === 'Log out' && <LogOutModal />}
+            {btn === 'Log out' && <LogOutModal onClose={handleCloseModal} />}
           </GlobalModal>
         )}
       </div>

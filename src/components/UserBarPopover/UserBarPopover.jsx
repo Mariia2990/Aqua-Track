@@ -1,12 +1,9 @@
-import { forwardRef } from 'react';
 import sprite from '../../img/sprite.svg';
 import css from './UserBarPopover.module.css';
 
-export const UserBarPopover = forwardRef(function UserBarPopover(props, ref) {
-  const { onOpenModal } = props;
-
+export const UserBarPopover = ({ onOpenModal }) => {
   return (
-    <div className={css.userBarPopover} ref={ref}>
+    <div className={css.userBarPopover}>
       <ul className={css.userBarPopoverWrapper}>
         <li>
           <button
@@ -35,4 +32,4 @@ export const UserBarPopover = forwardRef(function UserBarPopover(props, ref) {
       </ul>
     </div>
   );
-});
+};
