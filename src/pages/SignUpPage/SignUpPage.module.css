@@ -1,0 +1,19 @@
+/*src/pages/SignUpPage/SignUpPage.module.css*/
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .title {
+    font-size: 40px;
+  }
+}
