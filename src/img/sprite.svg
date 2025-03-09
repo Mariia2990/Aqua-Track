@@ -50,5 +50,8 @@
 <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="1.1163" d="M16 0.558c8.528 0 15.442 6.914 15.442 15.442s-6.914 15.442-15.442 15.442c-8.528 0-15.442-6.914-15.442-15.442s6.914-15.442 15.442-15.442z"></path>
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3395" d="M16 10.286v11.428M10.285 16h11.428"></path>
 </symbol>
+<symbol id="icon-plus-stroke" viewBox="0 0 32 32">
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M16 6.667v18.667M6.667 16h18.667"></path>
+</symbol>
   </defs>
 </svg>
