@@ -7,8 +7,8 @@ import UserSettingsForm from '../UserSettingsForm/UserSettingsForm';
 import { LogOutModal } from '../LogOutModal/LogOutModal';
 import sprite from '../../img/sprite.svg';
 import css from './UserBar.module.css';
-
-export const UserBar = ({ user, getFirstName, setIsUserUpdated }) => {
+// getFirstName,
+export const UserBar = ({ user, setIsUserUpdated }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [btn, setBtn] = useState('Settings' || 'Log out');
@@ -37,9 +37,9 @@ export const UserBar = ({ user, getFirstName, setIsUserUpdated }) => {
           className={css.userBarBtn}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {user.name === null
+          {/* {user.name === null
             ? getFirstName(user.email)
-            : getFirstName(user.name)}
+            : getFirstName(user.name)} */}
           User
           {user ? (
             <img src={user.avatar} alt="User Avatar" className={css.avatar} />
