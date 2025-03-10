@@ -1,10 +1,9 @@
 // import css from "./UserSettingsForm.module.css";
-import { ModalButton } from '../ModalButton/ModalButton';
 
 const UserSettingsForm = () => {
   return (
     <>
-      <ModalButton />
+      <h2>Usersettings</h2>
     </>
   );
 };
