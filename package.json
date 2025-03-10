@@ -14,16 +14,10 @@
     "@emotion/styled": "^11.11.5",
     "@eslint/config-array": "^0.19.2",
     "@eslint/object-schema": "^2.1.6",
-    "@eslint/config-array": "^0.19.2",
-    "@eslint/object-schema": "^2.1.6",
     "@hookform/resolvers": "^3.4.0",
     "@mui/material": "^5.15.18",
-<<<<<<< HEAD
     "@reduxjs/toolkit": "^2.6.0",
     "axios": "^1.8.2",
-=======
-    "@reduxjs/toolkit": "^2.2.4",
-    "axios": "^1.6.8",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
     "modern-normalize": "^2.0.0",
