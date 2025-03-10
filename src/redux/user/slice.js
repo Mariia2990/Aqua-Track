@@ -4,7 +4,7 @@ const initialState = {
   count: null,
   avatars: [],
   error: null,
-  loading: null,
+  loading: false
 };
 const handlePending = (state) => {
   state.loading = true;
