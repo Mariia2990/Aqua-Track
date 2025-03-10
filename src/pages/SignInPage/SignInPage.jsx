@@ -21,7 +21,9 @@ export default function SignInPage() {
             </NavLink>
           </p>
         </div>
-        <AdvantagesSection className={s.advantages} />
+        <div className={s.advantages}>
+          <AdvantagesSection />
+        </div>
       </Container>
     </Suspense>
   );

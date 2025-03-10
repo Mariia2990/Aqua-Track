@@ -66,6 +66,7 @@ export const SignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+      <h1 className={s.title}>Sign in</h1>
       <div className={s.boxInputEmail}>
         <label className={s.label} htmlFor="email">
           Email
