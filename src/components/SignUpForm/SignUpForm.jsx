@@ -61,12 +61,12 @@ export function SignUpForm() {
             <Field name="email">
               {({ field, meta }) => (
                 <div>
-                  <input
-                    {...field}
-                    type="email"
-                    id={emailFieldId}
-                    placeholder="Enter your email"
-                    className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`}
+                  <input 
+                    {...field} 
+                    type="email" 
+                    id={emailFieldId} 
+                    placeholder="Enter your email" 
+                    className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`} 
                   />
                   {meta.touched && meta.error && <div className={styles.error}>{meta.error}</div>}
                 </div>
@@ -80,19 +80,21 @@ export function SignUpForm() {
             </label>
             <Field name="password">
               {({ field, meta }) => (
-                <div className={styles.passwordWrapper}>
-                  <input
-                    {...field}
-                    type={showPassword ? "text" : "password"}
-                    id={passwordFieldId}
-                    placeholder="Enter your password"
-                    className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`}
-                  />
-                  <button type="button" onClick={togglePasswordVisibility} className={styles.eyeButton}>
-                    <svg className={styles.eyeIcon}>
-                      <use href={`/src/img/sprite.svg#${showPassword ? "icon-eye" : "icon-eye-off"}`} />
-                    </svg>
-                  </button>
+                <div>
+                  <div className={styles.passwordWrapper}>
+                    <input 
+                      {...field} 
+                      type={showPassword ? "text" : "password"} 
+                      id={passwordFieldId} 
+                      placeholder="Enter your password" 
+                      className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`} 
+                    />
+                    <button type="button" onClick={togglePasswordVisibility} className={styles.eyeButton}>
+                      <svg className={styles.eyeIcon} stroke="currentColor">
+                        <use href={`/src/img/sprite.svg#${showPassword ? "icon-eye" : "icon-eye-off"}`} />
+                      </svg>
+                    </button>
+                  </div>
                   {meta.touched && meta.error && <div className={styles.error}>{meta.error}</div>}
                 </div>
               )}
@@ -105,19 +107,21 @@ export function SignUpForm() {
             </label>
             <Field name="repeatPassword">
               {({ field, meta }) => (
-                <div className={styles.passwordWrapper}>
-                  <input
-                    {...field}
-                    type={showRepeatPassword ? "text" : "password"}
-                    id={repeatPasswordFieldId}
-                    placeholder="Repeat password"
-                    className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`}
-                  />
-                  <button type="button" onClick={toggleRepeatPasswordVisibility} className={styles.eyeButton}>
-                    <svg className={styles.eyeIcon}>
-                      <use href={`/src/img/sprite.svg#${showRepeatPassword ? "icon-eye" : "icon-eye-off"}`} />
-                    </svg>
-                  </button>
+                <div>
+                  <div className={styles.passwordWrapper}>
+                    <input 
+                      {...field} 
+                      type={showRepeatPassword ? "text" : "password"} 
+                      id={repeatPasswordFieldId} 
+                      placeholder="Repeat password" 
+                      className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`} 
+                    />
+                    <button type="button" onClick={toggleRepeatPasswordVisibility} className={styles.eyeButton}>
+                      <svg className={styles.eyeIcon} stroke="currentColor">
+                        <use href={`/src/img/sprite.svg#${showRepeatPassword ? "icon-eye" : "icon-eye-off"}`} />
+                      </svg>
+                    </button>
+                  </div>
                   {meta.touched && meta.error && <div className={styles.error}>{meta.error}</div>}
                 </div>
               )}
@@ -136,6 +140,7 @@ export function SignUpForm() {
     </Formik>
   );
 }
+
 
 
 
