@@ -4,6 +4,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout/Layout";
 import { Toaster } from "react-hot-toast";
+import { WaterModal } from "./components/WaterModal/WaterModal";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage'));
@@ -13,8 +14,10 @@ const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 
 export const App = () => {
 
+
   return (
     <>
+      <WaterModal isOpen={true}></WaterModal>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
