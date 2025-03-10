@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { Loader } from '../Loader/Loader.jsx';
 import photo from '../../img/avatar-default.svg';
@@ -8,11 +8,11 @@ import css from './UserSettingsForm.module.css';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validationSchema.js';
-import { updateUser } from '../../redux/auth/operations.js';
-import { selectUser, selectUserAvatar } from '../../redux/auth/selectors.js';
-
+// import { updateUser } from '../../redux/auth/operations.js';
+import { selectUser } from '../../redux/auth/selectors.js';
+// selectUserAvatar
 const UserSettingsForm = ({ onClose }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [isAvatarSelected, setIsAvatarSelected] = useState(false);
   const [amount, setAmount] = useState(1.8);
@@ -37,7 +37,7 @@ const UserSettingsForm = ({ onClose }) => {
     },
   });
 
-  const avatarPhoto = useSelector(selectUserAvatar);
+  const avatarPhoto = useSelector();
 
   const [avatarPreview, setAvatarPreview] = useState(
     avatarPhoto ? avatarPhoto : photo,
@@ -93,7 +93,7 @@ const UserSettingsForm = ({ onClose }) => {
 
     if (isAvatarSelected || Object.keys(data).some((key) => hasChanged(key))) {
       try {
-        dispatch(updateUser(formData));
+        // dispatch(updateUser(formData));
         toast.success('The settings has been updated successfully!');
         onClose();
       } catch (error) {
