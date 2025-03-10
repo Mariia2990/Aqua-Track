@@ -49,7 +49,7 @@ const UserSettingsForm = ({ onClose }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('/users/profile');
+        const response = await axios.get('/users/current');
         const result = response;
         setUserData(result.data);
       } catch (error) {
@@ -102,7 +102,7 @@ const UserSettingsForm = ({ onClose }) => {
       formData.append('gender', gender);
       formData.append('weight', data.weight);
 
-      await axios.patch('/users/update', formData);
+      await axios.patch(`/users/${userData._id}`, formData);
 
       // setIsUserUpdated(true);
       toast.success('Your data has been updated successfully');
