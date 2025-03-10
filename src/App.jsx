@@ -30,7 +30,6 @@ export const App = () => {
               <PrivateRoute redirectTo="/signin" component={<TrackerPage />} />
             }
           />
-
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
