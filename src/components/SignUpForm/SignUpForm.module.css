@@ -1,0 +1,193 @@
+/*src/components/SignUpForm/SignUpForm.module.css*/
+.form {
+  width: 311px;
+  margin: 0 auto;
+  margin-bottom: 16px;
+  margin-top: 172px;
+}
+
+/* Заголовок */
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.boxInput {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+/* Лейбли */
+.label {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+}
+
+/* Інпути */
+.input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid rgba(47, 47, 47, 0.2);
+  border-radius: 15px;
+  padding: 16px;
+  font-size: 14px;
+  color: #2f2f2f;
+  background: transparent !important;
+  appearance: none;
+}
+
+/* Повне видалення автозаповнення стилів */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* При помилці — бордер червоного кольору */
+.inputError {
+  border: 1px solid #ef5050;
+}
+
+/* Повідомлення про помилки */
+.error {
+  font-size: 14px;
+  color: #ef5050;
+  margin-top: 10px;
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+}
+
+/* Стилізація пароля з іконкою ока */
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordWrapper input {
+  padding-right: 40px;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.eyeIcon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+}
+
+/* Стилізація тексту під формою */
+.text {
+  font-size: 14px;
+  color: rgba(47, 47, 47, 0.6);
+  text-align: center;
+}
+
+/* Посилання Sign In */
+.link {
+  font-weight: 700;
+  font-size: 14px;
+  color: #2f2f2f;
+  text-decoration: underline;
+}
+
+/* Кнопка Sign Up */
+.button {
+  border-radius: 30px;
+  width: 311px;
+  height: 50px;
+  background-color: #9be1a0;
+  font-weight: 700;
+  font-size: 14px;
+  color: #323f47;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #87d28d;
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  .form {
+    width: 400px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .label,
+  .input,
+  .text {
+    font-size: 16px;
+  }
+
+  .boxInput {
+    margin-bottom: 20px;
+  }
+
+  .input {
+    width: 400px;
+    height: 56px;
+  }
+
+  .button {
+    width: 400px;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1440px) {
+  .form {
+    width: 450px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .label,
+  .input,
+  .text {
+    font-size: 16px;
+  }
+
+  .boxInput {
+    margin-bottom: 20px;
+  }
+
+  .input {
+    width: 450px;
+    height: 56px;
+  }
+
+  .button {
+    width: 450px;
+  }
+}
