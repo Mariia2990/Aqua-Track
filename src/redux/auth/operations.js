@@ -1,78 +1,68 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import toast from "react-hot-toast";
-
-export const baseURL = axios.create({
-  baseURL: "https://your-api.com/api",
-});
-
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+axios.defaults.baseURL = 'https://aqua-track-api.onrender.com/';
 const setAuthHeader = (token) => {
-  baseURL.defaults.headers.common.Authorization = `Bearer ${token}`;
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
-
 const clearAuthHeader = () => {
-  baseURL.defaults.headers.common.Authorization = "";
+  axios.defaults.headers.common.Authorization = '';
 };
-
 export const register = createAsyncThunk(
-  "/register",
+  'auth/register',
   async (credentials, thunkAPI) => {
+    console.log(credentials);
     try {
-      const response = await baseURL.post("/signup", credentials);
+      const response = await axios.post('/users/signup', credentials);
       setAuthHeader(response.data.token);
-      toast.success("Successfully registered!");
+      toast.success('Successfully registered!');
       return response.data;
     } catch (e) {
-      toast.error("Try again...");
+      toast.error('Try again...');
       return thunkAPI.rejectWithValue(e.message);
     }
-  }
+  },
 );
-
 export const login = createAsyncThunk(
-  "/login",
+  'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const response = await baseURL.post("/login", credentials);
+      const response = await axios.post('/users/signin', credentials);
       setAuthHeader(response.data.token);
-      toast.success("Successfully logged in!");
+      toast.success('Successfully logged in!');
       return response.data;
     } catch (e) {
-      toast.error("Try again...");
+      toast.error('Try again...');
       return thunkAPI.rejectWithValue(e.message);
     }
-  }
+  },
 );
-
-export const logOut = createAsyncThunk("/logout", async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const response = await baseURL.post("/logout");
+    const response = await axios.post('/users/logout');
     clearAuthHeader();
-    toast.success("Goodbye!");
+    toast.success('Goodbye!');
     return response.data;
   } catch (e) {
-    toast.error("Try again...");
+    toast.error('Try again...');
     return thunkAPI.rejectWithValue(e.message);
   }
 });
-
 export const refreshUser = createAsyncThunk(
-  "/refresh",
+  'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-
     if (!persistedToken) {
-      return thunkAPI.rejectWithValue("Unable to fetch user");
+      return thunkAPI.rejectWithValue('Unable to fetch user');
     }
-
     try {
       setAuthHeader(persistedToken);
-      const response = await baseURL.get("/current");
+      const response = await axios.get('/users/current');
       return response.data;
     } catch (e) {
-      toast.error("Try again...");
+      toast.error('Try again...');
       return thunkAPI.rejectWithValue(e.message);
     }
-  }
+  },
 );
