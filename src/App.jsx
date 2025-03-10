@@ -26,8 +26,8 @@ export const App = () => {
                 <RestrictedRoute redirectTo="/tracker" element={<SignUpPage />}/>}/>
             <Route path="/signin" element={
                 <RestrictedRoute redirectTo="/tracker" element={<SignInPage />}/>}/>
-            <Route path="/tracker" element={<TrackerPage />
-                // <PrivateRoute redirectTo="/signin" element={<TrackerPage />}/>
+            <Route path="/tracker" element={
+                <PrivateRoute redirectTo="/signin" element={<TrackerPage />}/>
             }/>
 
           <Route path="*" element={<NotFoundPage />} />
