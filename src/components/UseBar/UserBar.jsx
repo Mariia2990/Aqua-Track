@@ -1,14 +1,14 @@
 import { useState, useRef, useCallback } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-import sprite from '../../img/sprite.svg';
-import css from './UserBar.module.css';
 import { useClockOutside } from '../../hook/useClickOutside.jsx';
 import { UserBarPopover } from '../UserBarPopover/UserBarPopover';
 import { GlobalModal } from '../GlobalModal/GlobalModal';
 import UserSettingsForm from '../UserSettingsForm/UserSettingsForm';
 import { LogOutModal } from '../LogOutModal/LogOutModal';
-
-export const UserBar = ({ user }) => {
+import sprite from '../../img/sprite.svg';
+import css from './UserBar.module.css';
+// getFirstName,
+export const UserBar = ({ user, setIsUserUpdated }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [btn, setBtn] = useState('Settings' || 'Log out');
@@ -53,7 +53,12 @@ export const UserBar = ({ user }) => {
         {isMenuOpen && <UserBarPopover onOpenModal={handleOpenModal} />}
         {isModalOpen && (
           <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
-            {btn === 'Settings' && <UserSettingsForm />}
+            {btn === 'Settings' && (
+              <UserSettingsForm
+                onClose={handleCloseModal}
+                setIsUserUpdated={setIsUserUpdated}
+              />
+            )}
             {btn === 'Log out' && <LogOutModal onClose={handleCloseModal} />}
           </GlobalModal>
         )}
