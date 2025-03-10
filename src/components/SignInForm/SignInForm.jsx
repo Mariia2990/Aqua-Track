@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import sprite from '../../img/sprite.svg';
 import s from './SignInForm.module.css';
 
@@ -31,6 +32,8 @@ export const SignInForm = () => {
   });
 
   const onSubmit = async (data) => {
+    const toastId = toast.loading('Logging in...');
+
     try {
       const response = await fetch(
         'https://aquatrack-1v64.onrender.com/api/auth/login',
@@ -50,12 +53,15 @@ export const SignInForm = () => {
 
       const result = await response.json();
       localStorage.setItem('token', result.token);
+
+      toast.success('Login successful!', { id: toastId });
       navigate('/tracker');
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message || 'Something went wrong', { id: toastId });
+    } finally {
+      toast.dismiss(toastId);
+      reset();
     }
-
-    reset();
   };
 
   return (
@@ -68,7 +74,7 @@ export const SignInForm = () => {
           className={s.input}
           type="email"
           id="email"
-          placeholder="alex2939@mail.com"
+          placeholder="Enter your email"
           {...register('email')}
         />
         {errors.email && <div className={s.error}>{errors.email.message}</div>}

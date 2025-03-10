@@ -25,6 +25,10 @@
   color: #323f47;
 }
 
+.advantages {
+  display: none;
+}
+
 @media only screen and (min-width: 768px) {
   .signin_wrapper {
     border-radius: 30px;
@@ -44,10 +48,16 @@
 @media only screen and (min-width: 1440px) {
   .signin_wrapper {
     width: 672px;
-    padding: 32px 118px 169px 32px;
+    height: 736px;
+    padding: 32px 118px 0px 32px;
+    margin-right: 32px;
   }
 
   .redirect {
     margin-left: 178px;
+  }
+
+  .advantages {
+    display: block;
   }
 }
