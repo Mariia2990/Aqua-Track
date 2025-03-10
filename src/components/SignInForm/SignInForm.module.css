@@ -95,20 +95,17 @@
 .eyeButton {
   position: absolute;
   right: 18px;
-  top: 18px;
+  top: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
 }
 
 .eyeIcon {
-  width: 20px;
-  height: 20px;
-  fill: #2f2f2f;
-}
-
-.eyeButton:hover .eyeIcon {
-  fill: #333;
+  width: 18px;
+  height: 18px;
+  stroke: #2f2f2f;
+  fill: none;
 }
 
 @media only screen and (min-width: 768px) {
@@ -151,6 +148,16 @@
     border: none;
     font-size: 16px;
     line-height: 150%;
+  }
+
+  .eyeButton {
+    right: 18px;
+    top: 25px;
+  }
+
+  .eyeIcon {
+    width: 20px;
+    height: 20px;
   }
 }
 

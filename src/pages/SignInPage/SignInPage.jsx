@@ -20,6 +20,8 @@ export default function SignInPage() {
               Sign Up
             </NavLink>
           </p>
+        </div>
+        <div className={s.advantages}>
           <AdvantagesSection />
         </div>
       </Container>

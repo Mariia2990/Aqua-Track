@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logOut, refreshUser, register } from './operations';
-
+import { login, logOut, refreshUser, register, updateUser } from './operations';
 const slice = createSlice({
   name: 'auth',
   initialState: {
@@ -17,18 +16,32 @@ const slice = createSlice({
     isLoggedIn: false,
     isRefreshing: false,
   },
-
+  reducers: {
+    setToken(state, action) {
+      state.token = action.payload.token;
+      state.refreshToken = action.payload.refreshToken;
+      state.isLoggedIn = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
-        state.isLoggedIn = true;
+        state.refreshToken = action.payload.refreshToken;
+        state.isLoggedIn = false;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.error = action.payload;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken;
         state.isLoggedIn = true;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.error = action.payload;
       })
       .addCase(logOut.fulfilled, (state) => {
         state.user = {
@@ -53,8 +66,24 @@ const slice = createSlice({
       })
       .addCase(refreshUser.rejected, (state) => {
         state.isRefreshing = false;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.error = '';
+        state.isRefreshing = false;
+        state.user.email = action.payload.email;
+        state.user.name = action.payload.name;
+        state.user.gender = action.payload.gender;
+        state.user.avatar = action.payload.avatarUrl;
+        state.user.weight = action.payload.weight;
+        state.user.DailyActivityTime = action.payload.DailyActivityTime;
+        state.user.DailyWaterNorm = action.payload.DailyWaterNorm;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
-
 export const authReducer = slice.reducer;
