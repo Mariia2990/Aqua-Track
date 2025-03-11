@@ -37,7 +37,7 @@ export const login = createAsyncThunk(
     }
   },
 );
-export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
   try {
     const response = await axios.post('/users/logout');
     clearAuthHeader();
@@ -71,7 +71,7 @@ export const updateUser = createAsyncThunk(
   'auth/update',
   async (data, thunkAPI) => {
     try {
-      const res = await axios.put('users/update', data, {
+      const res = await axios.put('/users/update', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
