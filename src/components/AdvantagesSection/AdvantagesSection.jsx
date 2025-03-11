@@ -1,7 +1,7 @@
 import css from './AdvantagesSection.module.css';
-import user_1 from '../../img/user-1.png';
-import user_2 from '../../img/user-2.png';
-import user_3 from '../../img/user-3.png';
+import user_1 from '/public/img/user-1.png';
+import user_2 from '/public/img/user-2.png';
+import user_3 from '/public/img/user-3.png';
 
 export const AdvantagesSection = () => {
   return (

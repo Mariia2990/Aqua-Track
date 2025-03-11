@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import sprite from '../../img/sprite.svg';
+import sprite from '/public/img/sprite.svg';
 import s from './SignInForm.module.css';
 
 export const SignInForm = () => {

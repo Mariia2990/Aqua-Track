@@ -5,7 +5,7 @@ import { UserBarPopover } from '../UserBarPopover/UserBarPopover';
 import { GlobalModal } from '../GlobalModal/GlobalModal';
 import UserSettingsForm from '../UserSettingsForm/UserSettingsForm';
 import { LogOutModal } from '../LogOutModal/LogOutModal';
-import sprite from '../../img/sprite.svg';
+import sprite from '/public/img/sprite.svg';
 import css from './UserBar.module.css';
 // getFirstName,
 export const UserBar = ({ user, setIsUserUpdated }) => {
