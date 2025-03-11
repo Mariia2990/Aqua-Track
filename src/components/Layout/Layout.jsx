@@ -5,9 +5,9 @@ import { Loader } from "../Loader/Loader";
 export const Layout = () => {
   return (
     <>
-        <Suspense fallback={<Loader absolute={true}/>}>
+        {/* <Suspense fallback={<Loader absolute={true}/>}> */}
           <Outlet />
-        </Suspense>
+        {/* </Suspense> */}
     </>
   );
 };
