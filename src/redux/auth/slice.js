@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logOut, refreshUser, register, updateUser } from './operations';
+
 const slice = createSlice({
   name: 'auth',
   initialState: {
@@ -15,6 +16,7 @@ const slice = createSlice({
     token: null,
     isLoggedIn: false,
     isRefreshing: false,
+    error: null, 
   },
   reducers: {
     setToken(state, action) {
@@ -25,11 +27,14 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(register.pending, (state) => {
+        state.error = null; 
+      })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = false;
+        state.isLoggedIn = true; 
       })
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload;
@@ -86,4 +91,6 @@ const slice = createSlice({
       });
   },
 });
+
 export const authReducer = slice.reducer;
+

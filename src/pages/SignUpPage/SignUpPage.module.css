@@ -1,65 +1,62 @@
 /*src/pages/SignUpPage/SignUpPage.module.css*/
-/* Основний контейнер сторінки */
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  /*min-height: 100vh; /* Щоб wrapper займав всю висоту екрану */
-}
-
-/* Блок з логотипом і формою */
-.formContainer {
-  background-color: #f0eff4;
-  width: 100%;
-  /*min-height: 100vh; /* Вирівнюємо висоту */
-  padding: 24px 16px;
+.signup_wrapper {
   border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 1;
+  background-color: #f0eff4;
+  width: 343px;
+  padding: 24px 16px 216px 16px;
 }
 
-/* Вирівнювання логотипа */
-.formContainer > svg {
-  display: block;
-  margin-bottom: 32px;
+.signup_form {
 }
 
-/* Блок з AdvantagesSection */
-.advantagesContainer {
+.redirect {
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: rgba(47, 47, 47, 0.5);
+}
+
+.redirect_to_signin {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #323f47;
+}
+
+.advantages {
   display: none;
-  width: 100%;
-  min-height: 100vh;
-  flex-grow: 1;
 }
 
-/*Планшетна версія */
 @media only screen and (min-width: 768px) {
-  .formContainer {
-    padding: 32px;
+  .signup_wrapper {
+    border-radius: 30px;
+    width: 704px;
+    padding: 32px 134px 281px 32px;
+  }
+
+  .redirect {
+    font-size: 16px;
+    line-height: 150%;
+    text-align: left;
+    margin-left: 194px;
   }
 }
 
-/* Десктопна версія */
 @media only screen and (min-width: 1440px) {
-  .wrapper {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
-    min-height: 100vh;
+  .signup_wrapper {
+    width: 672px;
+    height: 736px;
+    padding: 32px 118px 0px 32px;
+    margin-right: 32px;
   }
 
-  .formContainer {
-    width: 50%;
-    padding: 32px;
+  .redirect {
+    margin-left: 178px;
   }
 
-  .advantagesContainer {
-    display: flex;
-    width: 50%;
-    align-items: center;
-    justify-content: center;
+  .advantages {
+    display: block;
   }
 }
