@@ -5,6 +5,7 @@ import { UserBarPopover } from '../UserBarPopover/UserBarPopover';
 import { GlobalModal } from '../GlobalModal/GlobalModal';
 import UserSettingsForm from '../UserSettingsForm/UserSettingsForm';
 import { LogOutModal } from '../LogOutModal/LogOutModal';
+import photo from '/public/img/avatar-default.svg';
 import sprite from '/public/img/sprite.svg';
 import css from './UserBar.module.css';
 // getFirstName,
@@ -44,7 +45,7 @@ export const UserBar = ({ user, setIsUserUpdated }) => {
           {user ? (
             <img src={user.avatar} alt="User Avatar" className={css.avatar} />
           ) : (
-            <FaUserCircle className={css['icon-avatar']} />
+            <img src={photo} alt="User Avatar" className={css.avatar} />
           )}
           <svg className={`${css.chevron} ${isMenuOpen ? css.open : ''}`}>
             <use href={sprite + '#icon-chevron-down'} />
