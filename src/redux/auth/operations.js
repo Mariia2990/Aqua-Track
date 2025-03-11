@@ -9,7 +9,7 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 export const register = createAsyncThunk(
-  'users/signup',
+  'auth/signup',
   async (credentials, thunkAPI) => {
     console.log(credentials);
     try {
@@ -24,7 +24,7 @@ export const register = createAsyncThunk(
   },
 );
 export const login = createAsyncThunk(
-  'users/signin',
+  'auth/signin',
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/users/signin', credentials);
@@ -37,7 +37,7 @@ export const login = createAsyncThunk(
     }
   },
 );
-export const logOut = createAsyncThunk('/users/logout', async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
   try {
     const response = await axios.post('/users/logout');
     clearAuthHeader();
@@ -49,7 +49,7 @@ export const logOut = createAsyncThunk('/users/logout', async (_, thunkAPI) => {
   }
 });
 export const refreshUser = createAsyncThunk(
-  'users/refresh',
+  'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
@@ -68,7 +68,7 @@ export const refreshUser = createAsyncThunk(
 );
 
 export const updateUser = createAsyncThunk(
-  'users/update',
+  'auth/update',
   async (data, thunkAPI) => {
     try {
       const res = await axios.put('/users/update', data, {
