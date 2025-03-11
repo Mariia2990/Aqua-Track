@@ -109,9 +109,9 @@ export function SignUpForm() {
         {isSubmitting ? "Registering..." : "Sign Up"}
       </button>
 
-      <p className={styles.text}>
+      {/* <p className={styles.text}>
         Already have an account? <Link to="/signin" className={styles.link}>Sign In</Link>
-      </p>
+      </p> */}
     </form>
   );
 }
