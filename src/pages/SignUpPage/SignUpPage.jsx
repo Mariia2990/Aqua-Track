@@ -4,7 +4,7 @@ import { AdvantagesSection } from "../../components/AdvantagesSection/Advantages
 import Container from "../../components/Container/Container";
 import Logo from "../../components/Logo/Logo";
 import styles from "./SignUpPage.module.css";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function SignUpPage() {
   return (
@@ -14,9 +14,9 @@ export default function SignUpPage() {
         <SignUpForm className={styles.signup_form} />
         <p className={styles.redirect}>
           Already have an account?{" "}
-          <NavLink className={styles.redirect_to_signin} to="/signin">
+          <Link className={styles.redirect_to_signin} to="/signin">
             Sign In
-          </NavLink>
+          </Link>
         </p>
       </div>
       <div className={styles.advantages}>
