@@ -55,8 +55,8 @@ border: none;
 transition: var(--animation);
 }
 
-.button:hover,
-.button:focus {
+.buttonGreen:hover,
+.buttonGreen:focus {
   background: #87d28d;
 }
 
