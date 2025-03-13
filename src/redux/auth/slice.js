@@ -39,6 +39,7 @@ const slice = createSlice({
         state.token = action.payload.accessToken;
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         state.isLoggedIn = true;
+        // setAuthHeader(action.payload.accessToken);
       })
       .addCase(logOut.fulfilled, (state) => {
         state.user = initialState.user;
@@ -58,6 +59,8 @@ const slice = createSlice({
       })
       .addCase(refreshUser.rejected, (state) => {
         state.isRefreshing = false;
+        state.token = null;
+        localStorage.removeItem('refreshToken');
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload };
