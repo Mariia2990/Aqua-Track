@@ -8,6 +8,7 @@
   background-image: url('/public/img/bottle_for_water@1x.png');
   background-repeat: no-repeat;
   background-position: center;
+  padding: 24px 16px;  
 }
 
 .norma{
@@ -32,6 +33,7 @@
   .wrapper{
     height: 578px;
     background-image: url('/public/img/bottle_for_water_tablet@1x.png');
+    padding: 32px;
   }
 
   .norma{
@@ -52,7 +54,7 @@
 
 @media (min-width: 1024px) {
   .wrapper{
-    width: 50%;
+    width: 672px;
     height: 736px;
     background-image: url('/public/img/bottle_for_water_laptop@1x.png');
   }
