@@ -18,7 +18,7 @@ import { waterReducer } from "./water/slice.js";
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["token"],
+  whitelist: [],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
