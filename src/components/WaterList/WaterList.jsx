@@ -9,8 +9,7 @@ export function WaterList() {
   const waterData = useSelector(selectWater);
   const dispatch = useDispatch();
 
-  useEffect
-    (() => {
+  useEffect(() => {
     dispatch(fetchWaterDataDaily());
   }, [dispatch]);
 
