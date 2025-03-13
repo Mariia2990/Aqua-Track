@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import sprite from '/public/img/sprite.svg';
+import sprite from '/img/sprite.svg';
 import styles from "./SignUpForm.module.css";
 
 const validationSchema = Yup.object({
