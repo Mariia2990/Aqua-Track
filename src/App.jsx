@@ -51,15 +51,7 @@ export const App = () => {
                 />
               }
             />
-            <Route
-              path="/tracker"
-              element={
-                <PrivateRoute
-                  redirectTo="/tracker"
-                  component={<TrackerPage />}
-                />
-              }
-            />
+            <Route path="/tracker" element={<TrackerPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
