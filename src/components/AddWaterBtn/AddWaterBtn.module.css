@@ -24,9 +24,16 @@ display: flex;
   color: #9be1a0;
 }
 
+.wrapperBtn.daily{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+      fill: #fff;
+      align-items: center;
+}
+
 .wrapperBtn.daily:hover .plusIcon.daily {
   background-color: #323f47;
-  fill: #fff;
 }
 
 .plusIcon {

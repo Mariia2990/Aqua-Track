@@ -47,7 +47,7 @@ export const register = createAsyncThunk(
     try {
       const response = await axios.post('/users/signup', credentials);
       setAuthHeader(response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      // localStorage.setItem('refreshToken', response.data.refreshToken);
       toast.success('Successfully registered!');
       return response.data;
     } catch (e) {
@@ -63,7 +63,7 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post('/users/signin', credentials);
       setAuthHeader(response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      // localStorage.setItem('refreshToken', response.data.refreshToken);
       toast.success('Successfully logged in!');
       return response.data;
     } catch (e) {
@@ -77,7 +77,7 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     clearAuthHeader();
-    localStorage.removeItem('refreshToken');
+    // localStorage.removeItem('refreshToken');
     toast.success('Goodbye!');
     return {};
   } catch (e) {
@@ -107,20 +107,36 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 //   },
 // );
 
-export const refreshUser = createAsyncThunk(
-  'auth/refresh',
+export const refreshAccessToken = createAsyncThunk(
+  'auth/refreshToken',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Sorry, unable to fetch user');
-    }
+    const { refreshToken, sessionId } = thunkAPI.getState().auth;
     try {
-      setAuthHeader(persistedToken);
+      const responseData = await axios.post('users/refresh', {
+        refreshToken,
+        sessionId,
+      });
+      const dataRefresh = responseData.data;
+      return {
+        refreshToken: dataRefresh.refreshToken,
+        sessionId: dataRefresh.sessionId,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data || 'Помилка оновлення токену',
+      );
+    }
+  },
+);
+
+export const getCurrentUser = createAsyncThunk(
+  'auth/getCurrentUser',
+  async (_, thunkAPI) => {
+    try {
       const response = await axios.get('/users/current');
       return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e);
     }
   },
 );
@@ -130,6 +146,22 @@ export const updateUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await axios.put('/users/update', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const uploadUserAvatar = createAsyncThunk(
+  'auth/uploadUserAvatar',
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.put('/users/avatar', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

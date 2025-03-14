@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import { Loader } from './components/Loader/Loader';
 import { selectIsRefreshing } from './redux/auth/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { refreshUser } from './redux/auth/operations';
+import { refreshAccessToken } from './redux/auth/operations';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage'));
@@ -20,12 +20,13 @@ export const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(refreshUser());
+    dispatch(refreshAccessToken());
   }, [dispatch]);
 
   if (isRefreshing) {
     return <Loader absolute={true} />;
   }
+
 
   return (
     <>

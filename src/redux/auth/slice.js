@@ -1,8 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logOut, refreshUser, register, updateUser } from './operations';
-
+import {
+  login,
+  getCurrentUser,
+  logOut,
+  refreshAccessToken,
+  register,
+  updateUser,
+  uploadUserAvatar,
+} from './operations';
 const initialState = {
   user: {
+    _id: null,
     email: null,
     name: null,
     gender: null,
@@ -12,18 +20,18 @@ const initialState = {
     DailyWaterNorm: null,
   },
   token: null,
+  refreshToken: null,
+  sessionId: null,
   isLoggedIn: false,
   isRefreshing: false,
   error: null,
 };
-
 const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     setToken(state, action) {
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
+      state.token = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -31,44 +39,53 @@ const slice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
         state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        state.refreshToken = action.payload.refreshToken;
+        state.sessionId = action.payload.sessionId;
         state.isLoggedIn = true;
-        // setAuthHeader(action.payload.accessToken);
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload;
       })
       .addCase(logOut.fulfilled, (state) => {
         state.user = initialState.user;
         state.token = null;
-        // localStorage.removeItem('refreshToken');
+        state.sessionId = null;
+        state.refreshToken = null;
         state.isLoggedIn = false;
       })
-      .addCase(refreshUser.pending, (state) => {
+      .addCase(refreshAccessToken.pending, (state) => {
         state.isRefreshing = true;
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+      .addCase(refreshAccessToken.fulfilled, (state, action) => {
         state.token = action.payload.accessToken;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        state.refreshToken = action.payload.refreshToken;
+        state.sessionId = action.payload.sessionId;
         state.isLoggedIn = true;
-        state.isRefreshing = false;
       })
-      .addCase(refreshUser.rejected, (state) => {
+      .addCase(refreshAccessToken.rejected, (state) => {
         state.isRefreshing = false;
         state.token = null;
-        localStorage.removeItem('refreshToken');
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload };
       })
-      .addCase(updateUser.rejected, (state, action) => {
+      .addCase(uploadUserAvatar.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(uploadUserAvatar.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(uploadUserAvatar.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.payload;
       });
   },
 });
-
+export const { setToken } = slice.actions;
 export const authReducer = slice.reducer;

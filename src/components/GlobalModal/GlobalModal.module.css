@@ -9,11 +9,11 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 0 16px;
 }
 
 .modal_content {
-  width: auto;
-  max-width: 343px;
+  max-width: 100%;
   background-color: var(--main-white);
   padding: 40px 20px;
   border-radius: 15px;
@@ -21,6 +21,10 @@
   transition: all 0.3s ease-in-out;
   box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.1);
   opacity: 1;
+}
+
+.modal_content:focus-visible{
+  outline: none;
 }
 
 .modal_body {
@@ -45,17 +49,10 @@
 
 @media (min-width: 768px) {
   .modal_content {
-    max-width: 648px;
     padding: 40px 40px;
   }
 
   .modal_closeButton {
     right: 20px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .modal_content {
-    max-width: 920px;
   }
 }
