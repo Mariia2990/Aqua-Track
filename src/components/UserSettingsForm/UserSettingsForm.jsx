@@ -1,23 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
-import { Loader } from '../Loader/Loader.jsx';
 import photo from '/img/avatar-default.svg';
 import sprite from '/img/sprite.svg';
 import css from './UserSettingsForm.module.css';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validationSchema.js';
-// import { updateUser } from '../../redux/auth/operations.js';
-import { selectUser } from '../../redux/auth/selectors.js';
-// selectUserAvatar
+import { updateUser, uploadUserAvatar } from '../../redux/auth/operations.js';
+import { selectUser, selectUserAvatar } from '../../redux/auth/selectors.js';
+
 const UserSettingsForm = ({ onClose }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [isAvatarSelected, setIsAvatarSelected] = useState(false);
   const [amount, setAmount] = useState(1.8);
   const [gender, setGender] = useState('woman');
-  const [loading, setLoading] = useState(true);
+  console.log(user);
 
   const {
     register,
@@ -37,14 +36,15 @@ const UserSettingsForm = ({ onClose }) => {
     },
   });
 
-  const avatarPhoto = useSelector();
+  const avatarPhoto = useSelector(selectUserAvatar);
 
   const [avatarPreview, setAvatarPreview] = useState(
-    avatarPhoto ? avatarPhoto : photo,
+    avatarPhoto !== '' ? avatarPhoto : photo,
   );
 
-  const weight = watch('weight', 0);
-  const time = watch('time', 0);
+  const weight = watch('weight');
+  const time = watch('time');
+  const avatar = watch('avatar');
 
   useEffect(() => {
     if (weight && gender && time) {
@@ -61,29 +61,54 @@ const UserSettingsForm = ({ onClose }) => {
 
   const hiddenFileInput = useRef(null);
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    if (hiddenFileInput.current) {
-      hiddenFileInput.current.click();
+  const handleClick = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (hiddenFileInput.current) {
+        hiddenFileInput.current.click();
+      }
+    },
+    [hiddenFileInput],
+  );
+  const uploadAvatar = async (file) => {
+    const formData = new FormData();
+    if (isAvatarSelected) formData.append('avatar', file);
+    try {
+      await dispatch(uploadUserAvatar(formData));
+      toast.success('The avatar has been updated successfully!');
+    } catch (error) {
+      toast.error('Something went wrong. Please try again.');
     }
+    setValue('avatar', null);
   };
 
-  const handleChange = (event) => {
-    if (event.target.files) {
-      const fileUploaded = event.target.files[0];
-      setAvatarPreview(URL.createObjectURL(fileUploaded));
-      setValue('avatar', fileUploaded, {
-        shouldValidate: true,
-      });
-      setIsAvatarSelected(true);
-    }
-  };
+  const handleChange = useCallback(
+    (event) => {
+      if (event.target.files) {
+        const fileUploaded = event.target.files[0];
+        setAvatarPreview(URL.createObjectURL(fileUploaded));
+        setValue('avatar', fileUploaded, {
+          shouldValidate: true,
+        });
+        setIsAvatarSelected(true);
+        uploadAvatar(fileUploaded);
+        console.log(fileUploaded);
+      }
+    },
+    [setValue, setIsAvatarSelected, setAvatarPreview],
+  );
+
+  // useEffect(() => {
+  //   if (avatar && avatar[0]) {
+  //     console.log(avatar[0]);
+  //     uploadAvatar(avatar[0]);
+  //   }
+  // }, [avatar, dispatch, setValue]);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
     const hasChanged = (fieldName) => data[fieldName] !== user[fieldName];
 
-    if (isAvatarSelected) formData.append('avatar', data.avatar[0]);
     if (hasChanged('gender')) formData.append('gender', data.gender);
     if (hasChanged('name')) formData.append('name', data.name);
     if (hasChanged('email')) formData.append('email', data.email);
@@ -93,7 +118,7 @@ const UserSettingsForm = ({ onClose }) => {
 
     if (isAvatarSelected || Object.keys(data).some((key) => hasChanged(key))) {
       try {
-        // dispatch(updateUser(formData));
+        dispatch(updateUser(formData));
         toast.success('The settings has been updated successfully!');
         onClose();
       } catch (error) {
@@ -102,14 +127,6 @@ const UserSettingsForm = ({ onClose }) => {
     }
   };
 
-  if (loading)
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
-
-  setLoading(false);
   return (
     <div className={css.wrapper}>
       <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
@@ -146,7 +163,7 @@ const UserSettingsForm = ({ onClose }) => {
                     type="radio"
                     name="gender"
                     id="woman"
-                    value={gender ? gender : user.avatar}
+                    value="woman"
                     onChange={(e) => {
                       setGender(e.target.value);
                       setValue('gender', e.target.value);
@@ -154,7 +171,7 @@ const UserSettingsForm = ({ onClose }) => {
                     checked={gender === 'woman'}
                   />
                   <label className={css.radioLabel} htmlFor="woman">
-                    Female
+                    Woman
                   </label>
                 </div>
                 <div className={css.radioButton}>
@@ -163,7 +180,7 @@ const UserSettingsForm = ({ onClose }) => {
                     type="radio"
                     name="gender"
                     id="man"
-                    value={gender ? gender : user.avatar}
+                    value="man"
                     onChange={(e) => {
                       setGender(e.target.value);
                       setValue('gender', e.target.value);
@@ -171,7 +188,7 @@ const UserSettingsForm = ({ onClose }) => {
                     checked={gender === 'man'}
                   />
                   <label className={css.radioLabel} htmlFor="man">
-                    Male
+                    Man
                   </label>
                 </div>
               </div>
