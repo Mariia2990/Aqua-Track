@@ -8,7 +8,7 @@ export function DailyInfo() {
   return (
     <>
       <ChooseDate/>
-      <AddWaterBtn />
+      <AddWaterBtn section ="daily"/>
       <WaterList />
     </>
   );

@@ -4,6 +4,7 @@
   padding: 12px;
   width: 198px;
   height: 70px;
+  margin-bottom: 59px;
 }
 
 .progressValue {
@@ -18,7 +19,7 @@
 
 .progressBox {
   position: relative;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .label {

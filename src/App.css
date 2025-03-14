@@ -34,6 +34,7 @@ a {
 button {
   font-family: var(--main-font);
   cursor: pointer;
+  border: none;
 }
 
 img {

@@ -1,25 +1,77 @@
-.addButton {
-  background: #323F47;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 30px;
-  padding: 14px 20px;
-  width: 140px;
-  height: 46px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 129%;
-  letter-spacing: -0.01em;
-  text-align: center;
+.wrapper {
+display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-@media (min-width: 768px) {
-  .addButton {
-    padding: 18px 30px;
-    width: 178px;
-    height: 60px;
+
+.wrapperBtn.waterMain {
+      display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+  border-radius: 30px;
+  padding: 14px 20px;
+  background-color: #323f47;
+  border: none;
+}
+
+.wrapperBtn.waterMain:hover .plusIcon.waterMain {
+  fill: #9be1a0;
+}
+
+.wrapperBtn.waterMain:hover .text.waterMain {
+  color: #9be1a0;
+}
+
+.wrapperBtn.daily:hover .plusIcon.daily {
+  background-color: #323f47;
+  fill: #fff;
+}
+
+.plusIcon {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  min-height: 14px;
+}
+
+.plusIcon.waterMain {
+  fill: #fff;
+  transition: fill var(--animation);
+}
+
+.plusIcon.daily {
+  box-sizing: content-box;
+  padding: 8px;
+  border-radius: 30px;
+  background-color: #9be1a0;
+  fill: #323f47;
+  transition: background-color var(--animation), fill var(--animation);
+}
+
+.text {
+  font-family: var(--main-font);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.text.waterMain {
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.3;
+  transition: color var(--animation);
+}
+
+@media only screen and (min-width: 768px) {
+  .text.waterMain {
     font-size: 16px;
-    line-height: 150%;
+    line-height: 1.5;
   }
+}
+
+.text.daily {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #323f47;
 }
