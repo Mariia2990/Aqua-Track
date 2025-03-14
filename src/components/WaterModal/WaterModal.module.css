@@ -1,0 +1,28 @@
+.modal {
+  width: 100%;
+  max-width: 303px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modal_title {
+  max-width: 250px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  color: var(--main);
+}
+
+@media (min-width: 768px) {
+  .modal {
+    width:100%;
+    max-width: 438px;
+  }
+
+  .modal_title {
+    max-width: 350px;
+    font-size: 28px;
+    line-height: 32px;
+  }
+}

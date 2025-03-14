@@ -23,6 +23,10 @@
   opacity: 1;
 }
 
+.modal_content:focus-visible{
+  outline: none;
+}
+
 .modal_body {
   max-height: 80vh;
   overflow-y: auto;

@@ -27,6 +27,7 @@ export const App = () => {
     return <Loader absolute={true} />;
   }
 
+
   return (
     <>
       <Suspense fallback={<Loader absolute={true} />}>
