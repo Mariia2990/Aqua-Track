@@ -181,7 +181,12 @@
     width: 436px;
     margin-top: 113px;
     margin-left: 86px;
+    margin-bottom: auto;
   }
+
+            .error {
+              margin-top: 2px;
+            }
 
   .button {
     width: 436px;

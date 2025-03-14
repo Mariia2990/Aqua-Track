@@ -15,14 +15,14 @@ export const WaterMainInfo = () => {
   };
 
   // Обчислюємо % випитої води
-  const progress = (waterDrunk / dailyNorm) * 100;
+  const progress = Math.round((waterDrunk / dailyNorm) * 100);
 
   return (
     <div className={css.wrapper}>
       <Logo />
       <WaterDailyNorma dailyNorm={dailyNorm} setDailyNorm={setDailyNorm} className={css.norma}/>
       <WaterProgressBar progress={progress} className={css.progress}/>
-      <AddWaterBtn onAddWater={handleAddWater} className={css.btn}/>
+      <AddWaterBtn section="waterMain" onAddWater={handleAddWater} className={css.btn}/>
     </div>
   );
 
@@ -32,10 +32,10 @@ export const WaterMainInfo = () => {
 
 
 
-// 4. Додати і стилізувати svg на кнопці
-// 5. Додати зверху прогреса точну кількість відсотків випитої води
 
-// 7. Пофіксити перенаправлення від деної норми на ту форму де користувач вводить дену норму
+
+
+// 7. Пофіксити денну норму яка приймає з беку значення встановлене користувачем
 // 8. Пофіксити перенаправлення з add water на компонент модалки
-// 9. Пофіксити багу з літражем
-// 10.Додати лого
+
+

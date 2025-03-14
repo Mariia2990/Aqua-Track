@@ -1,0 +1,40 @@
+.calendarPagination {
+  margin-bottom: 24px;
+  display: flex;
+}
+
+.buttonPagination {
+  display: flex;
+  margin: 0 auto;
+  gap: 16px;
+}
+
+.dateFormat {
+  display: flex;
+  gap: 8px;
+}
+
+.paginationHeader {
+  color: #323f47;
+  margin-right: 50px;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 120% */
+  letter-spacing: -0.2px;
+  width: 66px;
+  height: 24px;
+}
+
+.paginationDate {
+  align-content: center;
+  color: #323f47;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 128.571% */
+  letter-spacing: -0.14px;
+}

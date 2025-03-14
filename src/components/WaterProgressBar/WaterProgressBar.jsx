@@ -4,6 +4,9 @@ export const WaterProgressBar = ({className, progress }) => {
   return(
     <div className={`${css.progressBox} ${className}`}>
       <p className={css.label}>Today</p>
+      <div className={css.progressValue} style={{ left: `calc(${progress}% - 5px)` }}>
+        {progress}%
+      </div>
       <input
         type="range"
         min="0"
