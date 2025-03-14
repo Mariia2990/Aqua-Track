@@ -12,11 +12,22 @@ const initialState = {
     { id: '1', volume: '1', date: '2:10' },
     { id: '2', volume: '3', date: '4:20' },
   ],
+
+  selectedDate: new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1,
+  ).toISOString(),
 };
 
 const slice = createSlice({
   name: 'water',
   initialState,
+  reducers: {
+    setDate: (state, action) => {
+      state.selectedDate = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchWaterDataDaily.fulfilled, (state, action) => {
@@ -43,5 +54,9 @@ const slice = createSlice({
       });
   },
 });
+
+// check selector here
+
+export const { setDate } = slice.actions;
 
 export const waterReducer = slice.reducer;
