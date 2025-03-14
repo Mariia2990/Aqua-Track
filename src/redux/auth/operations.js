@@ -12,34 +12,34 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
-axios.interceptors.response.use(
-  (res) => res,
-  async (err) => {
-    const originalRequest = err.config;
+// axios.interceptors.response.use(
+//   (res) => res,
+//   async (err) => {
+//     const originalRequest = err.config;
 
-    if (err.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      const refreshToken = localStorage.getItem('refreshToken');
+//     if (err.response?.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+//       const refreshToken = localStorage.getItem('refreshToken');
 
-      if (refreshToken) {
-        try {
-          const res = await axios.post('/users/refresh', { refreshToken });
+//       if (refreshToken) {
+//         try {
+//           const res = await axios.post('/users/refresh', { refreshToken });
 
-          setAuthHeader(res.data.accessToken);
-          localStorage.setItem('refreshToken', res.data.refreshToken);
-          originalRequest.headers.Authorization = `Bearer ${ res.data.accessToken }`;
+//           setAuthHeader(res.data.accessToken);
+//           localStorage.setItem('refreshToken', res.data.refreshToken);
+//           originalRequest.headers.Authorization = `Bearer ${ res.data.accessToken }`;
 
-          return axios(originalRequest);
-        } catch (refreshError) {
-          localStorage.removeItem('refreshToken');
-          clearAuthHeader();
-          return Promise.reject(refreshError);
-        }
-      }
-    }
-    return Promise.reject(err);
-  },
-);
+//           return axios(originalRequest);
+//         } catch (refreshError) {
+//           localStorage.removeItem('refreshToken');
+//           clearAuthHeader();
+//           return Promise.reject(refreshError);
+//         }
+//       }
+//     }
+//     return Promise.reject(err);
+//   },
+// );
 
 export const register = createAsyncThunk(
   'auth/signup',
@@ -86,26 +86,45 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
+// export const refreshUser = createAsyncThunk(
+//   'auth/refresh',
+//   async (_, thunkAPI) => {
+//     const refreshToken = localStorage.getItem('refreshToken');
+
+//     if (!refreshToken) {
+//       return thunkAPI.rejectWithValue('No refresh token available');
+//     }
+
+//     try {
+//       const response = await axios.post('/users/refresh', { refreshToken });
+//       setAuthHeader(response.data.accessToken);
+//       localStorage.setItem('refreshToken', response.data.refreshToken);
+//       return response.data;
+//     } catch (e) {
+//       localStorage.removeItem('refreshToken');
+//       return thunkAPI.rejectWithValue(e.message);
+//     }
+//   },
+// );
+
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    if (!refreshToken) {
-      return thunkAPI.rejectWithValue('No refresh token available');
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Sorry, unable to fetch user');
     }
-
     try {
-      const response = await axios.post('/users/refresh', { refreshToken });
-      setAuthHeader(response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      setAuthHeader(persistedToken);
+      const response = await axios.get('/users/current');
       return response.data;
-    } catch (e) {
-      localStorage.removeItem('refreshToken');
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
+
 export const updateUser = createAsyncThunk(
   'auth/update',
   async (data, thunkAPI) => {

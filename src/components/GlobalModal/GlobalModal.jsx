@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 
 import css from './GlobalModal.module.css';
 
-import sprite from '/public/img/sprite.svg';
+import sprite from '/img/sprite.svg';
 
 export const GlobalModal = ({ isOpen, onClose, children }) => {
   return (

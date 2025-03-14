@@ -4,14 +4,14 @@
   background-color: var(--background);
   height: 353px;
   padding: 209px 16px 32px;
-  background-image: url("/public/img/baner@2x.jpg");
+  background-image: url("/img/baner@2x.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 /* @media only screen and (min-resolution: 192dpi) {
   .advantages_main {
-    background-image: url("/public/img/baner@2x.jpg");
+    background-image: url("/img/baner@2x.jpg");
   }
 } */
 .advantages_users {
