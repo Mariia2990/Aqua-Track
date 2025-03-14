@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     gap:32px;
-    width: 311px;
+    /* width: 311px; */
 }
 
 .text{
@@ -50,7 +50,6 @@
     flex-direction: row;
     gap: 10px;
     border-radius: 30px;
-    /*padding: 14px 19px;*/
     width: 116px;
     height: 46px;
     font-weight: 700;
@@ -61,6 +60,12 @@
     color: #323f47;
 }
 
+.btngray:hover, .btngray:focus{
+    color:#87D28D;
+    border-color: #87D28D;
+
+}
+
 .btngray{
     display: flex;
     align-items: center;
@@ -69,7 +74,6 @@
     gap: 10px;
     border: 1px solid #323f47;
     border-radius: 30px;
-    /*padding: 14px 28px;*/
     width: 104px;
     height: 46px;
     font-weight: 700;
@@ -78,6 +82,7 @@
     letter-spacing: -0.01em;
     text-align: center;
     color: #323f47;
+    transition: var(--animation);
 }
 
 @media only screen and (min-width: 768px) {

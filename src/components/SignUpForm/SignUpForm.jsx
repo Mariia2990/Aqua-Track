@@ -1,13 +1,14 @@
 // src/components/SignUpForm/SignUpForm.jsx
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
 import { useNavigate, Link } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import toast from "react-hot-toast";
+import sprite from '/img/sprite.svg';
 import styles from "./SignUpForm.module.css";
-import { useId } from "react";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Email is required"),
@@ -26,120 +27,98 @@ export function SignUpForm() {
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleRepeatPasswordVisibility = () => setShowRepeatPassword(!showRepeatPassword);
 
-  const emailFieldId = useId();
-  const passwordFieldId = useId();
-  const repeatPasswordFieldId = useId();
+  const {
+    register: formRegister,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
-  const handleSubmit = (values, { resetForm }) => {
-    dispatch(register({ email: values.email, password: values.password }))
-      .unwrap()
-      .then(() => {
-        toast.success("Successfully registered!");
-        navigate("/tracker");
-      })
-      .catch((error) => {
-        toast.error("Registration error: " + error);
-      });
+  const onSubmit = async (data) => {
+    const toastId = toast.loading("Registering...");
 
-    resetForm();
+    try {
+      await dispatch(register({ email: data.email, password: data.password })).unwrap();
+      toast.success("Registration successful!", { id: toastId });
+      navigate("/tracker");
+    } catch (error) {
+      toast.error(error.message || "Registration failed", { id: toastId });
+    } finally {
+      toast.dismiss(toastId);
+      reset();
+    }
   };
 
   return (
-    <Formik
-      initialValues={{ email: "", password: "", repeatPassword: "" }}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ isSubmitting }) => (
-        <Form className={styles.form}>
-          <h2 className={styles.title}>Sign Up</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <h1 className={styles.title}>Sign Up</h1>
 
-          <div className={styles.boxInput}>
-            <label className={styles.label} htmlFor={emailFieldId}>
-              Email
-            </label>
-            <Field name="email">
-              {({ field, meta }) => (
-                <div>
-                  <input 
-                    {...field} 
-                    type="email" 
-                    id={emailFieldId} 
-                    placeholder="Enter your email" 
-                    className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`} 
-                  />
-                  {meta.touched && meta.error && <div className={styles.error}>{meta.error}</div>}
-                </div>
-              )}
-            </Field>
-          </div>
+      <div className={styles.boxInput}>
+        <label className={styles.label} htmlFor="email">Email</label>
+        <input
+          {...formRegister("email")}
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
+        />
+        {errors.email && <div className={styles.error}>{errors.email.message}</div>}
+      </div>
 
-          <div className={styles.boxInput}>
-            <label className={styles.label} htmlFor={passwordFieldId}>
-              Password
-            </label>
-            <Field name="password">
-              {({ field, meta }) => (
-                <div>
-                  <div className={styles.passwordWrapper}>
-                    <input 
-                      {...field} 
-                      type={showPassword ? "text" : "password"} 
-                      id={passwordFieldId} 
-                      placeholder="Enter your password" 
-                      className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`} 
-                    />
-                    <button type="button" onClick={togglePasswordVisibility} className={styles.eyeButton}>
-                      <svg className={styles.eyeIcon} stroke="currentColor">
-                        <use href={`/src/img/sprite.svg#${showPassword ? "icon-eye" : "icon-eye-off"}`} />
-                      </svg>
-                    </button>
-                  </div>
-                  {meta.touched && meta.error && <div className={styles.error}>{meta.error}</div>}
-                </div>
-              )}
-            </Field>
-          </div>
-
-          <div className={styles.boxInput}>
-            <label className={styles.label} htmlFor={repeatPasswordFieldId}>
-              Repeat Password
-            </label>
-            <Field name="repeatPassword">
-              {({ field, meta }) => (
-                <div>
-                  <div className={styles.passwordWrapper}>
-                    <input 
-                      {...field} 
-                      type={showRepeatPassword ? "text" : "password"} 
-                      id={repeatPasswordFieldId} 
-                      placeholder="Repeat password" 
-                      className={`${styles.input} ${meta.touched && meta.error ? styles.inputError : ""}`} 
-                    />
-                    <button type="button" onClick={toggleRepeatPasswordVisibility} className={styles.eyeButton}>
-                      <svg className={styles.eyeIcon} stroke="currentColor">
-                        <use href={`/src/img/sprite.svg#${showRepeatPassword ? "icon-eye" : "icon-eye-off"}`} />
-                      </svg>
-                    </button>
-                  </div>
-                  {meta.touched && meta.error && <div className={styles.error}>{meta.error}</div>}
-                </div>
-              )}
-            </Field>
-          </div>
-
-          <button type="submit" className={styles.button} disabled={isSubmitting}>
-            {isSubmitting ? "Registering..." : "Sign Up"}
+      <div className={styles.boxInput}>
+        <label className={styles.label} htmlFor="password">Password</label>
+        <div className={styles.passwordWrapper}>
+          <input
+            {...formRegister("password")}
+            type={showPassword ? "text" : "password"}
+            id="password"
+            placeholder="Enter your password"
+            className={`${styles.input} ${errors.password ? styles.inputError : ""}`}
+          />
+          <button type="button" className={styles.eyeButton} onClick={togglePasswordVisibility}>
+            <svg className={styles.eyeIcon}>
+              <use xlinkHref={`${sprite}#${showPassword ? "icon-eye" : "icon-eye-off"}`} />
+            </svg>
           </button>
+        </div>
+        {errors.password && <div className={styles.error}>{errors.password.message}</div>}
+      </div>
 
-          <p className={styles.text}>
-            Already have an account? <Link to="/signin" className={styles.link}>Sign In</Link>
-          </p>
-        </Form>
-      )}
-    </Formik>
+      <div className={styles.boxInput}>
+        <label className={styles.label} htmlFor="repeatPassword">Repeat Password</label>
+        <div className={styles.passwordWrapper}>
+          <input
+            {...formRegister("repeatPassword")}
+            type={showRepeatPassword ? "text" : "password"}
+            id="repeatPassword"
+            placeholder="Repeat password"
+            className={`${styles.input} ${errors.repeatPassword ? styles.inputError : ""}`}
+          />
+          <button type="button" className={styles.eyeButton} onClick={toggleRepeatPasswordVisibility}>
+            <svg className={styles.eyeIcon}>
+              <use xlinkHref={`${sprite}#${showRepeatPassword ? "icon-eye" : "icon-eye-off"}`} />
+            </svg>
+          </button>
+        </div>
+        {errors.repeatPassword && <div className={styles.error}>{errors.repeatPassword.message}</div>}
+      </div>
+
+      <button type="submit" className={styles.button} disabled={isSubmitting}>
+        {isSubmitting ? "Registering..." : "Sign Up"}
+      </button>
+
+      {/* <p className={styles.text}>
+        Already have an account? <Link to="/signin" className={styles.link}>Sign In</Link>
+      </p> */}
+    </form>
   );
 }
+
+
+
+
 
 
 

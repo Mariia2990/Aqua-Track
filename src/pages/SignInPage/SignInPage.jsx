@@ -9,7 +9,7 @@ import { Logo } from '../../components/Logo/Logo.jsx';
 
 export default function SignInPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    // <Suspense fallback={<div>Loading...</div>}>
       <Container>
         <div className={s.signin_wrapper}>
           <Logo />
@@ -20,9 +20,11 @@ export default function SignInPage() {
               Sign Up
             </NavLink>
           </p>
+        </div>
+        <div className={s.advantages}>
           <AdvantagesSection />
         </div>
       </Container>
-    </Suspense>
+    // </Suspense>
   );
 }

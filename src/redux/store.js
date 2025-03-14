@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -8,28 +8,34 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import { authReducer } from "./auth/slice.js";
-import { usersReducer } from "./user/slice.js";
-import { waterReducer } from "./water/slice.js";
+import { authReducer } from './auth/slice.js';
+import { usersReducer } from './user/slice.js';
+import { waterReducer } from './water/slice.js';
 
 const authPersistConfig = {
-  key: "auth",
+  key: 'auth',
   storage,
-  whitelist: ["token"],
+  whitelist: ['token'], 
+};
+
+const waterPersistConfig = {
+  key: 'water',
+  storage,
+  whitelist: [], 
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedWaterReducer = persistReducer(waterPersistConfig, waterReducer);
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    water: waterReducer,
-    users: usersReducer,
+    water: persistedWaterReducer,
+    users: usersReducer, 
   },
-
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

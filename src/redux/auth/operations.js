@@ -1,78 +1,142 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import toast from "react-hot-toast";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
-export const baseURL = axios.create({
-  baseURL: "https://your-api.com/api",
-});
+axios.defaults.baseURL = 'https://aqua-track-api.onrender.com/';
 
 const setAuthHeader = (token) => {
-  baseURL.defaults.headers.common.Authorization = `Bearer ${token}`;
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const clearAuthHeader = () => {
-  baseURL.defaults.headers.common.Authorization = "";
+  axios.defaults.headers.common.Authorization = '';
 };
 
+// axios.interceptors.response.use(
+//   (res) => res,
+//   async (err) => {
+//     const originalRequest = err.config;
+
+//     if (err.response?.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+//       const refreshToken = localStorage.getItem('refreshToken');
+
+//       if (refreshToken) {
+//         try {
+//           const res = await axios.post('/users/refresh', { refreshToken });
+
+//           setAuthHeader(res.data.accessToken);
+//           localStorage.setItem('refreshToken', res.data.refreshToken);
+//           originalRequest.headers.Authorization = `Bearer ${ res.data.accessToken }`;
+
+//           return axios(originalRequest);
+//         } catch (refreshError) {
+//           localStorage.removeItem('refreshToken');
+//           clearAuthHeader();
+//           return Promise.reject(refreshError);
+//         }
+//       }
+//     }
+//     return Promise.reject(err);
+//   },
+// );
+
 export const register = createAsyncThunk(
-  "/register",
+  'auth/signup',
   async (credentials, thunkAPI) => {
     try {
-      const response = await baseURL.post("/signup", credentials);
-      setAuthHeader(response.data.token);
-      toast.success("Successfully registered!");
+      const response = await axios.post('/users/signup', credentials);
+      setAuthHeader(response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      toast.success('Successfully registered!');
       return response.data;
     } catch (e) {
-      toast.error("Try again...");
+      toast.error('Try again...');
       return thunkAPI.rejectWithValue(e.message);
     }
-  }
+  },
 );
 
 export const login = createAsyncThunk(
-  "/login",
+  'auth/signin',
   async (credentials, thunkAPI) => {
     try {
-      const response = await baseURL.post("/login", credentials);
-      setAuthHeader(response.data.token);
-      toast.success("Successfully logged in!");
+      const response = await axios.post('/users/signin', credentials);
+      setAuthHeader(response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      toast.success('Successfully logged in!');
       return response.data;
     } catch (e) {
-      toast.error("Try again...");
+      toast.error('Try again...');
       return thunkAPI.rejectWithValue(e.message);
     }
-  }
+  },
 );
 
-export const logOut = createAsyncThunk("/logout", async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const response = await baseURL.post("/logout");
+    await axios.post('/users/logout');
     clearAuthHeader();
-    toast.success("Goodbye!");
-    return response.data;
+    localStorage.removeItem('refreshToken');
+    toast.success('Goodbye!');
+    return {};
   } catch (e) {
-    toast.error("Try again...");
+    toast.error('Try again...');
     return thunkAPI.rejectWithValue(e.message);
   }
 });
 
+// export const refreshUser = createAsyncThunk(
+//   'auth/refresh',
+//   async (_, thunkAPI) => {
+//     const refreshToken = localStorage.getItem('refreshToken');
+
+//     if (!refreshToken) {
+//       return thunkAPI.rejectWithValue('No refresh token available');
+//     }
+
+//     try {
+//       const response = await axios.post('/users/refresh', { refreshToken });
+//       setAuthHeader(response.data.accessToken);
+//       localStorage.setItem('refreshToken', response.data.refreshToken);
+//       return response.data;
+//     } catch (e) {
+//       localStorage.removeItem('refreshToken');
+//       return thunkAPI.rejectWithValue(e.message);
+//     }
+//   },
+// );
+
 export const refreshUser = createAsyncThunk(
-  "/refresh",
+  'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-
-    if (!persistedToken) {
-      return thunkAPI.rejectWithValue("Unable to fetch user");
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Sorry, unable to fetch user');
     }
-
     try {
       setAuthHeader(persistedToken);
-      const response = await baseURL.get("/current");
+      const response = await axios.get('/users/current');
       return response.data;
-    } catch (e) {
-      toast.error("Try again...");
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  },
+);
+
+export const updateUser = createAsyncThunk(
+  'auth/update',
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.put('/users/update', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
 );

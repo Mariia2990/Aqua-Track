@@ -6,7 +6,6 @@
   margin-top: 172px;
 }
 
-/* Заголовок */
 .title {
   font-weight: 700;
   font-size: 32px;
@@ -14,15 +13,12 @@
   letter-spacing: -0.01em;
   color: #323f47;
   margin-bottom: 32px;
-  text-align: left;
 }
 
 .boxInput {
   margin-bottom: 16px;
-  position: relative;
 }
 
-/* Лейбли */
 .label {
   font-weight: 700;
   font-size: 14px;
@@ -31,46 +27,80 @@
   color: #2f2f2f;
 }
 
-/* Інпути */
 .input {
-  width: 100%;
-  height: 50px;
+  margin-top: 8px;
   border: 1px solid rgba(47, 47, 47, 0.2);
   border-radius: 15px;
   padding: 16px;
-  font-size: 14px;
+  width: 311px;
+  height: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
   color: #2f2f2f;
   background: transparent !important;
   appearance: none;
 }
 
-/* Повне видалення автозаповнення стилів */
+/* Видалення автозаповнення */
 .input:-webkit-autofill,
 .input:-webkit-autofill:hover,
 .input:-webkit-autofill:focus,
 .input:-webkit-autofill:active {
   background-color: transparent !important;
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #2f2f2f !important;
+  color: #2f2f2f !important;
 }
 
-.input:focus {
-  outline: none;
+.input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: rgba(47, 47, 47, 0.6);
 }
 
-/* При помилці — бордер червоного кольору */
-.inputError {
-  border: 1px solid #ef5050;
-}
-
-/* Повідомлення про помилки */
 .error {
+  font-weight: 400;
   font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
   color: #ef5050;
   margin-top: 10px;
-  position: absolute;
-  bottom: -22px;
-  left: 0;
+}
+
+.inputError {
+  border: 1px solid #ef5050;
+  color: #ef5050;
+}
+
+.button {
+  border-radius: 30px;
+  width: 311px;
+  height: 50px;
+  border: none;
+  background-color: #9be1a0;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  transition: background-color 0.3s ease;
+
+  /* Вирівнюємо текст по центру */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: normal; /* Виправлення переносу тексту */
+  padding: 0; /* Видаляємо зайві відступи */
+}
+
+.button:hover,
+.button:focus {
+  background-color: #87d28d;
 }
 
 /* Стилізація пароля з іконкою ока */
@@ -80,114 +110,87 @@
   align-items: center;
 }
 
-.passwordWrapper input {
-  padding-right: 40px;
-}
-
 .eyeButton {
   position: absolute;
-  right: 10px;
-  background: none;
+  right: 18px;
+  top: 24px;
+  background: transparent;
   border: none;
   cursor: pointer;
 }
 
 .eyeIcon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  stroke: #2f2f2f;
   fill: none;
-  stroke: currentColor;
 }
 
-/* Стилізація тексту під формою */
-.text {
-  font-size: 14px;
-  color: rgba(47, 47, 47, 0.6);
-  text-align: center;
-}
-
-/* Посилання Sign In */
-.link {
-  font-weight: 700;
-  font-size: 14px;
-  color: #2f2f2f;
-  text-decoration: underline;
-}
-
-/* Кнопка Sign Up */
-.button {
-  border-radius: 30px;
-  width: 311px;
-  height: 50px;
-  background-color: #9be1a0;
-  font-weight: 700;
-  font-size: 14px;
-  color: #323f47;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover,
-.button:focus {
-  background-color: #87d28d;
-}
-
+/* 📱 Адаптивність */
 /* Tablet */
 @media only screen and (min-width: 768px) {
   .form {
-    width: 400px;
+    width: 436px;
+    margin-top: 225px;
+    margin-left: 102px;
   }
 
   .title {
     font-size: 36px;
-  }
-
-  .label,
-  .input,
-  .text {
-    font-size: 16px;
+    line-height: 106%;
   }
 
   .boxInput {
     margin-bottom: 20px;
   }
 
+  .label {
+    font-size: 16px;
+    line-height: 150%;
+  }
+
   .input {
-    width: 400px;
+    width: 436px;
     height: 56px;
   }
 
+  .error {
+    font-size: 15px;
+  }
+
   .button {
-    width: 400px;
+    width: 436px;
+    height: 60px;
+    font-size: 16px;
+  }
+
+  .eyeButton {
+    right: 18px;
+    top: 25px;
+  }
+
+  .eyeIcon {
+    width: 20px;
+    height: 20px;
   }
 }
 
 /* Desktop */
 @media only screen and (min-width: 1440px) {
   .form {
-    width: 450px;
+    width: 436px;
+    margin-top: 113px;
+    margin-left: 86px;
+    margin-bottom: auto;
   }
 
-  .title {
-    font-size: 36px;
-  }
-
-  .label,
-  .input,
-  .text {
-    font-size: 16px;
-  }
-
-  .boxInput {
-    margin-bottom: 20px;
-  }
-
-  .input {
-    width: 450px;
-    height: 56px;
-  }
+            .error {
+              margin-top: 2px;
+            }
 
   .button {
-    width: 450px;
+    width: 436px;
+    height: 60px;
+    padding: 0; /* Видаляємо зайві відступи */
   }
 }
