@@ -3,31 +3,30 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import axios from 'axios';
 
-import sprite from '../../img/sprite.svg';
-import { updateWater } from '../../redux/water/operations';
+import sprite from '/img/sprite.svg';
+import { addWater, updateWater } from '../../redux/water/operations';
 
 import css from './WaterForm.module.css';
-
-const API_URL = 'https://aquatrack-1v64.onrender.com/water';
 
 const waterSchema = yup.object().shape({
   amountWater: yup.string().required('This field is required'),
   time: yup
     .string()
     .required('This field is required')
-    .matches(/^([0-1]\d|2[0-3]):([0-5]\d)$/, 'Time must be in HH:MM format'),
+    .matches(
+      /^([0-9]|[0-1]\d|2[0-3]):([0-5]\d)$/,
+      'Time must be in HH:MM format',
+    ),
 });
 
-export const WaterForm = ({ waterInfo, onClose }) => {
+export const WaterForm = ({ type, id, volume, date, onClose }) => {
   const dispatch = useDispatch();
 
   const getCurrentTime = () => {
     return new Date().toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false,
     });
   };
 
@@ -40,10 +39,9 @@ export const WaterForm = ({ waterInfo, onClose }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(waterSchema),
-    // check if there are correct values in the waterInfo object
     defaultValues: {
-      amountWater: waterInfo?.water || 50,
-      time: waterInfo?.time || getCurrentTime(),
+      amountWater: volume || 50,
+      time: date || getCurrentTime(),
     },
   });
 
@@ -68,9 +66,9 @@ export const WaterForm = ({ waterInfo, onClose }) => {
     try {
       const timeDate = convertTimeToDate(data.time);
 
-      if (waterInfo) {
+      if (type === 'edit') {
         const formattedData = {
-          id: waterInfo?.id,
+          id: id,
           volume: Number(data.amountWater),
           date: timeDate,
         };
@@ -84,7 +82,7 @@ export const WaterForm = ({ waterInfo, onClose }) => {
           date: timeDate,
         };
 
-        await axios.post(API_URL, newWaterData);
+        await dispatch(addWater(newWaterData));
 
         toast.success('Water data added successfully!');
       }

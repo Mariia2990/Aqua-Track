@@ -22,7 +22,7 @@ export const WaterMainInfo = () => {
       <Logo />
       <WaterDailyNorma dailyNorm={dailyNorm} setDailyNorm={setDailyNorm} className={css.norma}/>
       <WaterProgressBar progress={progress} className={css.progress}/>
-      <AddWaterBtn section="waterMain" onAddWater={handleAddWater} className={css.btn}/>
+      <AddWaterBtn section="waterMain" className={css.btn}/>
     </div>
   );
 

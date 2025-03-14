@@ -3,7 +3,14 @@ import { WaterForm } from '../WaterForm/WaterForm';
 
 import css from './WaterModal.module.css';
 
-export const WaterModal = ({ type = 'add', waterInfo, isOpen, onClose }) => {
+export const WaterModal = ({
+  type = 'add',
+  id,
+  volume,
+  date,
+  isOpen,
+  onClose,
+}) => {
   return (
     <GlobalModal isOpen={isOpen} onClose={onClose}>
       <div className={css.modal}>
@@ -11,7 +18,13 @@ export const WaterModal = ({ type = 'add', waterInfo, isOpen, onClose }) => {
         {type === 'edit' ? (
           <h2 className={css.modal_title}>Edit the entered amount of water</h2>
         ) : null}
-        <WaterForm waterInfo={waterInfo} onClose={onClose} />
+        <WaterForm
+          type={type}
+          id={id}
+          volume={volume}
+          date={date}
+          onClose={onClose}
+        />
       </div>
     </GlobalModal>
   );
