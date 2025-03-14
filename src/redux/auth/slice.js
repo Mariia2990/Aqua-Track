@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logOut, refreshUser, register, updateUser } from './operations';
+import {
+  login,
+  logOut,
+  refreshAccessToken,
+  register,
+  updateUser,
+} from './operations';
 
 const initialState = {
   user: {
@@ -10,6 +16,8 @@ const initialState = {
     weight: null,
     DailyActivityTime: null,
     DailyWaterNorm: null,
+    refreshToken: null,
+    sessionId: null,
   },
   token: null,
   isLoggedIn: false,
@@ -39,6 +47,8 @@ const slice = createSlice({
         state.token = action.payload.accessToken;
         // localStorage.setItem('refreshToken', action.payload.refreshToken);
         state.isLoggedIn = true;
+        state.refreshToken = action.payload.data.refreshToken;
+        state.sessionId = action.payload.data.sessionId;
         // setAuthHeader(action.payload.accessToken);
       })
       .addCase(logOut.fulfilled, (state) => {
@@ -47,17 +57,16 @@ const slice = createSlice({
         // localStorage.removeItem('refreshToken');
         state.isLoggedIn = false;
       })
-      .addCase(refreshUser.pending, (state) => {
+      .addCase(refreshAccessToken.pending, (state) => {
         state.isRefreshing = true;
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+      .addCase(refreshAccessToken.fulfilled, (state, action) => {
         state.token = action.payload.accessToken;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        state.refreshToken = action.payload.refreshToken;
+        state.sessionId = action.payload.sessionId;
         state.isLoggedIn = true;
-        state.isRefreshing = false;
       })
-      .addCase(refreshUser.rejected, (state) => {
+      .addCase(refreshAccessToken.rejected, (state) => {
         state.isRefreshing = false;
         state.token = null;
         localStorage.removeItem('refreshToken');

@@ -107,20 +107,21 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 //   },
 // );
 
-export const refreshUser = createAsyncThunk(
-  'auth/refresh',
+export const refreshAccessToken = createAsyncThunk(
+  'auth/refreshToken',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Sorry, unable to fetch user');
-    }
+    const { refreshToken, sessionId } = thunkAPI.getState().auth;
     try {
-      setAuthHeader(persistedToken);
-      const response = await axios.get('/users/current');
-      return response.data;
+      const response = await aqua.post('users/refresh', {
+        refreshToken,
+        sessionId,
+      });
+      const { data } = response.data;
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data || 'Помилка оновлення токену',
+      );
     }
   },
 );

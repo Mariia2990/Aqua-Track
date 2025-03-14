@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getUsers } from './operations.js';
 const initialState = {
+  _id: null,
   count: null,
   avatars: [],
   error: null,
