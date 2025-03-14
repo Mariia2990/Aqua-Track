@@ -13,8 +13,7 @@
 }
 
 .modal_content {
-  width: auto;
-  max-width: 343px;
+  max-width: 100%;
   background-color: var(--main-white);
   padding: 40px 20px;
   border-radius: 15px;
@@ -46,17 +45,10 @@
 
 @media (min-width: 768px) {
   .modal_content {
-    max-width: 648px;
     padding: 40px 40px;
   }
 
   .modal_closeButton {
     right: 20px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .modal_content {
-    max-width: 920px;
   }
 }
