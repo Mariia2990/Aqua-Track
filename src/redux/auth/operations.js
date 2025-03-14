@@ -112,16 +112,31 @@ export const refreshAccessToken = createAsyncThunk(
   async (_, thunkAPI) => {
     const { refreshToken, sessionId } = thunkAPI.getState().auth;
     try {
-      const response = await aqua.post('users/refresh', {
+      const responseData = await axios.post('users/refresh', {
         refreshToken,
         sessionId,
       });
-      const { data } = response.data;
-      return data;
+      const dataRefresh = responseData.data;
+      return {
+        refreshToken: dataRefresh.refreshToken,
+        sessionId: dataRefresh.sessionId,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data || 'Помилка оновлення токену',
       );
+    }
+  },
+);
+
+export const getCurrentUser = createAsyncThunk(
+  'auth/getCurrentUser',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get('/users/current');
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e);
     }
   },
 );
@@ -131,6 +146,22 @@ export const updateUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await axios.put('/users/update', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const uploadUserAvatar = createAsyncThunk(
+  'auth/uploadUserAvatar',
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.put('/users/avatar', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
