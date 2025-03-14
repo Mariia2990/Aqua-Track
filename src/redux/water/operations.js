@@ -10,7 +10,8 @@ export const fetchWaterDataDaily = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await aquaTrackApi.get('/water/daily');
-      return response.data;
+      console.log(response.data);
+      return response;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
@@ -29,11 +30,20 @@ export const fetchWaterDataMonthly = createAsyncThunk(
   },
 );
 
+export const addWater = createAsyncThunk('water/addWater', (body, thunkAPI) => {
+  try {
+    const response = aquaTrackApi.post('/water', body);
+    return response.data;
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.message);
+  }
+});
+
 export const updateWater = createAsyncThunk(
   'water/updateWater',
   async (body, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.post(`/water/${body.id}`, body);
+      const response = await aquaTrackApi.patch(`/water/${body.id}`, body);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
