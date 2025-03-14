@@ -16,6 +16,7 @@ const initialState = {
     gender: null,
     avatar: null,
     weight: null,
+    isLoading: false,
     DailyActivityTime: null,
     DailyWaterNorm: null,
   },
@@ -57,6 +58,7 @@ const slice = createSlice({
         state.sessionId = null;
         state.refreshToken = null;
         state.isLoggedIn = false;
+        state.isRefreshing = false;
       })
       .addCase(refreshAccessToken.pending, (state) => {
         state.isRefreshing = true;
@@ -70,6 +72,9 @@ const slice = createSlice({
       .addCase(refreshAccessToken.rejected, (state) => {
         state.isRefreshing = false;
         state.token = null;
+        // state.refreshToken = null; 
+        state.sessionId = null; 
+        state.isLoggedIn = false;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload };
@@ -80,6 +85,7 @@ const slice = createSlice({
       })
       .addCase(uploadUserAvatar.fulfilled, (state) => {
         state.isLoading = false;
+        state.user.avatar = action.payload.avatar;
       })
       .addCase(uploadUserAvatar.rejected, (state, action) => {
         state.isLoading = false;
