@@ -47,7 +47,7 @@ export const register = createAsyncThunk(
     try {
       const response = await axios.post('/users/signup', credentials);
       setAuthHeader(response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      // localStorage.setItem('refreshToken', response.data.refreshToken);
       toast.success('Successfully registered!');
       return response.data;
     } catch (e) {
@@ -63,7 +63,7 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post('/users/signin', credentials);
       setAuthHeader(response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      // localStorage.setItem('refreshToken', response.data.refreshToken);
       toast.success('Successfully logged in!');
       return response.data;
     } catch (e) {
@@ -77,7 +77,7 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     clearAuthHeader();
-    localStorage.removeItem('refreshToken');
+    // localStorage.removeItem('refreshToken');
     toast.success('Goodbye!');
     return {};
   } catch (e) {

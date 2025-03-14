@@ -31,13 +31,13 @@ const slice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        // localStorage.setItem('refreshToken', action.payload.refreshToken);
         state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        // localStorage.setItem('refreshToken', action.payload.refreshToken);
         state.isLoggedIn = true;
         // setAuthHeader(action.payload.accessToken);
       })
