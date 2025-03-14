@@ -5,11 +5,12 @@
   background-color: #9BE1A0;
   border-radius: 30px;
   position: relative;
-  background-image: url('./img/bottle_for_water@1x.png');
+  background-image: url(/img/bottle_for_water@1x.png);
   background-repeat: no-repeat;
   background-position: center;
   padding: 24px 16px;  
 }
+
 
 .norma{
   position: absolute;
@@ -29,10 +30,10 @@
   right: 16px;
 }
 
-@media (min-width: 768px) {
+@media only screen and (min-width: 768px){
   .wrapper{
     height: 578px;
-    background-image: url('./img/bottle_for_water_tablet@1x.png');
+    background-image: url(/img/bottle_for_water_tablet@1x.png);
   }
 
   .norma{
@@ -51,11 +52,11 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media only screen and (min-width: 1440px) {
   .wrapper{
     width: 672px;
     height: 736px;
-    background-image: url('/img/bottle_for_water_laptop@1x.png');
+    background-image: url(/img/bottle_for_water_laptop@1x.png);
   }
 
   .norma{
