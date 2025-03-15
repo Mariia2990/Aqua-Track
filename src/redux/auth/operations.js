@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-axios.defaults.baseURL = 'https://aqua-track-api.onrender.com/';
+axios.defaults.baseURL = 'https://aquatrackerapi.onrender.com/';
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -12,42 +12,73 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
-// axios.interceptors.response.use(
-//   (res) => res,
-//   async (err) => {
-//     const originalRequest = err.config;
+export const setupInterceptors = (dispatch) => {
+  axios.interceptors.response.use(
+    (res) => res,
+    async (err) => {
+      const originalRequest = err.config;
+      if (err.response?.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+        const auth = JSON.parse(localStorage.getItem('auth'));
+        const refreshToken = auth?.refreshToken;
+        const sessionId = auth?.sessionId;
 
-//     if (err.response?.status === 401 && !originalRequest._retry) {
-//       originalRequest._retry = true;
-//       const refreshToken = localStorage.getItem('refreshToken');
-
-//       if (refreshToken) {
-//         try {
-//           const res = await axios.post('/users/refresh', { refreshToken });
-
-//           setAuthHeader(res.data.accessToken);
-//           localStorage.setItem('refreshToken', res.data.refreshToken);
-//           originalRequest.headers.Authorization = `Bearer ${ res.data.accessToken }`;
-
-//           return axios(originalRequest);
-//         } catch (refreshError) {
-//           localStorage.removeItem('refreshToken');
-//           clearAuthHeader();
-//           return Promise.reject(refreshError);
-//         }
-//       }
-//     }
-//     return Promise.reject(err);
-//   },
-// );
+        if (!refreshToken && !sessionId) {
+          dispatch(logOut());
+          return Promise.reject(err);
+        }
+        try {
+          const response = await axios.post('/users/refresh', {
+            refreshToken,
+            sessionId,
+          });
+          const {
+            accessToken,
+            refreshToken: newRefreshToken,
+            sessionId: newSessionId,
+          } = response.data;
+          console.log(accessToken);
+          setAuthHeader(accessToken);
+          localStorage.setItem(
+            'auth',
+            JSON.stringify({
+              accessToken: accessToken,
+              refreshToken: newRefreshToken,
+              sessionId: newSessionId,
+            }),
+          );
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          dispatch(
+            setAuth({
+              accessToken,
+              refreshToken: newRefreshToken,
+              sessionId: newSessionId,
+            }),
+          );
+          dispatch(
+            setUser({
+              user,
+            }),
+          );
+          return axios(originalRequest);
+        } catch (refreshError) {
+          localStorage.removeItem('auth');
+          dispatch(logOut());
+          return Promise.reject(refreshError);
+        }
+      }
+      return Promise.reject(err);
+    },
+  );
+};
 
 export const register = createAsyncThunk(
   'auth/signup',
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/users/signup', credentials);
+      console.log(response);
       setAuthHeader(response.data.accessToken);
-      // localStorage.setItem('refreshToken', response.data.refreshToken);
       toast.success('Successfully registered!');
       return response.data;
     } catch (e) {
@@ -60,13 +91,15 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   'auth/signin',
   async (credentials, thunkAPI) => {
+    console.log(credentials);
     try {
       const response = await axios.post('/users/signin', credentials);
+      console.log(response);
       setAuthHeader(response.data.accessToken);
-      // localStorage.setItem('refreshToken', response.data.refreshToken);
       toast.success('Successfully logged in!');
       return response.data;
     } catch (e) {
+      console.log(e);
       toast.error('Try again...');
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -77,7 +110,8 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     clearAuthHeader();
-    // localStorage.removeItem('refreshToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('sessionId');
     toast.success('Goodbye!');
     return {};
   } catch (e) {
@@ -86,40 +120,43 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
-// export const refreshUser = createAsyncThunk(
-//   'auth/refresh',
-//   async (_, thunkAPI) => {
-//     const refreshToken = localStorage.getItem('refreshToken');
-
-//     if (!refreshToken) {
-//       return thunkAPI.rejectWithValue('No refresh token available');
-//     }
-
-//     try {
-//       const response = await axios.post('/users/refresh', { refreshToken });
-//       setAuthHeader(response.data.accessToken);
-//       localStorage.setItem('refreshToken', response.data.refreshToken);
-//       return response.data;
-//     } catch (e) {
-//       localStorage.removeItem('refreshToken');
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   },
-// );
-
 export const refreshAccessToken = createAsyncThunk(
-  'auth/refreshToken',
+  'auth/refreshAccessToken',
   async (_, thunkAPI) => {
     const { refreshToken, sessionId } = thunkAPI.getState().auth;
+    console.log(refreshToken);
+    console.log(sessionId);
+
     try {
-      const responseData = await axios.post('users/refresh', {
+      const responseData = await axios.post('/users/refresh', {
         refreshToken,
         sessionId,
       });
-      const dataRefresh = responseData.data;
+      console.log(responseData);
+      const {
+        accessToken,
+        refreshToken: newRefreshToken,
+        sessionId: newSessionId,
+        user,
+      } = responseData.data;
+      setAuthHeader(accessToken);
+      thunkAPI.dispatch(
+        setAuth({
+          accessToken,
+          refreshToken: newRefreshToken,
+          sessionId: newSessionId,
+        }),
+      );
+      thunkAPI.dispatch(
+        setUser({
+          user,
+        }),
+      );
       return {
-        refreshToken: dataRefresh.refreshToken,
-        sessionId: dataRefresh.sessionId,
+        accessToken: accessToken,
+        refreshToken: newRefreshToken,
+        sessionId: newSessionId,
+        user: user,
       };
     } catch (error) {
       return thunkAPI.rejectWithValue(

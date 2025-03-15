@@ -31,8 +31,13 @@ const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setToken(state, action) {
-      state.token = action.payload;
+    setAuth: (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+      state.sessionId = action.payload.sessionId;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload.user;
     },
   },
   extraReducers: (builder) => {
@@ -64,6 +69,8 @@ const slice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshAccessToken.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.user = action.payload.user;
         state.token = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.sessionId = action.payload.sessionId;
@@ -71,9 +78,9 @@ const slice = createSlice({
       })
       .addCase(refreshAccessToken.rejected, (state) => {
         state.isRefreshing = false;
-        state.token = null;
-        // state.refreshToken = null; 
-        state.sessionId = null; 
+        // state.token = null;
+        // state.refreshToken = null;
+        state.sessionId = null;
         state.isLoggedIn = false;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
@@ -93,5 +100,5 @@ const slice = createSlice({
       });
   },
 });
-export const { setToken } = slice.actions;
+export const { setAuth, setUser } = slice.actions;
 export const authReducer = slice.reducer;
