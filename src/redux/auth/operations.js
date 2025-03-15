@@ -110,8 +110,6 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     clearAuthHeader();
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('sessionId');
     toast.success('Goodbye!');
     return {};
   } catch (e) {
@@ -182,13 +180,15 @@ export const updateUser = createAsyncThunk(
   'auth/update',
   async (data, thunkAPI) => {
     try {
-      const res = await axios.put('/users/update', data, {
+      const res = await axios.patch('/users/update', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
         },
       });
       return res.data;
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   },
@@ -196,14 +196,18 @@ export const updateUser = createAsyncThunk(
 
 export const uploadUserAvatar = createAsyncThunk(
   'auth/uploadUserAvatar',
-  async (data, thunkAPI) => {
+  async (formData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.token;
+    console.log(token);
     try {
-      const res = await axios.put('/users/avatar', data, {
+      const response = await axios.patch('/users/avatar', formData, {
         headers: {
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
-      return res.data;
+      console.log(response);
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

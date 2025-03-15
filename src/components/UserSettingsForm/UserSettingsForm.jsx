@@ -16,7 +16,6 @@ const UserSettingsForm = ({ onClose }) => {
   const [isAvatarSelected, setIsAvatarSelected] = useState(false);
   const [amount, setAmount] = useState(1.8);
   const [gender, setGender] = useState('woman');
-  console.log(user);
 
   const {
     register,
@@ -70,42 +69,48 @@ const UserSettingsForm = ({ onClose }) => {
     },
     [hiddenFileInput],
   );
-  const uploadAvatar = async (file) => {
-    const formData = new FormData();
-    if (isAvatarSelected) formData.append('avatar', file);
-    try {
-      await dispatch(uploadUserAvatar(formData));
-      toast.success('The avatar has been updated successfully!');
-    } catch (error) {
-      toast.error('Something went wrong. Please try again.');
-    }
-    setValue('avatar', null);
-  };
 
   const handleChange = useCallback(
     (event) => {
-      if (event.target.files) {
+      if (event.target.files && event.target.files[0]) {
         const fileUploaded = event.target.files[0];
+        console.log(fileUploaded);
+
         setAvatarPreview(URL.createObjectURL(fileUploaded));
         setValue('avatar', fileUploaded, {
           shouldValidate: true,
         });
         setIsAvatarSelected(true);
-        uploadAvatar(fileUploaded);
         console.log(fileUploaded);
+        handleAvatarSubmit(fileUploaded);
       }
     },
     [setValue, setIsAvatarSelected, setAvatarPreview],
   );
 
-  // useEffect(() => {
-  //   if (avatar && avatar[0]) {
-  //     console.log(avatar[0]);
-  //     uploadAvatar(avatar[0]);
-  //   }
-  // }, [avatar, dispatch, setValue]);
+  const handleAvatarSubmit = async (file) => {
+    console.log('File:', file);
 
-  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    console.log('FormData entries:');
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    console.log('FormData.get("avatar"):', formData.get('avatar'));
+    try {
+      console.log(formData);
+      dispatch(uploadUserAvatar(formData.get('avatar')));
+      toast.success('The avatar has been updated successfully!');
+    } catch (error) {
+      console.log(error);
+      toast.error('Something went wrong. Please try again.');
+    }
+  };
+
+  const handleFormSubmit = async (data) => {
     const formData = new FormData();
     const hasChanged = (fieldName) => data[fieldName] !== user[fieldName];
 
@@ -122,6 +127,7 @@ const UserSettingsForm = ({ onClose }) => {
         toast.success('The settings has been updated successfully!');
         onClose();
       } catch (error) {
+        console.log(error);
         toast.error('Something went wrong. Please try again.');
       }
     }
@@ -129,7 +135,7 @@ const UserSettingsForm = ({ onClose }) => {
 
   return (
     <div className={css.wrapper}>
-      <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
+      <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>
         <div className={css.userPic}>
           <h2>Setting</h2>
           <div className={css.picWrapper}>
@@ -305,6 +311,7 @@ const UserSettingsForm = ({ onClose }) => {
                   errors.water ? css.error : ''
                 }`}
                 type="number"
+                step="0.1"
                 {...register('water')}
                 placeholder="1.8"
               />
