@@ -73,7 +73,6 @@
 
 .button {
   border-radius: 30px;
-  padding: 16px 131px;
   width: 311px;
   height: 50px;
   border: none;
@@ -84,6 +83,17 @@
   letter-spacing: -0.01em;
   text-align: center;
   color: #323f47;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  transition: var(--animation);
+}
+
+.button:hover,
+.button:focus {
+  background-color: #87d28d;
 }
 
 .passwordWrapper {
