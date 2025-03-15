@@ -32,7 +32,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     setAuth: (state, action) => {
-      state.accessToken = action.payload.accessToken;
+      state.token = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
       state.sessionId = action.payload.sessionId;
     },
@@ -90,7 +90,8 @@ const slice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(uploadUserAvatar.fulfilled, (state) => {
+      .addCase(uploadUserAvatar.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.isLoading = false;
         state.user.avatar = action.payload.avatar;
       })
