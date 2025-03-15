@@ -4,7 +4,7 @@
   background-color: var(--background);
   height: 353px;
   padding: 209px 16px 32px;
-  background-image: url("/img/baner@2x.jpg");
+  background-image: url('/img/baner@2x.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -16,20 +16,25 @@
 } */
 .advantages_users {
   /*max-width: 132px;*/
-  background-color: var(--main-white);
-  display: flex;
+  display: inline-flex;
+  height: 48px;
+  margin-bottom: 13px;
+  padding: 10px 14px;
   gap: 4px;
   border-radius: 30px;
-  padding: 10px 14px;
-  width: 160px;
-  height: 48px;
+  background-color: var(--main-white);
+  /* width: 160px; */
 }
 .advantages_usersImg {
   display: flex;
+  gap: -10px;
 }
 .advantages_point {
   width: 28px;
   height: 28px;
+  border: 2px solid var(--main-white);
+  border-radius: 50%;
+  overflow: hidden;
 }
 .advantages_point:not(:first-child) {
   margin-left: -10px;
@@ -99,10 +104,10 @@
   .advantages_users {
     /*max-width: 197px;*/
     /*padding: 10px 20px;*/
-    /*margin-bottom: -14px;*/
+    margin-bottom: -14px;
     border-radius: 30px;
     padding: 10px 20px;
-    width: 237px;
+    /* width: 237px; */
     height: 67px;
   }
   .advantages_point {
