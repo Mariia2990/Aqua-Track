@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { selectUser } from '../../redux/auth/selectors.js';
-import { getCurrentUser } from '../../redux/auth/operations.js';
+import { refreshAccessToken } from '../../redux/auth/operations.js';
 import { UserBar } from '../UseBar/UserBar';
 import css from './UserPanel.module.css';
 
@@ -11,14 +11,14 @@ export function UserPanel() {
   // const [isUserUpdated, setIsUserUpdated] = useState(false);
 
   // useEffect(() => {
-  //   dispatch(getCurrentUser());
+  //   dispatch(refreshAccessToken());
   // }, [dispatch]);
 
   const userData = useSelector(selectUser);
 
   // useEffect(() => {
   //   if (isUserUpdated) {
-  //     dispatch(getCurrentUser());
+  //     dispatch(refreshAccessToken());
   //     setIsUserUpdated(false);
   //   }
   // }, [dispatch, isUserUpdated]);

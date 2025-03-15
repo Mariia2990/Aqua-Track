@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const aquaTrackApi = axios.create({
-  baseURL: 'https://aquatrack-1v64.onrender.com',
+  baseURL: 'https://aquatrackerapi.onrender.com',
 });
 
 export const fetchWaterDataDaily = createAsyncThunk(

@@ -14,17 +14,18 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/slice.js';
 import { usersReducer } from './user/slice.js';
 import { waterReducer } from './water/slice.js';
+import { setupInterceptors } from './auth/operations.js';
 
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'isLoggedIn', 'refreshToken', 'sessionId'],
+  whitelist: ['token', 'isLoggedIn', 'refreshToken', 'sessionId', 'user'],
 };
 
 const waterPersistConfig = {
   key: 'water',
   storage,
-  whitelist: [], 
+  whitelist: [],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
@@ -34,7 +35,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     water: persistedWaterReducer,
-    users: usersReducer, 
+    users: usersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -43,5 +44,7 @@ export const store = configureStore({
       },
     }),
 });
+
+setupInterceptors(store.dispatch);
 
 export const persistor = persistStore(store);
