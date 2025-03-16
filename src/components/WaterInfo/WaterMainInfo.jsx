@@ -6,23 +6,26 @@ import { WaterProgressBar } from '../WaterProgressBar/WaterProgressBar';
 import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/auth/selectors.js";
+import { selectWater } from "../../redux/water/selectors.js";
 
 export const WaterMainInfo = () => {
   const user = useSelector(selectUser);
-  const [dailyNorm, setDailyNorm] = useState(user.water / 1000 || 1.5); // Конвертація з мл у літри
-  const [waterDrunk, setWaterDrunk] = useState(0); // Випита вода
+  const water = useSelector(selectWater)
+  
+  const [dailyNorm, setDailyNorm] = useState(user.dailyNorm / 1000);
 
   useEffect(() => {
-    if (user.water) {
-      setDailyNorm(user.water / 1000);
+    if (user.dailyNorm) {
+      setDailyNorm(user.dailyNorm / 1000);
     }
-  }, [user.water]); // Оновлення при зміні значення у Redux
+  }, [user.dailyNorm]);
+  const amount = water.map((obj)=>obj.volume)
+  let amountSum = 0;
+  for (const number of amount) {
+    amountSum += number
+  }
 
-  const handleAddWater = (amount) => {
-    setWaterDrunk((prev) => Math.min(prev + amount, dailyNorm));
-  };
-
-  const progress = Math.round((waterDrunk / dailyNorm) * 100);
+  const progress = Math.round((amountSum / (dailyNorm * 1000)) * 100);
 
   return (
     <div className={css.wrapper}>

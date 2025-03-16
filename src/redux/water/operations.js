@@ -35,8 +35,11 @@ export const fetchWaterDataMonthly = createAsyncThunk(
 export const addWater = createAsyncThunk(
   'water/addWater',
   async (body, thunkAPI) => {
+    const token = thunkAPI.getState().auth.token
     try {
-      const response = await axios.post('/water', body);
+      const response = await axios.post('/water', body, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
