@@ -14,7 +14,7 @@ const initialState = {
     email: null,
     name: null,
     gender: null,
-    avatar: null,
+    avatarUrl: null,
     weight: null,
     isLoading: false,
     DailyActivityTime: null,
@@ -91,9 +91,8 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(uploadUserAvatar.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
-        state.user.avatar = action.payload.avatar;
+        state.user.avatarUrl = action.payload.avatarUrl;
       })
       .addCase(uploadUserAvatar.rejected, (state, action) => {
         state.isLoading = false;

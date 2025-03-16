@@ -30,8 +30,8 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
       name: user.name,
       email: user.email,
       weight: user.weight,
-      dailySportTime: user.DailyActivityTime,
-      dailyNorm: user.DailyWaterNorm / 1000,
+      dailySportTime: user.dailySportTime,
+      dailyNorm: user.dailyNorm / 1000,
     },
   });
 
@@ -43,7 +43,6 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
 
   const weight = watch('weight');
   const time = watch('dailySportTime');
-  // const avatar = watch('avatarUrl');
 
   useEffect(() => {
     if (weight && gender && time) {
@@ -74,13 +73,11 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
     (event) => {
       if (event.target.files && event.target.files[0]) {
         const fileUploaded = event.target.files[0];
-        console.log(fileUploaded);
 
         setAvatarPreview(URL.createObjectURL(fileUploaded));
         setValue('avatarUrl', fileUploaded, {
           shouldValidate: true,
         });
-        console.log(fileUploaded);
         handleAvatarSubmit(fileUploaded);
       }
     },
@@ -88,29 +85,19 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
   );
 
   const handleAvatarSubmit = async (file) => {
-    console.log('File:', file);
-
     const formData = new FormData();
     formData.append('avatarUrl', file);
 
-    console.log('FormData entries:');
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-
     try {
-      console.log(formData);
       dispatch(uploadUserAvatar(formData));
       toast.success('The avatar has been updated successfully!');
       setIsUserUpdated(true);
     } catch (error) {
-      console.log(error);
       toast.error('Something went wrong. Please try again.');
     }
   };
 
   const handleFormSubmit = async (data) => {
-    console.log(data);
     const updateData = {};
     const hasChanged = (fieldName) => data[fieldName] !== user[fieldName];
 
@@ -121,8 +108,6 @@ const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
     if (hasChanged('dailyNorm')) updateData.dailyNorm = data.dailyNorm * 1000;
     if (hasChanged('dailySportTime'))
       updateData.dailySportTime = data.dailySportTime;
-
-    console.log(updateData);
 
     if (Object.keys(data).some((key) => hasChanged(key))) {
       try {
