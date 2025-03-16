@@ -8,10 +8,12 @@ axios.create({
 export const fetchWaterDataDaily = createAsyncThunk(
   'water/fetchAllDaily',
   async (selectedDate, thunkAPI) => {
+    const token = thunkAPI.getState().auth.token;
     try {
-      const response = await axios.get(`/water/daily?day=${selectedDate}`);
+      const response = await axios.get(`/water/daily?day=${selectedDate}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return response.data;
-
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
@@ -30,15 +32,17 @@ export const fetchWaterDataMonthly = createAsyncThunk(
   },
 );
 
-
-export const addWater = createAsyncThunk('water/addWater', async (body, thunkAPI) => {
-  try {
-    const response = await axios.post('/water', body);
-    return response.data;
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.message);
-  }
-});
+export const addWater = createAsyncThunk(
+  'water/addWater',
+  async (body, thunkAPI) => {
+    try {
+      const response = await axios.post('/water', body);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
 
 export const updateWater = createAsyncThunk(
   'water/updateWater',
