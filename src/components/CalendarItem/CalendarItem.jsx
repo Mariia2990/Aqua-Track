@@ -1,17 +1,14 @@
 import { useDispatch } from 'react-redux';
 import css from './CalendarItem.module.css';
 import { setDate } from '../../redux/water/slice';
-import { fetchWaterDataDaily } from '../../redux/water/operations';
 
 const CalendarItem = ({ year, month, day, volume }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
     const selectedDate = new Date(year, month, day).toISOString();
-
     dispatch(setDate(selectedDate));
-
-    dispatch(fetchWaterDataDaily(selectedDate));
+    
   };
 
   return (
