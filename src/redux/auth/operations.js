@@ -77,7 +77,6 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/users/signup', credentials);
-      console.log(response);
       setAuthHeader(response.data.accessToken);
       toast.success('Successfully registered!');
       return response.data;
@@ -91,10 +90,8 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   'auth/signin',
   async (credentials, thunkAPI) => {
-    console.log(credentials);
     try {
       const response = await axios.post('/users/signin', credentials);
-      console.log(response);
       setAuthHeader(response.data.accessToken);
       toast.success('Successfully logged in!');
       return response.data;
@@ -177,16 +174,16 @@ export const getCurrentUser = createAsyncThunk(
 );
 
 export const updateUser = createAsyncThunk(
-  'auth/update',
-  async (data, thunkAPI) => {
+  'auth/updateUser',
+  async (formData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.token;
     try {
-      const res = await axios.patch('/users/update', data, {
+      const response = await axios.patch('/users/update', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
-      return res.data;
+      return response.data;
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error.message);
@@ -198,7 +195,6 @@ export const uploadUserAvatar = createAsyncThunk(
   'auth/uploadUserAvatar',
   async (formData, thunkAPI) => {
     const token = thunkAPI.getState().auth.token;
-    console.log(token);
     try {
       const response = await axios.patch('/users/avatar', formData, {
         headers: {
@@ -206,7 +202,6 @@ export const uploadUserAvatar = createAsyncThunk(
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

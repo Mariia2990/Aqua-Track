@@ -107,6 +107,7 @@ h3 {
   height: 20px;
   border: 2px solid var(--accent);
   transition: var(--animation);
+  cursor: pointer;
 }
 
 .radio:checked {
@@ -118,6 +119,7 @@ h3 {
   font-size: 14px;
   line-height: 1.29;
   letter-spacing: -0.01em;
+  cursor: pointer;
 }
 
 .userInfoInputContainer {

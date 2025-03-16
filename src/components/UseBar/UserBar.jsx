@@ -9,7 +9,7 @@ import photo from '/img/avatar-default.svg';
 import sprite from '/img/sprite.svg';
 import css from './UserBar.module.css';
 
-export const UserBar = ({ user, getFirstName }) => {
+export const UserBar = ({ user, getFirstName, setIsUserUpdated }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [btn, setBtn] = useState('Settings' || 'Log out');
@@ -54,7 +54,10 @@ export const UserBar = ({ user, getFirstName }) => {
         {isModalOpen && (
           <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
             {btn === 'Settings' && (
-              <UserSettingsForm onClose={handleCloseModal} />
+              <UserSettingsForm
+                onClose={handleCloseModal}
+                setIsUserUpdated={setIsUserUpdated}
+              />
             )}
             {btn === 'Log out' && <LogOutModal onClose={handleCloseModal} />}
           </GlobalModal>
