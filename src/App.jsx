@@ -5,9 +5,9 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import { Toaster } from 'react-hot-toast';
 import { Loader } from './components/Loader/Loader';
-// import { selectIsRefreshing } from './redux/auth/selectors';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { refreshAccessToken } from './redux/auth/operations';
+import { selectIsRefreshing } from './redux/auth/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshUser } from './redux/auth/operations';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage/SignUpPage'));
@@ -51,15 +51,7 @@ export const App = () => {
                 />
               }
             />
-            <Route
-              path="/tracker"
-              element={
-                <PrivateRoute
-                  redirectTo="/signin"
-                  component={<TrackerPage />}
-                />
-              }
-            />
+            <Route path="/tracker" element={<TrackerPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
