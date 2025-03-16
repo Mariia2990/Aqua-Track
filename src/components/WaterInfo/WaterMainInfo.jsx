@@ -3,18 +3,25 @@ import { Logo } from '../Logo/Logo.jsx';
 import { AddWaterBtn } from '../AddWaterBtn/AddWaterBtn';
 import { WaterDailyNorma } from '../WaterDailyNorma/WaterDailyNorma';
 import { WaterProgressBar } from '../WaterProgressBar/WaterProgressBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/auth/selectors.js";
 
 export const WaterMainInfo = () => {
-  const [dailyNorm, setDailyNorm] = useState(1.5); // Початково 1.5 л
+  const user = useSelector(selectUser);
+  const [dailyNorm, setDailyNorm] = useState(user.water / 1000 || 1.5); // Конвертація з мл у літри
   const [waterDrunk, setWaterDrunk] = useState(0); // Випита вода
 
-  // Функція для додавання води
+  useEffect(() => {
+    if (user.water) {
+      setDailyNorm(user.water / 1000);
+    }
+  }, [user.water]); // Оновлення при зміні значення у Redux
+
   const handleAddWater = (amount) => {
     setWaterDrunk((prev) => Math.min(prev + amount, dailyNorm));
   };
 
-  // Обчислюємо % випитої води
   const progress = Math.round((waterDrunk / dailyNorm) * 100);
 
   return (
@@ -36,6 +43,6 @@ export const WaterMainInfo = () => {
 
 
 // 7. Пофіксити денну норму яка приймає з беку значення встановлене користувачем
-// 8. Пофіксити перенаправлення з add water на компонент модалки
+
 
 
