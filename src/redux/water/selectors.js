@@ -1,6 +1,7 @@
-// selectors.js
-export const selectMonthlyWater = (state) => state.water.monthlyWaterInfo;
-export const selectDailyWater = (state) => state.water.dailyWaterInfo;
+export const selectWaterVolume = (state) => state.water.waterInfo.volume;
+export const selectWaterDate = (state) => state.water.waterInfo.date;
+export const selectWater = (state) => state.water.waterInfo;
+
 export const selectDate = (state) => state.water.selectedDate;
 
 export const selectYearMonth = (state) => {

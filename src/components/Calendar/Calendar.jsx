@@ -1,30 +1,16 @@
-// Calendar.jsx
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import CalendarItem from '../CalendarItem/CalendarItem';
-import {
-  selectMonthlyWater,
-  selectYearMonth,
-} from '../../redux/water/selectors';
-import { fetchWaterDataMonthly } from '../../redux/water/operations';
+import { selectWater, selectYearMonth } from '../../redux/water/selectors';
 import css from './Calendar.module.css';
 
+
 const Calendar = () => {
-  const dispatch = useDispatch();
-  const waterData = useSelector(selectMonthlyWater);
+  const waterData = useSelector(selectWater);
   const { year, month } = useSelector(selectYearMonth);
 
-  const getMonthParam = (year, month) => {
-    const monthString = (month + 1).toString().padStart(2, '0');
-    return `${monthString}-${year}`;
-  };
-
-  useEffect(() => {
-    const monthParam = getMonthParam(year, month);
-    dispatch(fetchWaterDataMonthly(monthParam));
-  }, [dispatch, year, month]);
-
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+
   const daysArray = Array.from(
     { length: daysInMonth },
     (_, index) => index + 1,
@@ -44,15 +30,18 @@ const Calendar = () => {
 
   return (
     <div className={css.calendarList}>
-      {daysArray.map((day) => (
-        <CalendarItem
-          key={day}
-          month={month}
-          year={year}
-          day={day}
-          volume={getVolumeForDay(day)}
-        />
-      ))}
+      {daysArray.map((day) => {
+        const volumeForDay = getVolumeForDay(day);
+        return (
+          <CalendarItem
+            key={day}
+            month={month}
+            year={year}
+            day={day}
+            volume={volumeForDay}
+          />
+        );
+      })}
     </div>
   );
 };

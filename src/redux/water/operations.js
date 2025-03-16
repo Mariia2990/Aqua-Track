@@ -22,9 +22,9 @@ export const fetchWaterDataDaily = createAsyncThunk(
 
 export const fetchWaterDataMonthly = createAsyncThunk(
   'water/fetchAllMonthly',
-  async (monthParam, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const response = await axios.get(`/water/monthly?month=${monthParam}`);
+      const response = await axios.get('/water/monthly');
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
@@ -35,7 +35,7 @@ export const fetchWaterDataMonthly = createAsyncThunk(
 export const addWater = createAsyncThunk(
   'water/addWater',
   async (body, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
+    const token = thunkAPI.getState().auth.token
     try {
       const response = await axios.post('/water', body, {
         headers: { Authorization: `Bearer ${token}` },
@@ -49,9 +49,9 @@ export const addWater = createAsyncThunk(
 
 export const updateWater = createAsyncThunk(
   'water/updateWater',
-  async (_id, thunkAPI) => {
+  async (body, thunkAPI) => {
     try {
-      const response = await axios.patch(`/water/${_id}`, body);
+      const response = await axios.patch(`/water/${body.id}`, body);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
@@ -61,9 +61,9 @@ export const updateWater = createAsyncThunk(
 
 export const deleteWater = createAsyncThunk(
   'water/deleteWater',
-  async (_id, thunkAPI) => {
+  async (body, thunkAPI) => {
     try {
-      const response = await axios.delete(`/water/${_id}`, body);
+      const response = await axios.delete(`/water/${body.id}`, body);
 
       return response.data;
     } catch (err) {
