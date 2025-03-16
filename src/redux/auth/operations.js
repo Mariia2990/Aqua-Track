@@ -96,7 +96,6 @@ export const login = createAsyncThunk(
       toast.success('Successfully logged in!');
       return response.data;
     } catch (e) {
-      console.log(e);
       toast.error('Try again...');
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -119,15 +118,12 @@ export const refreshAccessToken = createAsyncThunk(
   'auth/refreshAccessToken',
   async (_, thunkAPI) => {
     const { refreshToken, sessionId } = thunkAPI.getState().auth;
-    console.log(refreshToken);
-    console.log(sessionId);
 
     try {
       const responseData = await axios.post('/users/refresh', {
         refreshToken,
         sessionId,
       });
-      console.log(responseData);
       const {
         accessToken,
         refreshToken: newRefreshToken,
@@ -164,8 +160,13 @@ export const refreshAccessToken = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
   'auth/getCurrentUser',
   async (_, thunkAPI) => {
+    const token = thunkAPI.getState().auth.token;
     try {
-      const response = await axios.get('/users/current');
+      const response = await axios.get('/users/current', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -202,7 +203,7 @@ export const uploadUserAvatar = createAsyncThunk(
           'Content-Type': 'multipart/form-data',
         },
       });
-      return response.data;
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -41,8 +41,12 @@ export const UserBar = ({ user, getFirstName, setIsUserUpdated }) => {
           {user.name === ''
             ? getFirstName(user.email)
             : getFirstName(user.name)}
-          {user.avatar !== '' ? (
-            <img src={user.avatar} alt="User Avatar" className={css.avatar} />
+          {user.avatarUrl !== '' ? (
+            <img
+              src={user.avatarUrl}
+              alt="User Avatar"
+              className={css.avatar}
+            />
           ) : (
             <img src={photo} alt="User Avatar" className={css.avatar} />
           )}
