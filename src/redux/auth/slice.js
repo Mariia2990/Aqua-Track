@@ -1,96 +1,105 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logOut, refreshUser, register, updateUser } from './operations';
-
+import {
+  login,
+  getCurrentUser,
+  logOut,
+  refreshAccessToken,
+  register,
+  updateUser,
+  uploadUserAvatar,
+} from './operations';
+const initialState = {
+  user: {
+    _id: null,
+    email: null,
+    name: null,
+    gender: null,
+    avatar: null,
+    weight: null,
+    isLoading: false,
+    DailyActivityTime: null,
+    DailyWaterNorm: null,
+  },
+  token: null,
+  refreshToken: null,
+  sessionId: null,
+  isLoggedIn: false,
+  isRefreshing: false,
+  error: null,
+};
 const slice = createSlice({
   name: 'auth',
-  initialState: {
-    user: {
-      email: null,
-      name: null,
-      gender: null,
-      avatar: null,
-      weight: null,
-      DailyActivityTime: null,
-      DailyWaterNorm: null,
-    },
-    token: null,
-    isLoggedIn: false,
-    isRefreshing: false,
-    error: null, 
-  },
+  initialState,
   reducers: {
-    setToken(state, action) {
-      state.token = action.payload.token;
+    setAuth: (state, action) => {
+      state.token = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
-      state.isLoggedIn = true;
+      state.sessionId = action.payload.sessionId;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload.user;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(register.pending, (state) => {
-        state.error = null; 
-      })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true; 
-      })
-      .addCase(register.rejected, (state, action) => {
-        state.error = action.payload;
+        state.token = action.payload.accessToken;
+        state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.sessionId = action.payload.sessionId;
         state.isLoggedIn = true;
       })
-      .addCase(login.rejected, (state, action) => {
-        state.error = action.payload;
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload;
       })
       .addCase(logOut.fulfilled, (state) => {
-        state.user = {
-          email: null,
-          name: null,
-          gender: null,
-          avatar: null,
-          weight: null,
-          DailyActivityTime: null,
-          DailyWaterNorm: null,
-        };
+        state.user = initialState.user;
         state.token = null;
+        state.sessionId = null;
+        state.refreshToken = null;
+        state.isLoggedIn = false;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshAccessToken.pending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshAccessToken.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+        state.sessionId = action.payload.sessionId;
+        state.isLoggedIn = true;
+      })
+      .addCase(refreshAccessToken.rejected, (state) => {
+        state.isRefreshing = false;
+        // state.token = null;
+        // state.refreshToken = null;
+        state.sessionId = null;
         state.isLoggedIn = false;
       })
-      .addCase(refreshUser.pending, (state) => {
-        state.isRefreshing = true;
-      })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-      })
-      .addCase(refreshUser.rejected, (state) => {
-        state.isRefreshing = false;
-      })
-      .addCase(updateUser.pending, (state) => {
-        state.isRefreshing = true;
-      })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.error = '';
-        state.isRefreshing = false;
-        state.user.email = action.payload.email;
-        state.user.name = action.payload.name;
-        state.user.gender = action.payload.gender;
-        state.user.avatar = action.payload.avatarUrl;
-        state.user.weight = action.payload.weight;
-        state.user.DailyActivityTime = action.payload.DailyActivityTime;
-        state.user.DailyWaterNorm = action.payload.DailyWaterNorm;
+        state.user = { ...state.user, ...action.payload };
       })
-      .addCase(updateUser.rejected, (state, action) => {
+      .addCase(uploadUserAvatar.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(uploadUserAvatar.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.isLoading = false;
+        state.user.avatar = action.payload.avatar;
+      })
+      .addCase(uploadUserAvatar.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.payload;
       });
   },
 });
-
+export const { setAuth, setUser } = slice.actions;
 export const authReducer = slice.reducer;
-

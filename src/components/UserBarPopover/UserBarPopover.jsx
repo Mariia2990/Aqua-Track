@@ -1,4 +1,4 @@
-import sprite from '/public/img/sprite.svg';
+import sprite from '/img/sprite.svg';
 import css from './UserBarPopover.module.css';
 
 export const UserBarPopover = ({ onOpenModal }) => {

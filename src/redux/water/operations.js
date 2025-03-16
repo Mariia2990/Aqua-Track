@@ -1,12 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const aquaTrackApi = axios.create({
+  baseURL: 'https://aquatrackerapi.onrender.com',
+});
+
 export const fetchWaterDataDaily = createAsyncThunk(
   'water/fetchAllDaily',
   async (selectedDate, thunkAPI) => {
     try {
       const response = await axios.get(`/water/daily?day=${selectedDate}`);
       return response.data;
+
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
@@ -37,6 +42,15 @@ export const addWater = createAsyncThunk(
     }
   },
 );
+
+export const addWater = createAsyncThunk('water/addWater', (body, thunkAPI) => {
+  try {
+    const response = aquaTrackApi.post('/water', body);
+    return response.data;
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.message);
+  }
+});
 
 export const updateWater = createAsyncThunk(
   'water/updateWater',

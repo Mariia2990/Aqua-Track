@@ -9,8 +9,18 @@ import {
 
 const initialState = {
   waterInfo: [],
-
   selectedDate: new Date().toISOString(),
+  
+//   waterInfo: [
+//     { id: '1', volume: '1', date: '2:10' },
+//     { id: '2', volume: '3', date: '4:20' },
+//   ],
+
+//   selectedDate: new Date(
+//     new Date().getFullYear(),
+//     new Date().getMonth(),
+//     1,
+//   ).toISOString(),
 };
 
 const slice = createSlice({
@@ -28,6 +38,9 @@ const slice = createSlice({
       })
       .addCase(fetchWaterDataMonthly.fulfilled, (state, action) => {
         state.waterInfo = action.payload.data;
+      })
+      .addCase(addWater.fulfilled, (state, action) => {
+        state.waterInfo.push(action.payload);
       })
       .addCase(addWater.fulfilled, (state, action) => {
         state.waterInfo.push(action.payload);

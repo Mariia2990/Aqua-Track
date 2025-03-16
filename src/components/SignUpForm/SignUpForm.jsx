@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import sprite from '/public/img/sprite.svg';
+import sprite from '/img/sprite.svg';
 import styles from "./SignUpForm.module.css";
 
 const validationSchema = Yup.object({
@@ -56,57 +56,91 @@ export function SignUpForm() {
       <h1 className={styles.title}>Sign Up</h1>
 
       <div className={styles.boxInput}>
-        <label className={styles.label} htmlFor="email">Email</label>
+        <label className={styles.label} htmlFor="email">
+          Email
+        </label>
         <input
-          {...formRegister("email")}
+          {...formRegister('email')}
           type="email"
           id="email"
           placeholder="Enter your email"
-          className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
+          autoComplete="on"
+          className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
         />
-        {errors.email && <div className={styles.error}>{errors.email.message}</div>}
+        {errors.email && (
+          <div className={styles.error}>{errors.email.message}</div>
+        )}
       </div>
 
       <div className={styles.boxInput}>
-        <label className={styles.label} htmlFor="password">Password</label>
+        <label className={styles.label} htmlFor="password">
+          Password
+        </label>
         <div className={styles.passwordWrapper}>
           <input
-            {...formRegister("password")}
-            type={showPassword ? "text" : "password"}
+            {...formRegister('password')}
+            type={showPassword ? 'text' : 'password'}
             id="password"
             placeholder="Enter your password"
-            className={`${styles.input} ${errors.password ? styles.inputError : ""}`}
+            autoComplete="on"
+            className={`${styles.input} ${
+              errors.password ? styles.inputError : ''
+            }`}
           />
-          <button type="button" className={styles.eyeButton} onClick={togglePasswordVisibility}>
+          <button
+            type="button"
+            className={styles.eyeButton}
+            onClick={togglePasswordVisibility}
+          >
             <svg className={styles.eyeIcon}>
-              <use xlinkHref={`${sprite}#${showPassword ? "icon-eye" : "icon-eye-off"}`} />
+              <use
+                xlinkHref={`${sprite}#${
+                  showPassword ? 'icon-eye' : 'icon-eye-off'
+                }`}
+              />
             </svg>
           </button>
         </div>
-        {errors.password && <div className={styles.error}>{errors.password.message}</div>}
+        {errors.password && (
+          <div className={styles.error}>{errors.password.message}</div>
+        )}
       </div>
 
       <div className={styles.boxInput}>
-        <label className={styles.label} htmlFor="repeatPassword">Repeat Password</label>
+        <label className={styles.label} htmlFor="repeatPassword">
+          Repeat Password
+        </label>
         <div className={styles.passwordWrapper}>
           <input
-            {...formRegister("repeatPassword")}
-            type={showRepeatPassword ? "text" : "password"}
+            {...formRegister('repeatPassword')}
+            type={showRepeatPassword ? 'text' : 'password'}
             id="repeatPassword"
             placeholder="Repeat password"
-            className={`${styles.input} ${errors.repeatPassword ? styles.inputError : ""}`}
+            className={`${styles.input} ${
+              errors.repeatPassword ? styles.inputError : ''
+            }`}
           />
-          <button type="button" className={styles.eyeButton} onClick={toggleRepeatPasswordVisibility}>
+          <button
+            type="button"
+            className={styles.eyeButton}
+            onClick={toggleRepeatPasswordVisibility}
+          >
             <svg className={styles.eyeIcon}>
-              <use xlinkHref={`${sprite}#${showRepeatPassword ? "icon-eye" : "icon-eye-off"}`} />
+              <use
+                xlinkHref={`${sprite}#${
+                  showRepeatPassword ? 'icon-eye' : 'icon-eye-off'
+                }`}
+              />
             </svg>
           </button>
         </div>
-        {errors.repeatPassword && <div className={styles.error}>{errors.repeatPassword.message}</div>}
+        {errors.repeatPassword && (
+          <div className={styles.error}>{errors.repeatPassword.message}</div>
+        )}
       </div>
 
       <button type="submit" className={styles.button} disabled={isSubmitting}>
-        {isSubmitting ? "Registering..." : "Sign Up"}
+        {isSubmitting ? 'Registering...' : 'Sign Up'}
       </button>
 
       {/* <p className={styles.text}>

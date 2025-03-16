@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 
 import css from './GlobalModal.module.css';
 
-import sprite from '/public/img/sprite.svg';
+import sprite from '/img/sprite.svg';
 
 export const GlobalModal = ({ isOpen, onClose, children }) => {
   return (
@@ -12,6 +12,8 @@ export const GlobalModal = ({ isOpen, onClose, children }) => {
       className={css.modal_content}
       overlayClassName={css.modal_overlay}
       ariaHideApp={false}
+      onAfterOpen={() => (document.body.style.overflow = 'hidden')}
+      onAfterClose={() => (document.body.style.overflow = 'unset')}
     >
       <button className={css.modal_closeButton} onClick={onClose}>
         <svg className={css.modal_closeIcon}>

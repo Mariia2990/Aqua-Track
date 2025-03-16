@@ -16,16 +16,16 @@ const TrackerPage = lazy(() => import('./pages/TrackerPage/TrackerPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
+  // const dispatch = useDispatch();
+  // const isRefreshing = useSelector(selectIsRefreshing);
 
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(refreshAccessToken());
+  // }, [dispatch]);
 
-  if (isRefreshing) {
-    return <Loader absolute={true} />;
-  }
+  // if (isRefreshing) {
+  //   return <Loader absolute={true} />;
+  // }
 
   return (
     <>

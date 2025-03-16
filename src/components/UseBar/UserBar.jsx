@@ -5,11 +5,11 @@ import { UserBarPopover } from '../UserBarPopover/UserBarPopover';
 import { GlobalModal } from '../GlobalModal/GlobalModal';
 import UserSettingsForm from '../UserSettingsForm/UserSettingsForm';
 import { LogOutModal } from '../LogOutModal/LogOutModal';
-import photo from '/public/img/avatar-default.svg';
-import sprite from '/public/img/sprite.svg';
+import photo from '/img/avatar-default.svg';
+import sprite from '/img/sprite.svg';
 import css from './UserBar.module.css';
-// getFirstName,
-export const UserBar = ({ user, setIsUserUpdated }) => {
+
+export const UserBar = ({ user, getFirstName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [btn, setBtn] = useState('Settings' || 'Log out');
@@ -38,11 +38,10 @@ export const UserBar = ({ user, setIsUserUpdated }) => {
           className={css.userBarBtn}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {/* {user.name === null
+          {user.name === ''
             ? getFirstName(user.email)
-            : getFirstName(user.name)} */}
-          User
-          {user ? (
+            : getFirstName(user.name)}
+          {user.avatar !== '' ? (
             <img src={user.avatar} alt="User Avatar" className={css.avatar} />
           ) : (
             <img src={photo} alt="User Avatar" className={css.avatar} />
@@ -55,10 +54,7 @@ export const UserBar = ({ user, setIsUserUpdated }) => {
         {isModalOpen && (
           <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
             {btn === 'Settings' && (
-              <UserSettingsForm
-                onClose={handleCloseModal}
-                setIsUserUpdated={setIsUserUpdated}
-              />
+              <UserSettingsForm onClose={handleCloseModal} />
             )}
             {btn === 'Log out' && <LogOutModal onClose={handleCloseModal} />}
           </GlobalModal>
