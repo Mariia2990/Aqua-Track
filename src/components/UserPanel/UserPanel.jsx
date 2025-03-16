@@ -6,9 +6,9 @@ import { UserBar } from '../UseBar/UserBar';
 import css from './UserPanel.module.css';
 
 export function UserPanel() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
 
   // useEffect(() => {
   //   dispatch(refreshAccessToken());
@@ -16,12 +16,12 @@ export function UserPanel() {
 
   const userData = useSelector(selectUser);
 
-  // useEffect(() => {
-  //   if (isUserUpdated) {
-  //     dispatch(refreshAccessToken());
-  //     setIsUserUpdated(false);
-  //   }
-  // }, [dispatch, isUserUpdated]);
+  useEffect(() => {
+    if (isUserUpdated) {
+      dispatch(refreshAccessToken());
+      setIsUserUpdated(false);
+    }
+  }, [dispatch, isUserUpdated]);
 
   const getFirstName = (fullName) => {
     return fullName === userData.name
@@ -41,7 +41,7 @@ export function UserPanel() {
       <UserBar
         user={userData}
         getFirstName={getFirstName}
-        // setIsUserUpdated={setIsUserUpdated}
+        setIsUserUpdated={setIsUserUpdated}
       />
     </div>
   );

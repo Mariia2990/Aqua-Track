@@ -4,7 +4,10 @@ export const validationSchema = yup.object().shape({
   avatar: yup.mixed(),
   name: yup
     .string()
-    .matches(/^[a-zA-Z]+$/, 'Please enter a valid name using Latin characters'),
+    .matches(
+      /^[a-zA-Z\s-]+$/,
+      'Please enter a valid name using Latin characters',
+    ),
   email: yup.string().email('Please enter a valid email address'),
   weight: yup
     .number()
@@ -15,7 +18,7 @@ export const validationSchema = yup.object().shape({
       if (originalValue === '') return null;
       return value;
     }),
-  time: yup
+  dailySportTime: yup
     .number()
     .nullable()
     .min(0)
@@ -24,7 +27,7 @@ export const validationSchema = yup.object().shape({
       if (originalValue === '') return null;
       return value;
     }),
-  water: yup
+  dailyNorm: yup
     .number()
     .nullable()
     .transform((value, originalValue) => {

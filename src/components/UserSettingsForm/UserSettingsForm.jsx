@@ -10,12 +10,12 @@ import { validationSchema } from './validationSchema.js';
 import { updateUser, uploadUserAvatar } from '../../redux/auth/operations.js';
 import { selectUser, selectUserAvatar } from '../../redux/auth/selectors.js';
 
-const UserSettingsForm = ({ onClose }) => {
+const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [isAvatarSelected, setIsAvatarSelected] = useState(false);
   const [amount, setAmount] = useState(1.8);
-  const [gender, setGender] = useState('woman');
+  const [gender, setGender] = useState(user.gender ? user.gender : 'woman');
 
   const {
     register,
@@ -30,8 +30,8 @@ const UserSettingsForm = ({ onClose }) => {
       name: user.name,
       email: user.email,
       weight: user.weight,
-      time: user.time,
-      water: user.water / 1000,
+      dailySportTime: user.DailyActivityTime,
+      dailyNorm: user.DailyWaterNorm / 1000,
     },
   });
 
@@ -42,8 +42,8 @@ const UserSettingsForm = ({ onClose }) => {
   );
 
   const weight = watch('weight');
-  const time = watch('time');
-  const avatar = watch('avatar');
+  const time = watch('dailySportTime');
+  // const avatar = watch('avatarUrl');
 
   useEffect(() => {
     if (weight && gender && time) {
@@ -77,10 +77,9 @@ const UserSettingsForm = ({ onClose }) => {
         console.log(fileUploaded);
 
         setAvatarPreview(URL.createObjectURL(fileUploaded));
-        setValue('avatar', fileUploaded, {
+        setValue('avatarUrl', fileUploaded, {
           shouldValidate: true,
         });
-        setIsAvatarSelected(true);
         console.log(fileUploaded);
         handleAvatarSubmit(fileUploaded);
       }
@@ -92,18 +91,18 @@ const UserSettingsForm = ({ onClose }) => {
     console.log('File:', file);
 
     const formData = new FormData();
-    formData.append('avatar', file);
+    formData.append('avatarUrl', file);
 
     console.log('FormData entries:');
     for (const pair of formData.entries()) {
       console.log(pair[0] + ', ' + pair[1]);
     }
 
-    console.log('FormData.get("avatar"):', formData.get('avatar'));
     try {
       console.log(formData);
-      dispatch(uploadUserAvatar(formData.get('avatar')));
+      dispatch(uploadUserAvatar(formData));
       toast.success('The avatar has been updated successfully!');
+      setIsUserUpdated(true);
     } catch (error) {
       console.log(error);
       toast.error('Something went wrong. Please try again.');
@@ -111,20 +110,25 @@ const UserSettingsForm = ({ onClose }) => {
   };
 
   const handleFormSubmit = async (data) => {
-    const formData = new FormData();
+    console.log(data);
+    const updateData = {};
     const hasChanged = (fieldName) => data[fieldName] !== user[fieldName];
 
-    if (hasChanged('gender')) formData.append('gender', data.gender);
-    if (hasChanged('name')) formData.append('name', data.name);
-    if (hasChanged('email')) formData.append('email', data.email);
-    if (hasChanged('weight')) formData.append('weight', data.weight);
-    if (hasChanged('water')) formData.append('water', data.water);
-    if (hasChanged('time')) formData.append('time', data.time);
+    if (hasChanged('gender')) updateData.gender = data.gender;
+    if (hasChanged('name')) updateData.name = data.name;
+    if (hasChanged('email')) updateData.email = data.email;
+    if (hasChanged('weight')) updateData.weight = data.weight;
+    if (hasChanged('dailyNorm')) updateData.dailyNorm = data.dailyNorm * 1000;
+    if (hasChanged('dailySportTime'))
+      updateData.dailySportTime = data.dailySportTime;
 
-    if (isAvatarSelected || Object.keys(data).some((key) => hasChanged(key))) {
+    console.log(updateData);
+
+    if (Object.keys(data).some((key) => hasChanged(key))) {
       try {
-        dispatch(updateUser(formData));
+        dispatch(updateUser(updateData));
         toast.success('The settings has been updated successfully!');
+        setIsUserUpdated(true);
         onClose();
       } catch (error) {
         console.log(error);
@@ -150,7 +154,7 @@ const UserSettingsForm = ({ onClose }) => {
             </div>
             <input
               type="file"
-              {...register('avatar')}
+              {...register('avatarUrl')}
               onChange={handleChange}
               ref={hiddenFileInput}
               style={{ display: 'none' }}
@@ -288,7 +292,7 @@ const UserSettingsForm = ({ onClose }) => {
                     errors.time ? css.error : ''
                   }`}
                   type="number"
-                  {...register('time')}
+                  {...register('dailySportTime')}
                   placeholder="0"
                 />
                 {errors.time && (
@@ -312,7 +316,7 @@ const UserSettingsForm = ({ onClose }) => {
                 }`}
                 type="number"
                 step="0.1"
-                {...register('water')}
+                {...register('dailyNorm')}
                 placeholder="1.8"
               />
               {errors.water && (
