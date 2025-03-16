@@ -12,6 +12,8 @@ export function UserPanel() {
 
   const userData = useSelector(selectUser);
 
+  !isUserUpdated && userData;
+
   const getFirstName = (fullName) => {
     return fullName === userData.name
       ? fullName.split(' ')[0]

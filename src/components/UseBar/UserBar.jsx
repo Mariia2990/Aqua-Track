@@ -59,6 +59,7 @@ export const UserBar = ({ user, getFirstName, setIsUserUpdated }) => {
           <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
             {btn === 'Settings' && (
               <UserSettingsForm
+                user={user}
                 onClose={handleCloseModal}
                 setIsUserUpdated={setIsUserUpdated}
               />
