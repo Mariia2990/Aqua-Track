@@ -84,7 +84,7 @@ const slice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = { ...state.user, ...action.payload };
+        state.user = action.payload.data;
       })
       .addCase(uploadUserAvatar.pending, (state) => {
         state.isLoading = true;

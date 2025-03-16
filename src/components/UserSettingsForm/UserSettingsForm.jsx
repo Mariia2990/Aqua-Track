@@ -10,9 +10,9 @@ import { validationSchema } from './validationSchema.js';
 import { updateUser, uploadUserAvatar } from '../../redux/auth/operations.js';
 import { selectUser, selectUserAvatar } from '../../redux/auth/selectors.js';
 
-const UserSettingsForm = ({ onClose, setIsUserUpdated }) => {
+const UserSettingsForm = ({ user, onClose, setIsUserUpdated }) => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  // const user = useSelector(selectUser);
   const [isAvatarSelected, setIsAvatarSelected] = useState(false);
   const [amount, setAmount] = useState(1.8);
   const [gender, setGender] = useState(user.gender ? user.gender : 'woman');
