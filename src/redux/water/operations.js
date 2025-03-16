@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const aquaTrackApi = axios.create({
+axios.create({
   baseURL: 'https://aquatrackerapi.onrender.com',
 });
 
@@ -31,9 +31,9 @@ export const fetchWaterDataMonthly = createAsyncThunk(
 );
 
 
-export const addWater = createAsyncThunk('water/addWater', (body, thunkAPI) => {
+export const addWater = createAsyncThunk('water/addWater', async (body, thunkAPI) => {
   try {
-    const response = aquaTrackApi.post('/water', body);
+    const response = await axios.post('/water', body);
     return response.data;
   } catch (err) {
     return thunkAPI.rejectWithValue(err.message);
