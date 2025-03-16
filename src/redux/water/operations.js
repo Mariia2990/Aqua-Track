@@ -30,18 +30,6 @@ export const fetchWaterDataMonthly = createAsyncThunk(
   },
 );
 
-export const addWater = createAsyncThunk(
-  'water/addWater',
-  async (body, thunkAPI) => {
-    try {
-      const response = axios.post('/water', body);
-
-      return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
-    }
-  },
-);
 
 export const addWater = createAsyncThunk('water/addWater', (body, thunkAPI) => {
   try {
