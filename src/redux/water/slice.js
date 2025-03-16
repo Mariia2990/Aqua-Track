@@ -42,9 +42,6 @@ const slice = createSlice({
       .addCase(addWater.fulfilled, (state, action) => {
         state.waterInfo.push(action.payload);
       })
-      .addCase(addWater.fulfilled, (state, action) => {
-        state.waterInfo.push(action.payload);
-      })
       // Check this one later
       .addCase(updateWater.fulfilled, (state, action) => {
         let water = state.waterInfo.find(
