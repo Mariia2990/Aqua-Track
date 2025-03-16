@@ -8,16 +8,9 @@ import {
 } from './operations';
 
 const initialState = {
-  waterInfo: [
-    { id: '1', volume: '1', date: '2:10' },
-    { id: '2', volume: '3', date: '4:20' },
-  ],
+  waterInfo: [],
 
-  selectedDate: new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    1,
-  ).toISOString(),
+  selectedDate: new Date().toISOString(),
 };
 
 const slice = createSlice({
@@ -31,10 +24,10 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchWaterDataDaily.fulfilled, (state, action) => {
-        state.waterInfo = action.payload;
+        state.waterInfo = action.payload.data;
       })
       .addCase(fetchWaterDataMonthly.fulfilled, (state, action) => {
-        state.waterInfo = action.payload;
+        state.waterInfo = action.payload.data;
       })
       .addCase(addWater.fulfilled, (state, action) => {
         state.waterInfo.push(action.payload);
@@ -42,14 +35,14 @@ const slice = createSlice({
       // Check this one later
       .addCase(updateWater.fulfilled, (state, action) => {
         let water = state.waterInfo.find(
-          (item) => item.id === action.payload.id,
+          (item) => item._id === action.payload._id,
         );
         water.volume = action.payload.waterInfo.volume;
         water.date = action.payload.waterInfo.date;
       })
       .addCase(deleteWater.fulfilled, (state, action) => {
-        state.waterInfo = state.waterInfo.find(
-          (item) => item.id !== action.payload,
+        state.waterInfo = state.waterInfo.filter(
+          (item) => item._id !== action.payload,
         );
       });
   },

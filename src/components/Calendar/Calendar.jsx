@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import CalendarItem from '../CalendarItem/CalendarItem';
 import { selectWater, selectYearMonth } from '../../redux/water/selectors';
-import css from './Calendar.module.css'
+import css from './Calendar.module.css';
 
 const Calendar = () => {
   const waterData = useSelector(selectWater);
@@ -31,7 +31,15 @@ const Calendar = () => {
     <div className={css.calendarList}>
       {daysArray.map((day) => {
         const volumeForDay = getVolumeForDay(day);
-        return <CalendarItem key={day} day={day} volume={volumeForDay} />;
+        return (
+          <CalendarItem
+            key={day}
+            month={month}
+            year={year}
+            day={day}
+            volume={volumeForDay}
+          />
+        );
       })}
     </div>
   );
