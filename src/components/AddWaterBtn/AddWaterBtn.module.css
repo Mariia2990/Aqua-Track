@@ -1,15 +1,14 @@
 .wrapper {
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-
 .wrapperBtn.waterMain {
-      display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   border-radius: 30px;
   padding: 14px 20px;
   background-color: #323f47;
@@ -24,16 +23,27 @@ display: flex;
   color: #9be1a0;
 }
 
-.wrapperBtn.daily{
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 10px;
-      fill: #fff;
-      align-items: center;
+.wrapperBtn.daily {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  fill: #fff;
+  align-items: center;
+  color: #323f47;
 }
 
 .wrapperBtn.daily:hover .plusIcon.daily {
   background-color: #323f47;
+}
+
+.wrapperBtn.disabled {
+  color: gray;
+  cursor: not-allowed;
+}
+
+.wrapperBtn.disabled .plusIcon.disabled {
+  cursor: not-allowed;
+  background-color: rgba(50, 63, 71, 0.2);
 }
 
 .plusIcon {
@@ -55,6 +65,10 @@ display: flex;
   background-color: #9be1a0;
   fill: #323f47;
   transition: background-color var(--animation), fill var(--animation);
+}
+
+.wrapperBtn.disabled .plusIcon.disabled:hover {
+  background-color: rgba(50, 63, 71, 0.2);
 }
 
 .text {
@@ -80,5 +94,4 @@ display: flex;
 .text.daily {
   font-size: 16px;
   line-height: 1.5;
-  color: #323f47;
 }

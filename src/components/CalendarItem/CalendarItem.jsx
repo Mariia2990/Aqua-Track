@@ -21,6 +21,9 @@ const CalendarItem = ({
     onClick();
   };
 
+  const today = new Date().toISOString().split('T')[0];
+  const isToday = formattedDay === today;
+
   const containerStyle = {
     backgroundColor: isActive
       ? '#323f47'
@@ -28,6 +31,7 @@ const CalendarItem = ({
       ? 'rgba(50, 63, 71, 0.2)'
       : '#FFFFFF',
     color: isActive ? '#9be1a0' : '#000000',
+    border: isToday ? '1px solid #87D28D' : 'none',
   };
 
   return (
