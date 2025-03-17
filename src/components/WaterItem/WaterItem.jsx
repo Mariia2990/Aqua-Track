@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteWater } from '../../redux/water/operations'; // Додаємо Redux action
 import css from './WaterItem.module.css';
 import sprite from '/img/sprite.svg';
 import { BaseModal } from '../BaseModal/BaseModal';
@@ -6,7 +8,9 @@ import { WaterModal } from '../WaterModal/WaterModal';
 import { DeleteModal } from '../DeleteModal/DeleteModal';
 import { GlobalModal } from '../GlobalModal/GlobalModal';
 
-export function WaterItem({ item, volume, date, id }) {
+export function WaterItem({ item, volume, date, _id, onDelete }) {
+  const id = _id; 
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
 
@@ -22,6 +26,15 @@ export function WaterItem({ item, volume, date, id }) {
 
   const closeModal = useCallback(() => setIsOpen(false), []);
   const closeModalDelete = useCallback(() => setIsOpenDelete(false), []);
+
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteWater(id)).unwrap();
+      onDelete(id);
+    } catch (error) {
+      console.error('Failed to delete:', error);
+    }
+  };
 
   function formatDate(isoString) {
     const date = new Date(isoString);

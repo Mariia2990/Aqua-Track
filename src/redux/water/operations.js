@@ -59,16 +59,24 @@ export const updateWater = createAsyncThunk(
   },
 );
 
+
+
 export const deleteWater = createAsyncThunk(
   'water/deleteWater',
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`/water/${id}`);
-      console.log('Deleted successfully:', response); 
-      return id; 
+      const token = localStorage.getItem('token'); 
+      if (!token) {
+        throw new Error('User is not authenticated'); 
+      }
+      const response = await axios.delete(`/water/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return id;
     } catch (err) {
-      console.error('Delete error:', err); 
-      return rejectWithValue(err.message);
+      return rejectWithValue(err.response?.data?.message || err.message);
     }
   },
 );

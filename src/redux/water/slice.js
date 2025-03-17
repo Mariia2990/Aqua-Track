@@ -10,7 +10,6 @@ import {
 const initialState = {
   waterInfo: [],
   selectedDate: new Date().toISOString(),
-
 };
 
 const slice = createSlice({

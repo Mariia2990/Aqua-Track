@@ -12,6 +12,10 @@ export function WaterList() {
 
   const selectedDate = useSelector(selectDate);
 
+  const handleDelete = (id) => {
+    setWaterList((prevList) => prevList.filter((item) => item.id !== id));
+  };
+
   useEffect(() => {
     if (selectedDate) {
       dispatch(fetchWaterDataDaily(selectedDate));
@@ -28,11 +32,11 @@ export function WaterList() {
           e.preventDefault();
           el.scrollTo({
             left: el.scrollLeft + e.deltaY,
-            behavior: "smooth",
+            behavior: 'smooth',
           });
         };
-        el.addEventListener("wheel", onWheel);
-        return () => el.removeEventListener("wheel", onWheel);
+        el.addEventListener('wheel', onWheel);
+        return () => el.removeEventListener('wheel', onWheel);
       }
     }, []);
     return elRef;
@@ -42,7 +46,14 @@ export function WaterList() {
     <div ref={useHorizontalScroll()} className={s.waterList}>
       {waterData.length > 0 ? (
         waterData.map((item) => {
-          return <WaterItem {...item} key={item._id} />;
+          return (
+            <WaterItem
+              id={item._id}
+              {...item}
+              key={item._id}
+              onDelete={handleDelete}
+            />
+          );
         })
       ) : (
         <div className={s.empty}>
