@@ -44,7 +44,6 @@ export const WaterForm = ({ type, id, volume, date, onClose }) => {
       time: date || getCurrentTime(),
     },
   });
-
   const amountWater = Number(watch('amountWater'));
 
   const increment = () => {
@@ -68,17 +67,16 @@ export const WaterForm = ({ type, id, volume, date, onClose }) => {
 
       if (type === 'edit') {
         const formattedData = {
-          id: id,
           volume: Number(data.amountWater),
           date: timeDate,
         };
 
-        await dispatch(updateWater(formattedData));
+        await dispatch(updateWater({ id, formattedData }));
 
         toast.success('Water data updated successfully!');
       } else {
         const newWaterData = {
-          volume: data.amountWater,
+          volume: Number(data.amountWater),
           date: timeDate,
         };
 

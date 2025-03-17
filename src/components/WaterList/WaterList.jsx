@@ -5,6 +5,7 @@ import { selectDate, selectWater } from '../../redux/water/selectors';
 import {
   fetchWaterDataDaily,
   deleteWater,
+  updateWater,
 } from '../../redux/water/operations.js';
 import s from './WaterList.module.css';
 import photoWater from '/img/Vector-1x.jpg';
@@ -44,7 +45,7 @@ export function WaterList() {
     return elRef;
   }
 
-  const scrollRef = useHorizontalScroll(); 
+  const scrollRef = useHorizontalScroll();
 
   return (
     <div ref={scrollRef} className={s.waterList}>

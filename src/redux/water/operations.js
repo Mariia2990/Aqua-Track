@@ -5,13 +5,11 @@ axios.create({
   baseURL: 'https://aquatrack-1v64.onrender.com/',
 });
 
-
 const getAuthHeaders = (getState) => {
   const token = getState().auth.token || localStorage.getItem('token');
   if (!token) throw new Error('User is not authenticated');
   return { Authorization: `Bearer ${token}` };
 };
-
 
 export const fetchWaterDataDaily = createAsyncThunk(
   'water/fetchAllDaily',
@@ -29,7 +27,6 @@ export const fetchWaterDataDaily = createAsyncThunk(
   },
 );
 
-
 export const fetchWaterDataMonthly = createAsyncThunk(
   'water/fetchAllMonthly',
   async (_, thunkAPI) => {
@@ -43,7 +40,6 @@ export const fetchWaterDataMonthly = createAsyncThunk(
     }
   },
 );
-
 
 export const addWater = createAsyncThunk(
   'water/addWater',
@@ -61,12 +57,11 @@ export const addWater = createAsyncThunk(
   },
 );
 
-
 export const updateWater = createAsyncThunk(
   'water/updateWater',
-  async ({ _id, body }, thunkAPI) => {
+  async ({ id, formattedData }, thunkAPI) => {
     try {
-      const response = await axios.patch(`/water/${_id}`, body, {
+      const response = await axios.patch(`/water/${id}`, formattedData, {
         headers: getAuthHeaders(thunkAPI.getState),
       });
       return response.data;
@@ -85,7 +80,7 @@ export const deleteWater = createAsyncThunk(
       const response = await axios.delete(`/water/${_id}`, {
         headers: getAuthHeaders(thunkAPI.getState),
       });
-      return _id; 
+      return _id;
     } catch (err) {
       return thunkAPI.rejectWithValue(
         err.response?.data?.message || err.message,
