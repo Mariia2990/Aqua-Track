@@ -1,6 +1,7 @@
 .calendarPagination {
   margin-bottom: 24px;
   display: flex;
+  align-items: center;
 }
 
 .buttonPagination {
@@ -11,30 +12,53 @@
 
 .dateFormat {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
 .paginationHeader {
-  color: #323f47;
-  margin-right: 50px;
-  font-family: Poppins;
-  font-size: 20px;
-  font-style: normal;
+font-family: var(--font-family);
   font-weight: 700;
-  line-height: 24px; /* 120% */
-  letter-spacing: -0.2px;
-  width: 66px;
-  height: 24px;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  color: var(--main);
+  text-transform: capitalize;
 }
 
 .paginationDate {
-  align-content: center;
-  color: #323f47;
-  text-align: center;
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
+font-family: var(--font-family);
   font-weight: 700;
-  line-height: 18px; /* 128.571% */
-  letter-spacing: -0.14px;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--main);
+}
+
+.boxIcon{
+  display: flex;
+  margin-left: 16px;
+  width: 20px;
+  height: 20px;
+}
+
+.iconPag{
+stroke-width: 2px;
+}
+
+@media only screen and (min-width: 768px) {
+  .paginationHeader {
+  font-size: 28px;
+  line-height: 114%;
+  }
+
+.paginationDate{
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.buttonPagination {
+margin-left: 343px;
+}
 }

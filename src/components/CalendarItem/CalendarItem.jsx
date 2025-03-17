@@ -1,25 +1,45 @@
 import { useDispatch } from 'react-redux';
 import css from './CalendarItem.module.css';
 import { setDate } from '../../redux/water/slice';
-import { fetchWaterDataDaily } from '../../redux/water/operations';
 
-const CalendarItem = ({ year, month, day, volume }) => {
+const CalendarItem = ({
+  year,
+  month,
+  day,
+  feasibility = 0,
+  isActive,
+  onClick,
+}) => {
   const dispatch = useDispatch();
 
+  const formattedDay = `${year}-${(month + 1).toString().padStart(2, '0')}-${day
+    .toString()
+    .padStart(2, '0')}`;
+
   const handleClick = () => {
-    const selectedDate = new Date(year, month, day).toISOString();
+    dispatch(setDate(formattedDay));
+    onClick();
+  };
 
-    dispatch(setDate(selectedDate));
-
-    dispatch(fetchWaterDataDaily(selectedDate));
+  const containerStyle = {
+    backgroundColor: isActive
+      ? '#323f47'
+      : feasibility < 100
+      ? 'rgba(50, 63, 71, 0.2)'
+      : '#FFFFFF',
+    color: isActive ? '#9be1a0' : '#000000',
   };
 
   return (
     <div className={css.calendarItem}>
-      <button className={css.button} onClick={handleClick}>
+      <button
+        className={css.button}
+        style={containerStyle}
+        onClick={handleClick}
+      >
         {day}
       </button>
-      <p className={css.volume}>{volume}%</p>
+      <p className={css.volume}>{feasibility}%</p>
     </div>
   );
 };

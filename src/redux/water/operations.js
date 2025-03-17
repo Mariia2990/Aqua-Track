@@ -61,13 +61,14 @@ export const updateWater = createAsyncThunk(
 
 export const deleteWater = createAsyncThunk(
   'water/deleteWater',
-  async (body, thunkAPI) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`/water/${body.id}`, body);
-
-      return response.data;
+      const response = await axios.delete(`/water/${id}`);
+      console.log('Deleted successfully:', response); 
+      return id; 
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+      console.error('Delete error:', err); 
+      return rejectWithValue(err.message);
     }
   },
 );
