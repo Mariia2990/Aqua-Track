@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 axios.create({
-  baseURL: 'https://aquatrackerapi.onrender.com',
+  baseURL: 'https://aquatrack-1v64.onrender.com/',
 });
 
 

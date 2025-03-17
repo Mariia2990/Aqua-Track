@@ -40,11 +40,9 @@ const slice = createSlice({
         water.date = action.payload.waterInfo.date;
       })
       .addCase(deleteWater.fulfilled, (state, action) => {
-        console.log('Before delete:', state.waterInfo);
         state.waterInfo = state.waterInfo.filter(
           (item) => item.id !== action.payload,
         );
-        console.log('After delete:', state.waterInfo);
       });
   },
 });
