@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectDate } from '../../redux/water/selectors';
 
 import { deleteWater, fetchWaterDataDaily } from '../../redux/water/operations';
