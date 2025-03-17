@@ -31,7 +31,7 @@ const CalendarItem = ({
       ? 'rgba(50, 63, 71, 0.2)'
       : '#FFFFFF',
     color: isActive ? '#9be1a0' : '#000000',
-    border: isToday ? '1px solid #87D28D' : 'none',
+    border: isToday ? '3px solid #87D28D' : 'none',
   };
 
   return (
