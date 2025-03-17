@@ -10,6 +10,7 @@ export const WaterModal = ({
   date,
   isOpen,
   onClose,
+  onEdit,
 }) => {
   return (
     <GlobalModal isOpen={isOpen} onClose={onClose}>
