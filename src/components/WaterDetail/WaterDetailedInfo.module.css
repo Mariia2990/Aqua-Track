@@ -1,4 +1,5 @@
 .wrapper {
+  max-width: 320px;
   min-height: 770px;
   background-color: var(--background);
   padding: 40px 20px;
@@ -7,6 +8,7 @@
 
 @media (min-width: 768px) {
   .wrapper {
+    max-width: 768px;
     min-height: 738px;
     padding: 32px 32px 35px;
   }

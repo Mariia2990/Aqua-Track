@@ -2,13 +2,16 @@
   border-radius: 30px;
   background-color: #f0eff4;
   border-radius: 30px;
-  width: 343px;
+  width: 100%;
   padding: 24px 16px 216px 16px;
 }
 
-.signin_form {
+@media only screen and (min-width: 375px) {
+  .signin_wrapper{
+    max-width: 343px;
+      padding: 24px 16px 216px 16px;
+  }
 }
-
 .redirect {
   text-align: center;
   font-weight: 400;
@@ -32,7 +35,7 @@
 @media only screen and (min-width: 768px) {
   .signin_wrapper {
     border-radius: 30px;
-    width: 704px;
+    max-width: 704px;
     padding: 32px 134px 281px 32px;
   }
 

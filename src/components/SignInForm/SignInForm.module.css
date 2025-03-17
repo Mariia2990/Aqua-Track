@@ -1,8 +1,11 @@
 .form {
-  width: 311px;
-  margin: 0 auto;
-  margin-bottom: 16px;
-  margin-top: 172px;
+    display: flex;
+      /* width: 311px; */
+      margin: 0 auto;
+      margin-bottom: 16px;
+      margin-top: 172px;
+      flex-direction: column;
+      justify-content: center;
 }
 
 .title {
@@ -35,7 +38,7 @@
   border: 1px solid rgba(47, 47, 47, 0.2);
   border-radius: 15px;
   padding: 16px 184px 16px 16px;
-  width: 311px;
+  /* width: 311px; */
   height: 50px;
   padding: 16px;
   font-weight: 400;
@@ -73,7 +76,7 @@
 
 .button {
   border-radius: 30px;
-  width: 311px;
+  /* width: 311px; */
   height: 50px;
   border: none;
   background-color: #9be1a0;
@@ -104,7 +107,7 @@
 
 .eyeButton {
   position: absolute;
-  right: 18px;
+  right: 40px;
   top: 24px;
   background: transparent;
   border: none;
@@ -118,9 +121,20 @@
   fill: none;
 }
 
+@media only screen and (min-width: 375px) {
+.input {
+    width: 311px;
+    height: 56px;
+  }
+
+  .eyeButton{
+    right: 18px;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .form {
-    width: 436px;
+    /* width: 436px; */
     margin-top: 225px;
     margin-left: 102px;
   }

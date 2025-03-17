@@ -5,7 +5,7 @@
   border-radius: 15px;
   padding: 18px 14px;
   width: fit-content;
-  backdrop-filter: blur(33.599998474121094px);
+  /* backdrop-filter: blur(33.599998474121094px); */
   background: #fff;
 }
 
