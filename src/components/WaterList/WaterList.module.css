@@ -50,7 +50,7 @@ margin-top: 24px;
 @media only screen and (min-width: 768px) {
 
   .waterList {
-    gap: 16px;
+    gap: 32px;
   }
 
   .empty {
@@ -65,7 +65,11 @@ margin-top: 24px;
   color: #323f47;
 }
 
-@media only screen and (max-width: 370px) {
+@media only screen and (min-width: 1440px) {
+
+  .waterList {
+      gap: 16px;
+    }
   .empty {
     padding: 26px 10px;
   }
