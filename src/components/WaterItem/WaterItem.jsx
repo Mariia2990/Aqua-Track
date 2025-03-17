@@ -36,12 +36,12 @@ export function WaterItem({ item, volume, date, _id, onDelete }) {
     }
   };
 
-  function formatDate(isoString) {
-    const date = new Date(isoString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    return `${day}:${month}`;
-  }
+function formatTime(isoString) {
+  const date = new Date(isoString);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
 
   return (
     <div className={css.card}>
@@ -50,7 +50,7 @@ export function WaterItem({ item, volume, date, _id, onDelete }) {
       </svg>
       <div className={css.textBox}>
         <p className={css.ml}>{volume} ml</p>
-        <p className={css.itemDate}>{date ? formatDate(date) : 'No Date'}</p>
+        <p className={css.itemDate}>{date ? formatTime(date) : 'No Date'}</p>
       </div>
       <div className={css.btnBox}>
         <button className={css.button} type="button" onClick={openModal}>
