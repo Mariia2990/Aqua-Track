@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectDate } from '../../redux/water/selectors';
 import { setDate } from '../../redux/water/slice';
 import css from './CalendarPagination.module.css';
+import sprite from '../../../public/img/sprite.svg';
 
 const CalendarPagination = () => {
   const selectedDate = useSelector(selectDate);
@@ -27,10 +28,10 @@ const CalendarPagination = () => {
     dispatch(setDate(newDate.toISOString()));
   };
 
-  const formattedMonth = new Date(selectedDate).toLocaleDateString('US-EN', {
+  const formattedMonth = new Date(selectedDate).toLocaleDateString('EN', {
     month: 'long',
   });
-  const formattedYear = new Date(selectedDate).toLocaleDateString('US-EN', {
+  const formattedYear = new Date(selectedDate).toLocaleDateString('EN', {
     year: 'numeric',
   });
 
@@ -45,6 +46,11 @@ const CalendarPagination = () => {
         </div>
         <button onClick={goToNextMonth}>{`>`}</button>
       </div>
+      <button className={css.boxIcon}>
+        <svg className={css.iconPag}>
+          <use width={20} height={20} xlinkHref={`${sprite}#icon-pie-chart`} />
+        </svg>
+      </button>
     </div>
   );
 };

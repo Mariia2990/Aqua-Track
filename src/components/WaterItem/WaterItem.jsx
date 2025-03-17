@@ -1,43 +1,69 @@
-// import css from './WaterItem.module.css';
-// import { BaseModal } from '../BaseModal/BaseModal';
-// import { WaterModal } from '../WaterModal/WaterModal';
-// import { DeleteModal } from '../DeleteModal/DeleteModal';
-// import { GlobalModal } from '../GlobalModal/GlobalModal';
+import { useState, useCallback } from 'react';
 import css from './WaterItem.module.css';
+import sprite from '/img/sprite.svg';
+import { BaseModal } from '../BaseModal/BaseModal';
+import { WaterModal } from '../WaterModal/WaterModal';
+import { DeleteModal } from '../DeleteModal/DeleteModal';
+import { GlobalModal } from '../GlobalModal/GlobalModal';
 
-export function WaterItem({ volume, date }) {
+export function WaterItem({ item, volume, date, id }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
+
+  const openModal = useCallback(() => {
+    setIsOpen(true);
+    setIsOpenDelete(false);
+  }, []);
+
+  const openModalDelete = useCallback(() => {
+    setIsOpenDelete(true);
+    setIsOpen(false);
+  }, []);
+
+  const closeModal = useCallback(() => setIsOpen(false), []);
+  const closeModalDelete = useCallback(() => setIsOpenDelete(false), []);
+
   function formatDate(isoString) {
     const date = new Date(isoString);
     const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
-    return `${day}::${month}`;
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    return `${day}:${month}`;
   }
 
   return (
-    <li className={css.item}>
-      <img className={css.favicon} src="/img/favicon.svg" alt="Favicon" />
-      <div className={css.dataWrapper}>
-        <p className={css.itemVolume}>{volume}L</p>
-        <p className={css.itemDate}>{formatDate(date)} AM</p>
+    <div className={css.card}>
+      <svg className={css.bottleIcon}>
+        <use href={`${sprite}#icon-water-glass`}></use>
+      </svg>
+      <div className={css.textBox}>
+        <p className={css.ml}>{volume} ml</p>
+        <p className={css.itemDate}>{date ? formatDate(date) : 'No Date'}</p>
       </div>
-      <div className={css.iconWrapper}>
-        <button className={css.editBtn}>
-          <img src="/img/edit.svg" alt="trash-icon" />
+      <div className={css.btnBox}>
+        <button className={css.button} type="button" onClick={openModal}>
+          <svg className={css.btnIcon}>
+            <use href={`${sprite}#icon-edit`}></use>
+          </svg>
         </button>
-        <button className={css.trashBtn}>
-          <img src="/img/trash.svg" alt="trash-icon" />
+        <button className={css.button} type="button" onClick={openModalDelete}>
+          <svg className={css.btnIcon}>
+            <use href={`${sprite}#icon-trash`}></use>
+          </svg>
         </button>
       </div>
-    </li>
+
+      <GlobalModal isOpen={isOpen} onClose={closeModal}>
+        <WaterModal
+          type="edit"
+          isOpen={isOpen}
+          onClose={closeModal}
+          {...item}
+        />
+      </GlobalModal>
+
+      <BaseModal isOpen={isOpenDelete} onRequestClose={closeModalDelete}>
+        <DeleteModal id={id} isOpen={isOpenDelete} onClose={closeModalDelete} />
+      </BaseModal>
+    </div>
   );
-}
-
-{
-  /* <BaseModal >
-    <WaterModal/>
-</BaseModal>
-
-<GlobalModal>
-    <DeleteModal />
-</GlobalModal> */
 }

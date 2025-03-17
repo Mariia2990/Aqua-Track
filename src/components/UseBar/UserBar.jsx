@@ -56,7 +56,7 @@ export const UserBar = ({ user, getFirstName, setIsUserUpdated }) => {
         </button>
         {isMenuOpen && <UserBarPopover onOpenModal={handleOpenModal} />}
         {isModalOpen && (
-          <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal} >
             {btn === 'Settings' && (
               <UserSettingsForm
                 user={user}

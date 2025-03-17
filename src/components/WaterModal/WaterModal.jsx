@@ -14,10 +14,10 @@ export const WaterModal = ({
   return (
     <GlobalModal isOpen={isOpen} onClose={onClose}>
       <div className={css.modal}>
-        {type === 'add' ? <h2 className={css.modal_title}>Add water</h2> : null}
-        {type === 'edit' ? (
+        {type === 'add' && <h2 className={css.modal_title}>Add water</h2>}
+        {type === 'edit' && (
           <h2 className={css.modal_title}>Edit the entered amount of water</h2>
-        ) : null}
+        )}
         <WaterForm
           type={type}
           id={id}

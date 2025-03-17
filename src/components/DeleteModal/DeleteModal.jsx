@@ -1,25 +1,29 @@
 import { useDispatch } from 'react-redux';
 
-import { GlobalModal } from '../GlobalModal/GlobalModal';
 import { deleteWater } from '../../redux/water/operations';
 
 import css from './DeleteModal.module.css';
+import toast from 'react-hot-toast';
 
 export const DeleteModal = ({ id, isOpen, onClose }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = async () => {
-    try {
-      await dispatch(deleteWater({ id }));
-      toast.success('Water entry deleted successfully!');
-      onClose();
-    } catch (error) {
-      toast.error('Failed to delete water entry.');
-    }
-  };
+const handleDelete = async () => {
+  if (!id) {
+    toast.error('Invalid entry ID.');
+    return;
+  }
+  try {
+    await dispatch(deleteWater(id)).unwrap();
+    toast.success('Water entry deleted successfully!');
+    console.log('Deleted entry with ID:', id);
+    // onClose();  
+  } catch (error) {
+    toast.error(error.message || 'Failed to delete water entry.');
+  }
+};
 
   return (
-    <GlobalModal isOpen={isOpen} onClose={onClose}>
       <div className={css.modal}>
         <h2 className={css.modal__title}>Delete entry</h2>
         <p className={css.modal__subtitle}>
@@ -40,6 +44,5 @@ export const DeleteModal = ({ id, isOpen, onClose }) => {
           </button>
         </div>
       </div>
-    </GlobalModal>
   );
 };
