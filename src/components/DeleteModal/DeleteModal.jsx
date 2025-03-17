@@ -18,8 +18,8 @@ const handleDelete = async () => {
   try {
     await dispatch(deleteWater(id)).unwrap();
     toast.success('Water entry deleted successfully!');
-    if (selectDate) {
-      dispatch(fetchWaterDataDaily(selectDate)); 
+    if (selectedDate) {
+      dispatch(fetchWaterDataDaily(selectedDate));
     }
     onClose();
   } catch (error) {
