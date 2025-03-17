@@ -11,69 +11,67 @@ const CalendarPagination = () => {
   const selectedDate = useSelector(selectDate);
   const dispatch = useDispatch();
   const { year, month } = useSelector(selectYearMonth);
+
   const goToPreviousMonth = () => {
     const currentDate = new Date(selectedDate);
+    const newMonth = currentDate.getMonth() - 1;
     const newDate = new Date(
       currentDate.getFullYear(),
-      currentDate.getMonth() - 1,
-      1,
+      newMonth,
+      currentDate.getDate(),
     );
-    const newMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() - 1,
-    ).getMonth();
-    const today = new Date(new Date().toISOString());
 
-    const currentMonth = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-    ).getMonth();
+    // Отримуємо останній день нового місяця
+    const lastDayOfNewMonth = new Date(
+      newDate.getFullYear(),
+      newDate.getMonth() + 1,
+      0,
+    ).getDate();
 
-    if (currentMonth === newMonth) {
-      dispatch(setDate(new Date().toISOString()));
-    } else {
-      dispatch(setDate(newDate.toISOString()));
+    // Якщо поточний день більший за останній у новому місяці — встановлюємо останній
+    if (newDate.getDate() > lastDayOfNewMonth) {
+      newDate.setDate(lastDayOfNewMonth);
     }
+
+    dispatch(setDate(newDate.toISOString()));
   };
+
   const goToNextMonth = () => {
     const currentDate = new Date(selectedDate);
+    const newMonth = currentDate.getMonth() + 1;
     const newDate = new Date(
       currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      1,
+      newMonth,
+      currentDate.getDate(),
     );
-    const newMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-    ).getMonth();
-    const today = new Date(new Date().toISOString());
 
-    const currentMonth = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-    ).getMonth();
-
-    if (currentMonth === newMonth) {
-      dispatch(setDate(new Date().toISOString()));
-    } else {
-      dispatch(setDate(newDate.toISOString()));
+    const lastDayOfNewMonth = new Date(
+      newDate.getFullYear(),
+      newDate.getMonth() + 1,
+      0,
+    ).getDate();
+    if (newDate.getDate() > lastDayOfNewMonth) {
+      newDate.setDate(lastDayOfNewMonth);
     }
+
+    dispatch(setDate(newDate.toISOString()));
   };
 
-  const formattedMonth = new Date(selectedDate).toLocaleDateString('EN', {
+  // Форматування місяця та року
+  const formattedMonth = new Date(selectedDate).toLocaleDateString('en', {
     month: 'long',
   });
-  const formattedYear = new Date(selectedDate).toLocaleDateString('EN', {
+  const formattedYear = new Date(selectedDate).toLocaleDateString('en', {
     year: 'numeric',
   });
 
-  const formatMonth = month + 1 < 10 ? `0${month + 1}` : month + 1;
-
-  const formattedDate = `${year}-${formatMonth}`;
-
   useEffect(() => {
-    dispatch(fetchWaterDataMonthly(formattedDate));
-  }, [dispatch, formattedDate]);
+    dispatch(
+      fetchWaterDataMonthly(
+        `${year}-${month + 1 < 10 ? `0${month + 1}` : month + 1}`,
+      ),
+    );
+  }, [dispatch, year, month]);
 
   return (
     <div className={css.calendarPagination}>
