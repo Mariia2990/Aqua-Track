@@ -5,9 +5,11 @@ import { selectDate } from '../../redux/water/selectors';
 export function ChooseDate() {
   const currentDate = useSelector(selectDate);
 
-  const formatDate = (dateString) => {
+  const formatMonthYear = (dateString) => {
+    if (!dateString) return 'Invalid Date'; 
     const date = new Date(dateString);
-    const day = date.getDate();
+    if (isNaN(date)) return 'Invalid Date';
+
     const months = [
       'January',
       'February',
@@ -22,18 +24,8 @@ export function ChooseDate() {
       'November',
       'December',
     ];
-    const month = months[date.getMonth()];
-
-    return `${day}, ${month}`;
+    return `${months[date.getMonth()]}`;
   };
 
-  const localDate = new Date().toISOString().split('T')[0];
-
-  return (
-    <h2 className={css.date}>
-      {currentDate.split('T')[0] === localDate
-        ? 'Today'
-        : formatDate(currentDate)}
-    </h2>
-  );
+  return <h2 className={css.date}>{formatMonthYear(currentDate)}</h2>;
 }
