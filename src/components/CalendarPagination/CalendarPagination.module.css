@@ -2,11 +2,12 @@
   margin-bottom: 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .buttonPagination {
   display: flex;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   gap: 16px;
 }
 
@@ -59,6 +60,6 @@ stroke-width: 2px;
 }
 
 .buttonPagination {
-margin-left: 343px;
+/* margin-left: 343px; */
 }
 }

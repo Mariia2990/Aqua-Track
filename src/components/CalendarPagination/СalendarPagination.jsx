@@ -45,12 +45,13 @@ const CalendarPagination = () => {
           <h2 className={css.paginationDate}>{formattedYear}</h2>
         </div>
         <button onClick={goToNextMonth}>{`>`}</button>
-      </div>
+      
       <button className={css.boxIcon}>
         <svg className={css.iconPag}>
           <use width={20} height={20} xlinkHref={`${sprite}#icon-pie-chart`} />
         </svg>
-      </button>
+        </button>
+      </div>
     </div>
   );
 };
