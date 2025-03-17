@@ -18,7 +18,22 @@ const CalendarPagination = () => {
       currentDate.getMonth() - 1,
       1,
     );
-    dispatch(setDate(newDate.toISOString()));
+    const newMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1,
+    ).getMonth();
+    const today = new Date(new Date().toISOString());
+
+    const currentMonth = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+    ).getMonth();
+
+    if (currentMonth === newMonth) {
+      dispatch(setDate(new Date().toISOString()));
+    } else {
+      dispatch(setDate(newDate.toISOString()));
+    }
   };
   const goToNextMonth = () => {
     const currentDate = new Date(selectedDate);
@@ -27,7 +42,22 @@ const CalendarPagination = () => {
       currentDate.getMonth() + 1,
       1,
     );
-    dispatch(setDate(newDate.toISOString()));
+    const newMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+    ).getMonth();
+    const today = new Date(new Date().toISOString());
+
+    const currentMonth = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+    ).getMonth();
+
+    if (currentMonth === newMonth) {
+      dispatch(setDate(new Date().toISOString()));
+    } else {
+      dispatch(setDate(newDate.toISOString()));
+    }
   };
 
   const formattedMonth = new Date(selectedDate).toLocaleDateString('EN', {
