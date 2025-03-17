@@ -49,9 +49,9 @@ export const addWater = createAsyncThunk(
 
 export const updateWater = createAsyncThunk(
   'water/updateWater',
-  async (body, thunkAPI) => {
+  async (_id, thunkAPI) => {
     try {
-      const response = await axios.patch(`/water/${body.id}`, body);
+      const response = await axios.patch(`/water/${_id}`, body);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
@@ -63,13 +63,13 @@ export const updateWater = createAsyncThunk(
 
 export const deleteWater = createAsyncThunk(
   'water/deleteWater',
-  async (id, { rejectWithValue }) => {
+  async (_id, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token'); 
       if (!token) {
         throw new Error('User is not authenticated'); 
       }
-      const response = await axios.delete(`/water/${id}`, {
+      const response = await axios.delete(`/water/${_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
