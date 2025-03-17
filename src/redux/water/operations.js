@@ -29,14 +29,15 @@ export const fetchWaterDataDaily = createAsyncThunk(
 
 export const fetchWaterDataMonthly = createAsyncThunk(
   'water/fetchAllMonthly',
-  async (_, thunkAPI) => {
+  async (month, thunkAPI) => {
+    const token = thunkAPI.getState().auth.token;
     try {
-      const response = await axios.get('/water/monthly');
+      const response = await axios.get(`/water/monthly?month=${month}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(
-        err.response?.data?.message || err.message,
-      );
+      return thunkAPI.rejectWithValue(err.message);
     }
   },
 );

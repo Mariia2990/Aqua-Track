@@ -9,6 +9,7 @@ import {
 
 const initialState = {
   waterInfo: [],
+  waterInfoMonthly: [],
   selectedDate: new Date().toISOString(),
 };
 
@@ -26,7 +27,7 @@ const slice = createSlice({
         state.waterInfo = action.payload.data;
       })
       .addCase(fetchWaterDataMonthly.fulfilled, (state, action) => {
-        state.waterInfo = action.payload.data;
+        state.waterInfoMonthly = action.payload.data;
       })
       .addCase(addWater.fulfilled, (state, action) => {
         state.waterInfo.push(action.payload.data);
