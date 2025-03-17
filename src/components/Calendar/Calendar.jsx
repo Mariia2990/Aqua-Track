@@ -13,7 +13,7 @@ const Calendar = () => {
   const activeDay = useSelector((state) => state.water.selectedDate);
   const user = useSelector(selectUser);
 
-  // 🔹 Отримуємо денну норму (у літрах) та переводимо в мілілітри
+
   const dailyNorm = user?.dailyNorm ? user.dailyNorm : 1500;
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -22,7 +22,6 @@ const Calendar = () => {
     (_, index) => index + 1,
   );
 
-  // Функція для отримання загального об'єму води за певний день
   const getVolumeForDay = (day) => {
     const entriesForDay =
       waterData?.filter((entry) => {
@@ -55,7 +54,7 @@ const Calendar = () => {
     <div className={css.calendarList}>
       {daysArray.map((day) => {
         const volumeForDay = getVolumeForDay(day);
-        const progress = Math.round((volumeForDay / dailyNorm) * 100); // 🔹 Використовуємо таку ж логіку, як у WaterMainInfo
+        const progress = Math.round((volumeForDay / dailyNorm) * 100); 
 
         return (
           <CalendarItem
@@ -63,7 +62,7 @@ const Calendar = () => {
             month={month}
             year={year}
             day={day}
-            feasibility={progress >= 0 ? Math.min(progress, 100) : 0} // Запобігаємо некоректним значенням
+            feasibility={progress >= 0 ? Math.min(progress, 100) : 0} 
             onClick={() => handleDayClick(day)}
             isActive={
               activeDay ===
