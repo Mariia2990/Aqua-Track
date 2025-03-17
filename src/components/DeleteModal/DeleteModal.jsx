@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { selectDate } from '../../redux/water/selectors';
 
 import { deleteWater, fetchWaterDataDaily } from '../../redux/water/operations';
 
@@ -16,13 +17,14 @@ const handleDelete = async () => {
   try {
     await dispatch(deleteWater(id)).unwrap();
     toast.success('Water entry deleted successfully!');
-    dispatch(fetchWaterDataDaily(selectedDate));
+    if (selectDate) {
+      dispatch(fetchWaterDataDaily(selectDate)); 
+    }
     onClose();
   } catch (error) {
     toast.error(error.message || 'Failed to delete water entry.');
   }
 };
-
 
   return (
       <div className={css.modal}>

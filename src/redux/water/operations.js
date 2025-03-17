@@ -5,20 +5,30 @@ axios.create({
   baseURL: 'https://aquatrackerapi.onrender.com',
 });
 
+
+const getAuthHeaders = (getState) => {
+  const token = getState().auth.token || localStorage.getItem('token');
+  if (!token) throw new Error('User is not authenticated');
+  return { Authorization: `Bearer ${token}` };
+};
+
+
 export const fetchWaterDataDaily = createAsyncThunk(
   'water/fetchAllDaily',
   async (selectedDate, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
     try {
       const response = await axios.get(`/water/daily?day=${selectedDate}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: getAuthHeaders(thunkAPI.getState),
       });
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
     }
   },
 );
+
 
 export const fetchWaterDataMonthly = createAsyncThunk(
   'water/fetchAllMonthly',
@@ -27,56 +37,59 @@ export const fetchWaterDataMonthly = createAsyncThunk(
       const response = await axios.get('/water/monthly');
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
     }
   },
 );
+
 
 export const addWater = createAsyncThunk(
   'water/addWater',
   async (body, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token
     try {
       const response = await axios.post('/water', body, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: getAuthHeaders(thunkAPI.getState),
       });
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
     }
   },
 );
+
 
 export const updateWater = createAsyncThunk(
   'water/updateWater',
-  async (_id, thunkAPI) => {
+  async ({ _id, body }, thunkAPI) => {
     try {
-      const response = await axios.patch(`/water/${_id}`, body);
+      const response = await axios.patch(`/water/${_id}`, body, {
+        headers: getAuthHeaders(thunkAPI.getState),
+      });
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
     }
   },
 );
 
-
-
 export const deleteWater = createAsyncThunk(
   'water/deleteWater',
-  async (_id, { rejectWithValue }) => {
+  async (_id, thunkAPI) => {
     try {
-      const token = localStorage.getItem('token'); 
-      if (!token) {
-        throw new Error('User is not authenticated'); 
-      }
       const response = await axios.delete(`/water/${_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: getAuthHeaders(thunkAPI.getState),
       });
-      return id;
+      return _id; 
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
     }
   },
 );
