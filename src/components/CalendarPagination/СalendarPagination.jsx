@@ -1,14 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectDate } from '../../redux/water/selectors';
+import { selectDate, selectYearMonth } from '../../redux/water/selectors';
 import { setDate } from '../../redux/water/slice';
 import css from './CalendarPagination.module.css';
 import sprite from '../../../public/img/sprite.svg';
+import { fetchWaterDataMonthly } from '../../redux/water/operations.js';
+import { useEffect } from 'react';
 
 const CalendarPagination = () => {
   const selectedDate = useSelector(selectDate);
   const dispatch = useDispatch();
-
+  const { year, month } = useSelector(selectYearMonth);
   const goToPreviousMonth = () => {
     const currentDate = new Date(selectedDate);
     const newDate = new Date(
@@ -35,6 +37,14 @@ const CalendarPagination = () => {
     year: 'numeric',
   });
 
+  const formatMonth = month + 1 < 10 ? `0${month + 1}` : month + 1;
+
+  const formattedDate = `${year}-${formatMonth}`;
+
+  useEffect(() => {
+    dispatch(fetchWaterDataMonthly(formattedDate));
+  }, [dispatch, formattedDate]);
+
   return (
     <div className={css.calendarPagination}>
       <h1 className={css.paginationHeader}>{formattedMonth}</h1>
@@ -45,11 +55,15 @@ const CalendarPagination = () => {
           <h2 className={css.paginationDate}>{formattedYear}</h2>
         </div>
         <button onClick={goToNextMonth}>{`>`}</button>
-      
-      <button className={css.boxIcon}>
-        <svg className={css.iconPag}>
-          <use width={20} height={20} xlinkHref={`${sprite}#icon-pie-chart`} />
-        </svg>
+
+        <button className={css.boxIcon}>
+          <svg className={css.iconPag}>
+            <use
+              width={20}
+              height={20}
+              xlinkHref={`${sprite}#icon-pie-chart`}
+            />
+          </svg>
         </button>
       </div>
     </div>
