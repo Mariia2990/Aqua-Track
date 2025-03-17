@@ -29,6 +29,7 @@ export const SignInForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
     setError,
   } = useForm({
     resolver: yupResolver(schema),
@@ -37,30 +38,20 @@ export const SignInForm = () => {
   const onSubmit = async (data) => {
     const toastId = toast.loading('Logging in...');
     try {
-      const response = await dispatch(login(data)).unwrap();
-
+      const response = await dispatch(
+        login({ email: data.email, password: data.password }),
+      ).unwrap();
       if (!response.ok) {
-        throw response;
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
       }
-
-      localStorage.setItem('token', response.token);
+      const result = await response.json();
+      localStorage.setItem('token', result.token);
       toast.success('Login successful!', { id: toastId });
       navigate('/tracker');
+      reset(); // Сброс формы только при успешном логине
     } catch (error) {
-      console.error('Login error:', error);
-
-      if (error.status === 401) {
-        const message = error.data?.message || 'Invalid email or password';
-        toast.error(message, { id: toastId, duration: 3000 });
-
-        setError('email', { type: 'manual', message });
-        setError('password', { type: 'manual', message });
-      } else {
-        toast.error(error.message || 'Something went wrong', {
-          id: toastId,
-          duration: 3000,
-        });
-      }
+      toast.error(error.message || 'Something went wrong', { id: toastId });
     } finally {
       toast.dismiss(toastId);
     }
@@ -69,7 +60,6 @@ export const SignInForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
       <h1 className={s.title}>Sign in</h1>
-
       <div className={s.boxInputEmail}>
         <label className={s.label} htmlFor="email">
           Email
@@ -84,7 +74,6 @@ export const SignInForm = () => {
         />
         {errors.email && <div className={s.error}>{errors.email.message}</div>}
       </div>
-
       <div className={s.boxInputPassword}>
         <label className={s.label} htmlFor="password">
           Password
@@ -116,7 +105,6 @@ export const SignInForm = () => {
           <div className={s.error}>{errors.password.message}</div>
         )}
       </div>
-
       <button type="submit" className={s.button} disabled={isSubmitting}>
         {isSubmitting ? 'Logging in...' : 'Log In'}
       </button>

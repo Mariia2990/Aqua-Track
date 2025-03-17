@@ -93,11 +93,13 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post('/users/signin', credentials);
       setAuthHeader(response.data.accessToken);
-      toast.success('Successfully logged in!');
+      toast.success('Successfully logged in!', { duration: 2000 });
       return response.data;
     } catch (e) {
-      toast.error('Try again...');
-      return thunkAPI.rejectWithValue(e.message);
+      const errorMessage =
+        e.response?.data.data.message || 'Something went wrong';
+      toast.error(errorMessage, { duration: 2000 });
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   },
 );
