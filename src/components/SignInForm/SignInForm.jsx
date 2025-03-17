@@ -8,11 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import sprite from '/img/sprite.svg';
 import s from './SignInForm.module.css';
+
 export const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
   const schema = Yup.object({
     email: Yup.string()
       .email('Invalid email format')
@@ -21,14 +24,17 @@ export const SignInForm = () => {
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
   });
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setError,
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = async (data) => {
     const toastId = toast.loading('Logging in...');
     try {
@@ -43,13 +49,14 @@ export const SignInForm = () => {
       localStorage.setItem('token', result.token);
       toast.success('Login successful!', { id: toastId });
       navigate('/tracker');
+      reset(); // Сброс формы только при успешном логине
     } catch (error) {
       toast.error(error.message || 'Something went wrong', { id: toastId });
     } finally {
       toast.dismiss(toastId);
-      reset();
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
       <h1 className={s.title}>Sign in</h1>
