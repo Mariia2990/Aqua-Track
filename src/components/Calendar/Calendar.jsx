@@ -28,11 +28,8 @@ const Calendar = () => {
   );
 
   const getStatsForDayByMonth = (day) => {
-    const entriesForDayByMonth = waterMonthly?.map((entry) => {
-      if (!entry?.date) return false;
-
+    const entriesForDayByMonth = waterMonthly.filter((entry) => {
       const entryDate = new Date(entry.date);
-      console.log(entryDate);
       return (
         entryDate.getFullYear() === year &&
         entryDate.getMonth() === month &&
@@ -40,7 +37,7 @@ const Calendar = () => {
       );
     });
 
-    return waterMonthly.reduce(
+    return entriesForDayByMonth.reduce(
       (sum, entry) => sum + Math.round((Number(entry.stats) / dailyNorm) * 100),
       0,
     );
@@ -77,10 +74,10 @@ const Calendar = () => {
   return (
     <div className={css.calendarList}>
       {daysArray.map((day) => {
-        console.log(day);
+        const volumeForDay = getVolumeForDay(day);
         const statsForDay = getStatsForDayByMonth(day);
-        const progress = Math.round((statsForDay / dailyNorm) * 100);
-        console.log(progress);
+        const progress = statsForDay >= 0 ? Math.min(statsForDay, 100) : 0;
+
         return (
           <CalendarItem
             key={day}
