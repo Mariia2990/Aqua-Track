@@ -9,7 +9,7 @@ import { DeleteModal } from '../DeleteModal/DeleteModal';
 import { GlobalModal } from '../GlobalModal/GlobalModal';
 
 export function WaterItem({ item, volume, date, _id, onDelete }) {
-  const id = _id; 
+  const id = _id;
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
@@ -36,12 +36,12 @@ export function WaterItem({ item, volume, date, _id, onDelete }) {
     }
   };
 
-function formatTime(isoString) {
-  const date = new Date(isoString);
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  return `${hours}:${minutes}`;
-}
+  function formatTime(isoString) {
+    const date = new Date(isoString);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
 
   return (
     <div className={css.card}>
@@ -70,7 +70,8 @@ function formatTime(isoString) {
           type="edit"
           isOpen={isOpen}
           onClose={closeModal}
-          {...item}
+          volume={volume}
+          id={id}
         />
       </GlobalModal>
 

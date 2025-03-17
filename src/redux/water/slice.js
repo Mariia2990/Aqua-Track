@@ -33,11 +33,12 @@ const slice = createSlice({
       })
       // Check this one later
       .addCase(updateWater.fulfilled, (state, action) => {
+        console.log(action.payload);
         let water = state.waterInfo.find(
           (item) => item.id === action.payload.id,
         );
-        water.volume = action.payload.waterInfo.volume;
-        water.date = action.payload.waterInfo.date;
+        water.volume = action.payload.data.volume;
+        water.date = action.payload.data.date;
       })
       .addCase(deleteWater.fulfilled, (state, action) => {
         state.waterInfo = state.waterInfo.filter(
