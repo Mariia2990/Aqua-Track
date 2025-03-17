@@ -29,7 +29,7 @@ const slice = createSlice({
         state.waterInfo = action.payload.data;
       })
       .addCase(addWater.fulfilled, (state, action) => {
-        state.waterInfo.push(action.payload);
+        state.waterInfo.push(action.payload.data);
       })
       // Check this one later
       .addCase(updateWater.fulfilled, (state, action) => {
