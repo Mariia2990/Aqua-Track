@@ -21,14 +21,12 @@ const CalendarPagination = () => {
       currentDate.getDate(),
     );
 
-    // Отримуємо останній день нового місяця
     const lastDayOfNewMonth = new Date(
       newDate.getFullYear(),
       newDate.getMonth() + 1,
       0,
     ).getDate();
 
-    // Якщо поточний день більший за останній у новому місяці — встановлюємо останній
     if (newDate.getDate() > lastDayOfNewMonth) {
       newDate.setDate(lastDayOfNewMonth);
     }
@@ -57,7 +55,6 @@ const CalendarPagination = () => {
     dispatch(setDate(newDate.toISOString()));
   };
 
-  // Форматування місяця та року
   const formattedMonth = new Date(selectedDate).toLocaleDateString('en', {
     month: 'long',
   });
