@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 
 export const DeleteModal = ({ id, isOpen, onClose }) => {
   const dispatch = useDispatch();
+  const selectedDate = useSelector(selectDate);
 
 const handleDelete = async () => {
   if (!id) {

@@ -26,7 +26,7 @@ const UserSettingsForm = ({ user, onClose, setIsUserUpdated }) => {
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      gender: user.gender,
+      gender: user.gender || 'woman',
       name: user.name,
       email: user.email,
       weight: user.weight,
