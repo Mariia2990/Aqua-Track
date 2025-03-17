@@ -1,13 +1,18 @@
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import sprite from '/img/sprite.svg';
-import { addWater, updateWater } from '../../redux/water/operations';
+import {
+  addWater,
+  fetchWaterDataMonthly,
+  updateWater,
+} from '../../redux/water/operations';
 
 import css from './WaterForm.module.css';
+import { selectYearMonth } from '../../redux/water/selectors.js';
 
 const waterSchema = yup.object().shape({
   amountWater: yup.string().required('This field is required'),
@@ -22,7 +27,7 @@ const waterSchema = yup.object().shape({
 
 export const WaterForm = ({ type, id, volume, date, onClose }) => {
   const dispatch = useDispatch();
-
+  const { year, month } = useSelector(selectYearMonth);
   const getCurrentTime = () => {
     return new Date().toLocaleTimeString([], {
       hour: '2-digit',
@@ -71,8 +76,12 @@ export const WaterForm = ({ type, id, volume, date, onClose }) => {
           date: timeDate,
         };
 
-        await dispatch(updateWater({ id, formattedData }));
+        dispatch(updateWater({ id, formattedData }));
+        const formatMonth = month + 1 < 10 ? `0${month + 1}` : month + 1;
 
+        const formattedDate = `${year}-${formatMonth}`;
+
+        dispatch(fetchWaterDataMonthly(formattedDate));
         toast.success('Water data updated successfully!');
       } else {
         const newWaterData = {
@@ -80,8 +89,12 @@ export const WaterForm = ({ type, id, volume, date, onClose }) => {
           date: timeDate,
         };
 
-        await dispatch(addWater(newWaterData));
+        dispatch(addWater(newWaterData));
+        const formatMonth = month + 1 < 10 ? `0${month + 1}` : month + 1;
 
+        const formattedDate = `${year}-${formatMonth}`;
+
+        dispatch(fetchWaterDataMonthly(formattedDate));
         toast.success('Water data added successfully!');
       }
 
