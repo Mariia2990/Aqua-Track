@@ -47,7 +47,7 @@ const CalendarPagination = () => {
 
   return (
     <div className={css.calendarPagination}>
-      <h1 className={css.paginationHeader}>{formattedMonth}</h1>
+      <h1 className={css.paginationHeader}>Month</h1>
       <div className={css.buttonPagination}>
         <button onClick={goToPreviousMonth}>{`<`}</button>
         <div className={css.dateFormat}>
