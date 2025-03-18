@@ -9,7 +9,7 @@
 
 .progressValue {
   position: absolute;
-  top: +45px; /*Піднімаємо над шкалою */
+  top: +23px; /*Піднімаємо над шкалою */
   color: #9BE1A0; /* Зелений колір */
   font-weight: 400;
   font-size: 10px;
@@ -73,7 +73,7 @@
 
 @media (min-width: 768px) {
   .progressValue {
-      top: +40px;
+      top: +38px;
     }
 
   .progressBox {

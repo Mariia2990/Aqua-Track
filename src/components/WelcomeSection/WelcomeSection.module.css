@@ -20,7 +20,7 @@
 }
 
 .hintText{
-    font-family: var(--main-font);
+    font-family: "Poppins";
     font-weight: 400;
     font-size: 14px;
     line-height: 1.28571;
@@ -29,6 +29,7 @@
 }
 
 .mainText{
+    font-family: "Gilroy", sans-serif;
     font-weight: 700;
     font-size: 38px;
     line-height: 1;
