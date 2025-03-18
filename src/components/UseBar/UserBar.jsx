@@ -55,18 +55,17 @@ export const UserBar = ({ user, getFirstName, setIsUserUpdated }) => {
           </svg>
         </button>
         {isMenuOpen && <UserBarPopover onOpenModal={handleOpenModal} />}
-        {isModalOpen && (
-          <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal} >
-            {btn === 'Settings' && (
-              <UserSettingsForm
-                user={user}
-                onClose={handleCloseModal}
-                setIsUserUpdated={setIsUserUpdated}
-              />
-            )}
-            {btn === 'Log out' && <LogOutModal onClose={handleCloseModal} />}
-          </GlobalModal>
-        )}
+
+        <GlobalModal isOpen={isModalOpen} onClose={handleCloseModal}>
+          {btn === 'Settings' && (
+            <UserSettingsForm
+              user={user}
+              onClose={handleCloseModal}
+              setIsUserUpdated={setIsUserUpdated}
+            />
+          )}
+          {btn === 'Log out' && <LogOutModal onClose={handleCloseModal} />}
+        </GlobalModal>
       </div>
     </>
   );
