@@ -45,13 +45,17 @@ const UserSettingsForm = ({ user, onClose, setIsUserUpdated }) => {
   const time = watch('dailySportTime');
 
   useEffect(() => {
-    if (weight && gender && time) {
+    const parsedWeight = Number(weight);
+    const parsedTime = Number(time);
+    if (parsedWeight === 0 || parsedTime === 0) {
+      setAmount(0);
+    } else if (parsedWeight && gender && parsedTime) {
       let newAmount;
       if (gender === 'man') {
-        newAmount = weight * 0.04 + time * 0.6;
+        newAmount = parsedWeight * 0.04 + parsedTime * 0.6;
       }
       if (gender === 'woman') {
-        newAmount = weight * 0.03 + time * 0.4;
+        newAmount = parsedWeight * 0.03 + parsedTime * 0.4;
       }
       setAmount((Math.ceil(newAmount * 10) / 10).toFixed(1));
     }
@@ -190,7 +194,7 @@ const UserSettingsForm = ({ user, onClose, setIsUserUpdated }) => {
             </div>
             <div className={css.midContainer}>
               <div className={css.userInfoInputContainer}>
-                Your name
+                <h3>Your name</h3>
                 <input
                   className={`${css.userInfoInput} ${
                     errors.name ? css.error : ''
@@ -274,14 +278,16 @@ const UserSettingsForm = ({ user, onClose, setIsUserUpdated }) => {
                 </p>
                 <input
                   className={`${css.userInfoInput} ${
-                    errors.time ? css.error : ''
+                    errors.dailySportTime ? css.error : ''
                   }`}
                   type="number"
                   {...register('dailySportTime')}
                   placeholder="0"
                 />
-                {errors.time && (
-                  <span className={css.errorSpan}>{errors.time.message}</span>
+                {errors.dailySportTime && (
+                  <span className={css.errorSpan}>
+                    {errors.dailySportTime.message}
+                  </span>
                 )}
               </div>
             </div>
@@ -290,22 +296,26 @@ const UserSettingsForm = ({ user, onClose, setIsUserUpdated }) => {
                 <p className={css.textRegular}>
                   The required amount of water in liters per day:
                 </p>
-                <p className={css.textAccent}>{`${amount ? amount : 1.8} L`}</p>
+                <p className={css.textAccent}>{`${
+                  amount >= 0 ? amount : 1.8
+                } L`}</p>
               </div>
             </div>
             <div className={css.userInfoInputContainer}>
               <h3>Write down how much water you will drink:</h3>
               <input
                 className={`${css.userInfoInput} ${
-                  errors.water ? css.error : ''
+                  errors.dailyNorm ? css.error : ''
                 }`}
                 type="number"
                 step="0.1"
                 {...register('dailyNorm')}
                 placeholder="1.8"
               />
-              {errors.water && (
-                <span className={css.errorSpan}>{errors.water.message}</span>
+              {errors.dailyNorm && (
+                <span className={css.errorSpan}>
+                  {errors.dailyNorm.message}
+                </span>
               )}
             </div>
           </div>

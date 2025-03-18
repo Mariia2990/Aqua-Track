@@ -15,9 +15,11 @@ export function UserPanel() {
   !isUserUpdated && userData;
 
   const getFirstName = (fullName) => {
-    return fullName === userData.name
-      ? fullName.split(' ')[0]
-      : userData.email.split('@')[0];
+    return fullName !== userData.name
+      ? userData.email.split('@')[0]
+      : fullName.split(' ')[0].length > 12
+      ? userData.email.split('@')[0]
+      : fullName.split(' ')[0];
   };
 
   return (

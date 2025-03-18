@@ -2,34 +2,44 @@ import * as yup from 'yup';
 
 export const validationSchema = yup.object().shape({
   avatar: yup.mixed(),
-  name: yup
+  name: yup.string().max(20, 'Name must be at most 20 characters'),
+  email: yup
     .string()
-    .matches(
-      /^[a-zA-Z\s-]+$/,
-      'Please enter a valid name using Latin characters',
-    ),
-  email: yup.string().email('Please enter a valid email address'),
+    .email('Please enter a valid email address')
+    .required('Email is required'),
   weight: yup
     .number()
-    .nullable()
-    .min(20, 'Weight must be greater than or equal to 20')
-    .max(300, 'Weight must be less than or equal to 600')
+    .min(0, 'Weight must be greater than or equal to 0')
+    .max(250, 'Weight must be less than or equal to 250')
     .transform((value, originalValue) => {
       if (originalValue === '') return null;
       return value;
-    }),
+    })
+    .nullable()
+    .test(
+      'is-not-null',
+      'Weight must be greater than or equal to 0',
+      (value) => {
+        return value !== null;
+      },
+    ),
   dailySportTime: yup
     .number()
-    .nullable()
-    .min(0)
-    .max(12, 'Time must be less than or equal to 12')
+    .min(0, 'Time must be greater than or equal to 0')
+    .max(24, 'Time must be less than or equal to 24')
     .transform((value, originalValue) => {
       if (originalValue === '') return null;
       return value;
+    })
+    .nullable()
+    .test('is-not-null', 'Time must be greater than or equal to 0', (value) => {
+      return value !== null;
     }),
   dailyNorm: yup
     .number()
-    .nullable()
+    .min(0.5, 'Daily norm must be greater than or equal to 0.5L')
+    .max(15, 'Daily norm must be less than or equal to 15L')
+    .required('Daily norm is required')
     .transform((value, originalValue) => {
       if (originalValue === '') return null;
       return value;
