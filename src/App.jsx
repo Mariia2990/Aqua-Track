@@ -5,8 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import { Toaster } from 'react-hot-toast';
 import { Loader } from './components/Loader/Loader';
-// import { selectIsRefreshing } from './redux/auth/selectors';
-// import { useDispatch, useSelector } from 'react-redux';
+import { selectIsRefreshing } from './redux/auth/selectors';
+import {  useSelector } from 'react-redux';
 // import { refreshAccessToken } from './redux/auth/operations';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
@@ -17,15 +17,23 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 export const App = () => {
   // const dispatch = useDispatch();
-  // const isRefreshing = useSelector(selectIsRefreshing);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   // useEffect(() => {
   //   dispatch(refreshAccessToken());
   // }, [dispatch]);
 
-  // if (isRefreshing) {
-  //   return <Loader absolute={true} />;
-  // }
+  if (isRefreshing) {
+    return (
+      <div
+        style={{
+          position: 'relative',
+        }}
+      >
+        <Loader absolute={false} />
+      </div>
+    );
+  }
 
   return (
     <>

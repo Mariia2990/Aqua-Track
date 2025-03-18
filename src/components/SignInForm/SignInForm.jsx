@@ -8,9 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import sprite from '/img/sprite.svg';
 import s from './SignInForm.module.css';
+import { Loader } from '../Loader/Loader';
 
 export const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,31 +30,34 @@ export const SignInForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data) => {
+    setIsLoading(true); // Вмикаємо лоадер
     const toastId = toast.loading('Logging in...');
     try {
       const response = await dispatch(
         login({ email: data.email, password: data.password }),
       ).unwrap();
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Login failed');
       }
+
       const result = await response.json();
       localStorage.setItem('token', result.token);
       toast.success('Login successful!', { id: toastId });
       navigate('/tracker');
-      reset(); // Сброс формы только при успешном логине
+      reset(); // Скидаємо форму після успішного входу
     } catch (error) {
       toast.error(error.message || 'Something went wrong', { id: toastId });
     } finally {
+      setIsLoading(false); 
       toast.dismiss(toastId);
     }
   };
@@ -105,8 +110,15 @@ export const SignInForm = () => {
           <div className={s.error}>{errors.password.message}</div>
         )}
       </div>
-      <button type="submit" className={s.button} disabled={isSubmitting}>
-        {isSubmitting ? 'Logging in...' : 'Log In'}
+      <button type="submit" className={s.button} disabled={isLoading}>
+        {isLoading ? (
+          <>
+            <Loader absolute={true} />
+            <span>Logging in...</span>
+          </>
+        ) : (
+          'Log In'
+        )}
       </button>
     </form>
   );
