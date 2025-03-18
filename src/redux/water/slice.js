@@ -34,7 +34,6 @@ const slice = createSlice({
       })
       // Check this one later
       .addCase(updateWater.fulfilled, (state, action) => {
-        console.log(action.payload);
         let water = state.waterInfo.find(
           (item) => item._id === action.payload.data._id,
         );
