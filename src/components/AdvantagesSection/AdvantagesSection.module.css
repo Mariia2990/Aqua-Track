@@ -4,14 +4,14 @@
   background-color: var(--background);
   height: 353px;
   padding: 209px 16px 32px;
-  background-image: url('/img/baner@1x.jpg');
+  background-image: url('/img/baner@1x.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 @media only screen and (min-resolution: 192dpi) {
   .advantages_main {
-    background-image: url("/img/baner@2x.jpg");
+    background-image: url("/img/baner@2x.webp");
   }
 }
 .advantages_users {
@@ -100,7 +100,7 @@
   .advantages_main {
     padding: 283px 32px 32px;
     min-height: 446px;
-      background-image: url('/img/baner@2x.jpg');
+      background-image: url('/img/baner@2x.webp');
   }
   .advantages_users {
     /*max-width: 197px;*/
