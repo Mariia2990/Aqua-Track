@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectDate, selectYearMonth } from '../../redux/water/selectors';
 import { setDate } from '../../redux/water/slice';
 import css from './CalendarPagination.module.css';
-import sprite from '../../../public/img/sprite.svg';
+import sprite from '/img/sprite.svg';
 import { fetchWaterDataMonthly } from '../../redux/water/operations.js';
 import { useEffect } from 'react';
 

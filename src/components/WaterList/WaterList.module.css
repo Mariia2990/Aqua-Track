@@ -29,6 +29,11 @@ gap: 8px;
 padding-bottom: 24px;
 /* margin-bottom: 40px; */
 margin-top: 24px;
+cursor: grab;
+}
+
+.waterList:active {
+  cursor: grabbing;
 }
 
 .empty {
