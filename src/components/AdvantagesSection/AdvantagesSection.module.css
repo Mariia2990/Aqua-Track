@@ -1,30 +1,68 @@
+.advantagesTabs{
+position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  left: 159px;
+    top: 265px;
+      width: 168px;
+  height: 56px;
+}
+
+@media only screen and (max-width: 320px) {
+.advantagesTabs {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  left: 115px;
+  top: 215px;
+  width: 168px;
+  height: 56px;
+}
+}
 .advantages_main {
   margin-top: 16px;
-  border-radius: 30px;
+  /* border-radius: 30px;
   background-color: var(--background);
-  height: 353px;
-  padding: 209px 16px 32px;
-  background-image: url('/img/baner@1x.webp');
-  background-size: cover;
+  height: 353px; */
+  /* padding: 209px 16px 32px; */
+  /* background-image: url('/img/baner@1x.webp'); */
+  /* background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
+    position: relative;
+    /* width: 343px; */
 }
+
+.advantagesImg{
+width: 100%;
+border-radius: 30px;
+}
+
 @media only screen and (min-resolution: 192dpi) {
   .advantages_main {
-    background-image: url("/img/baner@2x.webp");
+    /* background-image: url("/img/baner@2x.webp"); */
   }
 }
+
 .advantages_users {
   /*max-width: 132px;*/
-  display: inline-flex;
   height: 48px;
-  margin-bottom: 13px;
+  /* margin-bottom: 13px; */
   padding: 10px 14px;
   gap: 4px;
   border-radius: 30px;
   background-color: var(--main-white);
   /* width: 160px; */
+    position: absolute;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        bottom: 98px;
+        left: 15px;
 }
+
 .advantages_usersImg {
   display: flex;
   gap: -10px;
@@ -42,7 +80,6 @@
 .advantagesText {
   font-weight: 700;
   font-size: 12px;
-  line-height: 117%;
   color: var(--main);
 }
 .textSpan {
@@ -53,18 +90,9 @@
   max-width: 168px;
   margin-left: 143px;
 }
-.advantagesTabs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: row;
-  gap: 4px;
-}
 .advantages_habits {
   padding: 9px 12px;
   border-radius: 30px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,7 +107,9 @@
 .advantages_habits > p {
   font-weight: 700;
   font-size: 8px;
-  line-height: 100%;
+      font-family: var(--poppins-bold);
+        font-weight: 700;
+        line-height: 1;
   letter-spacing: -0.01em;
   text-align: center;
 }
@@ -97,19 +127,14 @@
   color: var(--main);
 }
 @media only screen and (min-width: 768px) {
-  .advantages_main {
-    padding: 283px 32px 32px;
-    min-height: 446px;
-      background-image: url('/img/baner@2x.webp');
-  }
+  .advantagesImg {
+      width: 704px;
+    }
+
   .advantages_users {
-    /*max-width: 197px;*/
-    /*padding: 10px 20px;*/
-    margin-bottom: -14px;
-    border-radius: 30px;
-    padding: 10px 20px;
-    /* width: 237px; */
-    height: 67px;
+      height: 67px;
+        /* padding: 10px 20px; */
+          width: 237px;
   }
   .advantages_point {
     width: 47px;
@@ -120,30 +145,52 @@
   }
   .advantagesText {
     font-size: 15px;
-    line-height: 150%;
   }
   .advantagesGroup_habits {
     max-width: 242px;
     margin-left: 398px;
   }
   .advantagesTabs {
-    gap: 10px;
+    width: 242px;
+        top: 336px;
+          bottom: 32px;
+          left: 430px;
+          gap: 10px;
+        }
+                 .advantages_habits {
+                   border-radius: 30px;
+                   padding: 11px 16px;
+                   /* width: 111px; */
+                   height: 34px;
+                 }
+        
+                 .advantages_habits>p {
+                   font-size: 12px;
+                 }
   }
-  .advantages_habits {
-    padding: 11px 16px;
-  }
-  .advantages_habits > p {
-    font-size: 12px;
-  }
-}
+
 @media only screen and (min-width: 1440px) {
+.advantagesTabs{
+  top: 594px;
+    /* bottom: 64px; */
+    left: 398px;
+}
+    .advantagesImg {
+        width: 672px;
+      }
   .advantages_main {
-    padding: 537px 32px 64px;
+    /* padding: 537px 32px 64px; */
     margin: 0;
-    max-width: 672px;
-    height: 736px;
+    /* max-width: 672px; */
+    /* height: 736px; */
   }
   .advantagesGroup_habits {
     margin-left: 366px;
   }
+
+  .advantages_users{
+            bottom: 130px;
+              left: 30px;
+  }
+
 }
