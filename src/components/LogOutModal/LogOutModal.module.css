@@ -9,6 +9,7 @@
 }
 
 .title {
+  color: #323F47;
   font-size: 20px;
   margin-bottom: 16px;
   line-height: 1.2;
@@ -16,6 +17,7 @@
 }
 
 .text {
+  color: #323F47;
   font-size: 14px;
   line-height: 1.28;
   letter-spacing: -0.01em;
