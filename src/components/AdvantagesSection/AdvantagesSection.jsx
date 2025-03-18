@@ -24,15 +24,32 @@ export const AdvantagesSection = () => {
 
   return (
     <div className={css.advantages_main}>
+      <div className={css.advantagesImg}>
+      <picture>
+        <source
+          srcSet="/img/Baner-tab1x.webp, /img/Baner-tab2x.webp"
+          media="(min-width: 768px) and (max-width: 1439px)"
+        />
+        <source
+          srcSet="/img/baner1x-desk.webp, /img/baner2x-desk.webp"
+          media="(min-width: 1440px)"
+        />
+        <img
+          src="/img/baner-1x-mob.webp"
+          srcSet="/img/baner-2x-mob.webp"
+          alt="Baner water"
+          width="704"
+          height="446"
+        />
+      </picture>
+      </div>
       <div className={css.advantages_users}>
         <ul className={css.advantages_usersImg}>
-          {avatarsArr.map((photoUrl) => {
-            return (
-              <li className={css.advantages_point} key={photoUrl}>
-                <img className={css.user} src={photoUrl} alt="user's photo" />
-              </li>
-            );
-          })}
+          {avatarsArr.map((photoUrl, index) => (
+            <li className={css.advantages_point} key={index}>
+              <img className={css.user} src={photoUrl} alt="user's photo" />
+            </li>
+          ))}
         </ul>
 
         <p className={css.advantagesText}>
