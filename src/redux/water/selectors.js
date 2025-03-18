@@ -9,12 +9,7 @@ export const selectDate = (state) => state.water.selectedDate;
 
 const selectedWater = (state) => state.water;
 
-export const selectYearMonth = createSelector([selectWater], (water) => {
+export const selectYearMonth = createSelector([selectedWater], (water) => {
   const date = new Date(water.selectedDate);
   return { year: date.getFullYear(), month: date.getMonth() };
 });
-
-// export const selectYearMonth = (state) => {
-//   const date = new Date(state.water.selectedDate);
-//   return { year: date.getFullYear(), month: date.getMonth() };
-// };
