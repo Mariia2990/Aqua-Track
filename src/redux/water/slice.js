@@ -36,7 +36,7 @@ const slice = createSlice({
       .addCase(updateWater.fulfilled, (state, action) => {
         console.log(action.payload);
         let water = state.waterInfo.find(
-          (item) => item.id === action.payload.id,
+          (item) => item._id === action.payload.data._id,
         );
         water.volume = action.payload.data.volume;
         water.date = action.payload.data.date;
