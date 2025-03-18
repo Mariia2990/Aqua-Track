@@ -13,13 +13,18 @@
   padding: 14px 20px;
   background-color: #323f47;
   border: none;
+  color: #fff;
 }
 
 .wrapperBtn.waterMain:hover .plusIcon.waterMain {
   fill: #9be1a0;
 }
 
-.wrapperBtn.waterMain:hover .text.waterMain {
+.wrapperBtn.disabled:hover .plusIcon.waterMain {
+  fill: gray;
+}
+
+.wrapperBtn.waterMain:hover {
   color: #9be1a0;
 }
 
@@ -34,16 +39,24 @@
 
 .wrapperBtn.daily:hover .plusIcon.daily {
   background-color: #323f47;
+  fill: #fff;
+}
+
+.wrapperBtn.disabled:hover .plusIcon.disabled {
+  background-color: rgba(50, 63, 71, 0.2);
+  fill: gray;
 }
 
 .wrapperBtn.disabled {
   color: gray;
   cursor: not-allowed;
+  fill: gray;
 }
 
 .wrapperBtn.disabled .plusIcon.disabled {
   cursor: not-allowed;
   background-color: rgba(50, 63, 71, 0.2);
+  fill: gray;
 }
 
 .plusIcon {
@@ -67,8 +80,13 @@
   transition: background-color var(--animation), fill var(--animation);
 }
 
+.wrapperBtn.disabled:hover {
+  color: gray;
+}
+
 .wrapperBtn.disabled .plusIcon.disabled:hover {
   background-color: rgba(50, 63, 71, 0.2);
+  fill: gray;
 }
 
 .text {
@@ -78,7 +96,6 @@
 }
 
 .text.waterMain {
-  color: #fff;
   font-size: 14px;
   line-height: 1.3;
   transition: color var(--animation);
