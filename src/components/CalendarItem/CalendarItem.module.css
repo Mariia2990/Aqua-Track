@@ -25,6 +25,13 @@ border-radius: 30px;
 
 }
 
+.button:disabled {
+  background-color: #e0e0e0 !important;
+  color: #a0a0a0 !important;
+  cursor: not-allowed;
+  border: 1px solid #cccccc !important;
+}
+
 @media screen and (min-width: 375px) {
   .calendarItem {
     width: calc((100% - 5 * 21px) / 6);

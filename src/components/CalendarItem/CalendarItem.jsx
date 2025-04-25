@@ -16,13 +16,18 @@ const CalendarItem = ({
     .toString()
     .padStart(2, '0')}`;
 
-  const handleClick = () => {
-    dispatch(setDate(formattedDay));
-    onClick();
-  };
+  const today = new Date();
+  const formattedToday = today.toISOString().split('T')[0];
 
-  const today = new Date().toISOString().split('T')[0];
-  const isToday = formattedDay === today;
+  const isToday = formattedDay === formattedToday;
+  const isBeforeToday = formattedDay < formattedToday; // ВСІ попередні дні
+
+  const handleClick = () => {
+    if (!isBeforeToday) {
+      dispatch(setDate(formattedDay));
+      onClick();
+    }
+  };
 
   const containerStyle = {
     backgroundColor: isActive
@@ -40,6 +45,7 @@ const CalendarItem = ({
         className={css.button}
         style={containerStyle}
         onClick={handleClick}
+        disabled={isBeforeToday}
       >
         {day}
       </button>
