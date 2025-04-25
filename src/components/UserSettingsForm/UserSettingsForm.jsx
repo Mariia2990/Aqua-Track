@@ -115,13 +115,21 @@ const UserSettingsForm = ({ user, onClose, setIsUserUpdated }) => {
 
     if (Object.keys(data).some((key) => hasChanged(key))) {
       try {
+        if (updateData.email && !validateEmail(updateData.email)) {
+          toast.error(
+            'Invalid email. Please use the email provided during registration.',
+          );
+          return;
+        }
         dispatch(updateUser(updateData));
         toast.success('The settings has been updated successfully!');
         setIsUserUpdated(true);
         onClose();
       } catch (error) {
         console.log(error);
-        toast.error('Something went wrong. Please try again.');
+        toast.error(
+          'Invalid email. Please use the email provided during registration.',
+        );
       }
     }
   };
